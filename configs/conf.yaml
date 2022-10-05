@@ -1,0 +1,7 @@
+mysql:
+  username: "root"
+  password: "dbw06151x"
+  host: "42.193.103.92"
+  port: 3306
+  dbname: "seckill"
+  timeout: 10
