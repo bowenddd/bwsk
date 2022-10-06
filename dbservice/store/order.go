@@ -25,6 +25,8 @@ type OrderOp struct {
 }
 
 func (o *OrderOp) Create(order *entity.Order) error {
+	// 执行事务，首先减库存，如果减库存失败，即rowsaffected!=1，则事务失败
+	// 然后再执行新增订单表操作
 	err := o.DB().Transaction(func(tx *gorm.DB) error {
 		exec := tx.Exec("update product set stock = stock - ? where id = ? and stock >= ?",
 			order.Num, order.ProductId, order.Num)

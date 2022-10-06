@@ -15,10 +15,17 @@ type ProductStore interface {
 	List() ([]entity.Product, error)
 
 	DecreaseStock(name string, num int) error
+
+	SetStock(id uint, num int) error
 }
 
 type ProductOp struct {
 	db *gorm.DB
+}
+
+func (p ProductOp) SetStock(id uint, num int) error {
+	res := p.DB().Exec("update product set stock = ? where id = ?", num, id)
+	return res.Error
 }
 
 func (p ProductOp) DecreaseStock(name string, num int) error {
