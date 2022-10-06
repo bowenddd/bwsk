@@ -36,6 +36,18 @@ func init() {
 	Mysql.db = db
 }
 
-func (ds *datastore) NewUser() *UserStore {
-	return &UserStore{db: ds.db}
+func (ds *datastore) NewUserStore() UserStore {
+	return &UserOp{db: ds.db}
+}
+
+func (ds *datastore) NewOrderStore() OrderStore {
+	return &OrderOp{db: ds.db}
+}
+
+func (ds *datastore) NewProductStore() ProductStore {
+	return &ProductOp{db: ds.db}
+}
+
+func (ds *datastore) DB() *gorm.DB {
+	return ds.db
 }
