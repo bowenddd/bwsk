@@ -7,6 +7,7 @@ import (
 
 type Setting struct {
 	Mysql MySQLSetting `yaml:"mysql"`
+	RPC   RPCSetting   `yaml:"rpc"`
 }
 
 type MySQLSetting struct {
@@ -16,6 +17,10 @@ type MySQLSetting struct {
 	Port     int    `yaml:"port"`
 	Dbname   string `yaml:"dbname"`
 	Timeout  int    `yaml:"timeout"`
+}
+
+type RPCSetting struct {
+	DbServPort string `yaml:"dbservport"`
 }
 
 var setting *Setting

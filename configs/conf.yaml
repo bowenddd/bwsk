@@ -5,3 +5,6 @@ mysql:
   port: 3306
   dbname: "seckill"
   timeout: 10
+
+rpc:
+  dbservport: ":53277"

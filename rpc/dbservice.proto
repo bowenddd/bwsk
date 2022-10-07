@@ -1,0 +1,200 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "/dbservice";
+
+package dbservice;
+
+service UserServ{
+  rpc CreateUser(CreateUserRequest) returns (CreateUserReply){}
+  rpc GetUser(GetUserRequest) returns (GetUserReply){}
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserReply){}
+  rpc GetUsers(GetUsersRequest) returns (GetUsersReply){}
+}
+
+service OrderServ{
+  rpc CreateOrder(CreateOrderRequest) returns (CreateOrderReply){}
+  rpc GetOrderById(GetOrderByIdRequest) returns(GetOrderByIdReply){}
+  rpc GetOrderByUId(GetOrderByUIdRequest) returns(GetOrderByUIdReply){}
+  rpc GetOrderByPId(GetOrderByPIdRequest) returns(GetOrderByPIdReply){}
+  rpc DeleteOrder(DeleteOrderRequest) returns (DeleteOrderReply) {}
+  rpc GetOrders(GetOrdersRequest) returns (GetOrdersReply) {}
+}
+
+service ProductServ{
+  rpc CreateProduct(CreateProductRequest) returns (CreateProductReply){}
+  rpc GetProduct(GetProductRequest) returns (GetProductReply){}
+  rpc DeleteProduct(DeleteProductRequest) returns (DeleteProductReply){}
+  rpc GetProducts(GetProductsRequest) returns (GetProductsReply){}
+  rpc SetStock(SetStockRequest) returns (SetStockReply){}
+}
+
+message User{
+  uint32 id = 1;
+  string name = 2;
+  int32 sex = 3;
+  string phone = 4;
+  google.protobuf.Timestamp created = 5;
+}
+
+message Order{
+  uint32 id = 1;
+  uint32 userId = 2;
+  uint32 productId = 3;
+  int32 num = 4;
+  float price = 5;
+  google.protobuf.Timestamp created = 6;
+}
+
+message Product{
+  uint32 id = 1;
+  string name = 2;
+  float price = 3;
+  string description = 4;
+  int32 stock = 5;
+  google.protobuf.Timestamp created = 6;
+}
+
+message CreateUserRequest{
+  User user = 1;
+}
+
+message CreateUserReply{
+  bool ok = 1;
+  string error = 2;
+}
+
+message GetUserRequest{
+  string name = 1;
+}
+
+message GetUserReply{
+  User user = 1;
+  bool ok = 2;
+  string error = 3;
+}
+
+message DeleteUserRequest{
+  string name = 1;
+}
+
+message DeleteUserReply{
+  bool ok = 1;
+  string error = 2;
+}
+
+message GetUsersRequest{
+
+}
+
+message GetUsersReply{
+  repeated User users = 1;
+  bool ok = 2;
+  string  error = 3;
+}
+
+message CreateOrderRequest{
+  Order order = 1;
+}
+
+message CreateOrderReply{
+  bool ok = 1;
+  string error = 2;
+}
+
+message GetOrderByIdRequest{
+  uint32 id = 1;
+}
+
+message GetOrderByIdReply{
+  Order order = 1;
+  bool ok = 2;
+  string error = 3;
+}
+
+message GetOrderByUIdRequest{
+  uint32 uid = 1;
+}
+
+message GetOrderByUIdReply{
+  repeated Order orders = 1;
+  bool ok = 2;
+  string error = 3;
+}
+
+message GetOrderByPIdRequest{
+  uint32 pid = 1;
+}
+
+message GetOrderByPIdReply{
+  repeated Order orders = 1;
+  bool ok = 2;
+  string error = 3;
+}
+
+message DeleteOrderRequest{
+  uint32 id = 1;
+}
+
+message DeleteOrderReply{
+  bool ok = 1;
+  string error = 2;
+}
+
+message GetOrdersRequest{
+
+}
+
+message GetOrdersReply{
+  repeated Order orders = 1;
+  bool ok = 2;
+  string error = 3;
+}
+
+message CreateProductRequest{
+  Product product = 1;
+}
+
+message CreateProductReply{
+  bool ok = 1;
+  string error = 2;
+}
+
+message GetProductRequest{
+  string name = 1;
+}
+
+message GetProductReply{
+  Product product = 1;
+  bool ok = 2;
+  string error = 3;
+}
+
+message DeleteProductRequest{
+  string name = 1;
+}
+
+message DeleteProductReply{
+  bool ok = 1;
+  string error = 2;
+}
+
+message GetProductsRequest{
+
+}
+
+message GetProductsReply{
+  repeated Product products = 1;
+  bool ok = 2;
+  string  error = 3;
+}
+
+message SetStockRequest{
+  uint32 id = 1;
+  int32 num = 2;
+}
+
+message SetStockReply{
+  bool ok = 1;
+  string error = 2;
+}
