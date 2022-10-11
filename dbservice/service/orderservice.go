@@ -1,24 +1,11 @@
 package service
 
 import (
+	"seckill/common/entity"
+	"seckill/common/interfaces"
 	"seckill/dbservice/store"
-	"seckill/entity"
 	"sync"
 )
-
-type OrderServ interface {
-	AddOrder(order *entity.Order) error
-
-	GetOrderById(id uint) (entity.Order, error)
-
-	GetOrdersByUID(uid uint) ([]entity.Order, error)
-
-	GetOrdersByPID(pid uint) ([]entity.Order, error)
-
-	DeleteOrder(id uint) error
-
-	GetOrders() ([]entity.Order, error)
-}
 
 type OrderServImpl struct {
 	store store.OrderStore
@@ -26,13 +13,13 @@ type OrderServImpl struct {
 
 var orderServOnce sync.Once
 
-var orderServ OrderServ
+var orderServ interfaces.OrderServ
 
 func init() {
 	orderServOnce = sync.Once{}
 }
 
-func GetOrderServ() OrderServ {
+func GetOrderServ() interfaces.OrderServ {
 	orderServOnce.Do(func() {
 		orderServ = &OrderServImpl{
 			store: store.Mysql.NewOrderStore(),
@@ -65,4 +52,4 @@ func (o OrderServImpl) GetOrders() (orders []entity.Order, err error) {
 	return o.store.List()
 }
 
-var _ OrderServ = (*OrderServImpl)(nil)
+var _ interfaces.OrderServ = (*OrderServImpl)(nil)

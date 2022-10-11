@@ -2,7 +2,7 @@ package store
 
 import (
 	"gorm.io/gorm"
-	"seckill/entity"
+	"seckill/common/entity"
 )
 
 type ProductStore interface {

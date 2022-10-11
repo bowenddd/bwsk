@@ -34,7 +34,7 @@ message User{
   string name = 2;
   int32 sex = 3;
   string phone = 4;
-  google.protobuf.Timestamp created = 5;
+  string created = 5;
 }
 
 message Order{
@@ -43,7 +43,7 @@ message Order{
   uint32 productId = 3;
   int32 num = 4;
   float price = 5;
-  google.protobuf.Timestamp created = 6;
+  string created = 6;
 }
 
 message Product{
@@ -52,7 +52,7 @@ message Product{
   float price = 3;
   string description = 4;
   int32 stock = 5;
-  google.protobuf.Timestamp created = 6;
+  string created = 6;
 }
 
 message CreateUserRequest{

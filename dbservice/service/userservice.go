@@ -1,20 +1,11 @@
 package service
 
 import (
+	"seckill/common/entity"
+	"seckill/common/interfaces"
 	"seckill/dbservice/store"
-	"seckill/entity"
 	"sync"
 )
-
-type UserServ interface {
-	AddUser(user *entity.User) error
-
-	GetUser(name string) (entity.User, error)
-
-	DeleteUser(name string) error
-
-	GetUsers() ([]entity.User, error)
-}
 
 type UserServImpl struct {
 	store store.UserStore
@@ -22,13 +13,13 @@ type UserServImpl struct {
 
 var userServOnce sync.Once
 
-var userServ UserServ
+var userServ interfaces.UserServ
 
 func init() {
 	userServOnce = sync.Once{}
 }
 
-func GetUserServ() UserServ {
+func GetUserServ() interfaces.UserServ {
 	userServOnce.Do(func() {
 		userServ = &UserServImpl{
 			store: store.Mysql.NewUserStore(),
@@ -53,4 +44,4 @@ func (u UserServImpl) GetUsers() ([]entity.User, error) {
 	return u.store.List()
 }
 
-var _ UserServ = (*UserServImpl)(nil)
+var _ interfaces.UserServ = (*UserServImpl)(nil)

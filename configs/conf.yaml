@@ -1,10 +1,11 @@
 mysql:
   username: "root"
-  password: "dbw06151x"
-  host: "42.193.103.92"
+  password: "123456"
+  host: "127.0.0.1"
   port: 3306
   dbname: "seckill"
   timeout: 10
 
 rpc:
   dbservport: ":53277"
+  timeout: 5

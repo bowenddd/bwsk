@@ -21,6 +21,7 @@ type MySQLSetting struct {
 
 type RPCSetting struct {
 	DbServPort string `yaml:"dbservport"`
+	Timeout    int    `yaml:"timeout"`
 }
 
 var setting *Setting
