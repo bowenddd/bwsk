@@ -2,8 +2,9 @@ package store
 
 import (
 	"fmt"
-	"gorm.io/gorm"
 	"seckill/common/entity"
+
+	"gorm.io/gorm"
 )
 
 type OrderStore interface {
@@ -27,20 +28,21 @@ type OrderOp struct {
 func (o *OrderOp) Create(order *entity.Order) error {
 	// 执行事务，首先减库存，如果减库存失败，即rowsaffected!=1，则事务失败
 	// 然后再执行新增订单表操作
-	err := o.DB().Transaction(func(tx *gorm.DB) error {
-		exec := tx.Exec("update product set stock = stock - ? where id = ? and stock >= ?",
-			order.Num, order.ProductId, order.Num)
-		affected := exec.RowsAffected
-		if affected != 1 {
-			return fmt.Errorf("stock is not enough or no product not exist")
-		}
-		create := tx.Create(order)
-		if create.Error != nil || exec.Error != nil {
-			fmt.Errorf("order transaction error")
-		}
-		return nil
-	})
-	return err
+	tx := o.DB().Begin()
+	exec := tx.Exec("update product set stock = stock - ? where id = ? and stock >= ?",
+		order.Num, order.ProductId, order.Num)
+	affected := exec.RowsAffected
+	if affected != 1 {
+		tx.Rollback()
+		return fmt.Errorf("stock is not enough or no product not exist")
+	}
+	create := tx.Create(order)
+	if create.Error != nil || exec.Error != nil {
+		tx.Rollback()
+		return fmt.Errorf("order transaction error")
+	}
+	tx.Commit()
+	return nil
 }
 
 func (o *OrderOp) DeleteById(id uint) error {

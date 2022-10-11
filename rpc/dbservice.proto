@@ -1,5 +1,4 @@
 syntax = "proto3";
-import "google/protobuf/timestamp.proto";
 
 option go_package = "/dbservice";
 
@@ -27,6 +26,7 @@ service ProductServ{
   rpc DeleteProduct(DeleteProductRequest) returns (DeleteProductReply){}
   rpc GetProducts(GetProductsRequest) returns (GetProductsReply){}
   rpc SetStock(SetStockRequest) returns (SetStockReply){}
+  rpc GetStock(GetStockRequest) returns (GetStockReply){}
 }
 
 message User{
@@ -197,4 +197,14 @@ message SetStockRequest{
 message SetStockReply{
   bool ok = 1;
   string error = 2;
+}
+
+message GetStockRequest{
+  uint32 id = 1;
+}
+
+message GetStockReply{
+  int32 stock = 1;
+  bool ok = 2;
+  string error = 3;
 }

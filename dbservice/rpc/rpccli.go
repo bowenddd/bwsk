@@ -3,13 +3,14 @@ package rpc
 import (
 	"context"
 	"fmt"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 	"math"
 	entity2 "seckill/common/entity"
 	"seckill/common/interfaces"
 	pb "seckill/rpc/dbservice"
 	"time"
+
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 type ServClient struct {
@@ -364,6 +365,21 @@ func (p *ProductRpcServCli) SetStock(id uint, num int) error {
 
 	_, err := p.rpcClient.SetStock(ctx, req)
 	return err
+}
+
+func (p *ProductRpcServCli) GetStock(id uint) (int, error) {
+	req := &pb.GetStockRequest{
+		Id: uint32(id),
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), p.timeout)
+	defer cancel()
+
+	reply, err := p.rpcClient.GetStock(ctx, req)
+	if err != nil {
+		return 0, err
+	}
+	return int(reply.GetStock()), nil
 }
 
 func (p *ProductRpcServCli) changeFromEntityToRpc(product *entity2.Product) *pb.Product {

@@ -36,7 +36,7 @@ var orderServOnce = new(sync.Once)
 
 var orderServ *OrderServImpl
 
-func GetOrderServ() interfaces.OrderServ{
+func GetOrderService() interfaces.OrderServ{
 	cli, err := GetDbServRpcCli()
 	if err != nil{
 		return (*OrderServImpl)(nil)

@@ -3,7 +3,6 @@ package rpc
 import (
 	"context"
 	"fmt"
-	"google.golang.org/grpc"
 	"net"
 	entity2 "seckill/common/entity"
 	"seckill/common/interfaces"
@@ -11,6 +10,8 @@ import (
 	pb "seckill/rpc/dbservice"
 	"seckill/seetings"
 	"sync"
+
+	"google.golang.org/grpc"
 )
 
 type RpcServServer struct {
@@ -203,6 +204,19 @@ func (s *RpcServServer) SetStock(ctx context.Context, in *pb.SetStockRequest) (*
 	return reply, nil
 }
 
+func (s *RpcServServer) GetStock(ctx context.Context, in *pb.GetStockRequest) (*pb.GetStockReply, error) {
+	reply := &pb.GetStockReply{}
+	stock, err := s.ProductServ.GetStock(uint(in.GetId()))
+	if err != nil {
+		reply.Ok = false
+		reply.Error = err.Error()
+		return reply, err
+	}
+	reply.Stock = int32(stock)
+	reply.Ok = true
+	return reply, nil
+}
+
 func (s *RpcServServer) StartRpcServServer() error {
 	setting, err := seetings.GetSetting()
 	if err != nil {
@@ -264,6 +278,7 @@ func GetRpcServServer() *RpcServServer {
 
 func changeFromPEntityToRpc(product *entity2.Product) *pb.Product {
 	return &pb.Product{
+		Id: 		uint32(product.ID),
 		Name:        product.Name,
 		Price:       float32(product.Price),
 		Stock:       int32(product.Stock),
@@ -293,6 +308,7 @@ func changeFromPEntitysToRpc(products []entity2.Product) []*pb.Product {
 
 func changeFromUEntityToRpc(user *entity2.User) *pb.User {
 	return &pb.User{
+		Id: 	 uint32(user.ID),
 		Name:    user.Name,
 		Sex:     int32(user.Sex),
 		Phone:   user.Phone,
@@ -320,6 +336,7 @@ func changeFromUEntitysToRpc(users []entity2.User) []*pb.User {
 
 func changeFromOEntityToRpc(order *entity2.Order) *pb.Order {
 	return &pb.Order{
+		Id:        uint32(order.ID),
 		UserId:    uint32(order.UserId),
 		ProductId: uint32(order.ProductId),
 		Price:     float32(order.Price),

@@ -31,11 +31,15 @@ func InitRouter(r *gin.Engine) {
 
 		productGroup.GET("list", productController.List)
 
+		productGroup.GET("stock/:id", productController.GetStock)
+
 		productGroup.POST("create", productController.Create)
 
 		productGroup.PUT("stock", productController.SetStock)
 
 		productGroup.DELETE(":name", productController.Delete)
+
+	
 
 	}
 

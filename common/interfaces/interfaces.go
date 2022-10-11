@@ -22,6 +22,8 @@ type ProductServ interface {
 	DeleteProduct(name string) error
 
 	SetStock(id uint, num int) error
+
+	GetStock(int uint)(int, error)
 }
 
 type OrderServ interface {

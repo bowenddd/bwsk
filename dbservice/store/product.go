@@ -1,8 +1,11 @@
 package store
 
 import (
-	"gorm.io/gorm"
+	"fmt"
+	"math"
 	"seckill/common/entity"
+
+	"gorm.io/gorm"
 )
 
 type ProductStore interface {
@@ -17,6 +20,8 @@ type ProductStore interface {
 	DecreaseStock(name string, num int) error
 
 	SetStock(id uint, num int) error
+
+	GetStock(id uint) (int, error)
 }
 
 type ProductOp struct {
@@ -58,6 +63,15 @@ func (p ProductOp) List() ([]entity.Product, error) {
 	var products []entity.Product
 	res := p.DB().Find(&products)
 	return products, res.Error
+}
+
+func (p ProductOp) GetStock(id uint) (int, error) {
+	stock := math.MinInt32
+	res := p.DB().Raw("select stock from product where id = ?", id).Scan(&stock)
+	if stock == math.MinInt32 {
+		return 0, fmt.Errorf("product not found")
+	}
+	return stock, res.Error
 }
 
 var _ ProductStore = (*ProductOp)(nil)
