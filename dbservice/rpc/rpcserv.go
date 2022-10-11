@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 	"google.golang.org/grpc"
-	"google.golang.org/protobuf/types/known/timestamppb"
 	"net"
+	entity2 "seckill/common/entity"
+	"seckill/common/interfaces"
 	"seckill/dbservice/service"
-	"seckill/entity"
 	pb "seckill/rpc/dbservice"
 	"seckill/seetings"
 	"sync"
@@ -17,18 +17,13 @@ type RpcServServer struct {
 	pb.UnimplementedUserServServer
 	pb.UnimplementedOrderServServer
 	pb.UnimplementedProductServServer
-	UserServ    service.UserServ
-	ProductServ service.ProductServ
-	OrderServ   service.OrderServ
+	UserServ    interfaces.UserServ
+	ProductServ interfaces.ProductServ
+	OrderServ   interfaces.OrderServ
 }
 
 func (s *RpcServServer) CreateUser(ctx context.Context, in *pb.CreateUserRequest) (*pb.CreateUserReply, error) {
-	user := &entity.User{
-		Name:    in.GetUser().GetName(),
-		Sex:     int(in.GetUser().GetSex()),
-		Phone:   in.GetUser().GetPhone(),
-		Created: in.GetUser().GetCreated().AsTime(),
-	}
+	user := changeFromURpcToEntity(*in.GetUser())
 	reply := &pb.CreateUserReply{}
 	err := s.UserServ.AddUser(user)
 	if err != nil {
@@ -48,13 +43,7 @@ func (s *RpcServServer) GetUser(ctx context.Context, in *pb.GetUserRequest) (*pb
 		reply.Error = err.Error()
 		return reply, err
 	}
-	reply.User = &pb.User{
-		Id:      uint32(user.ID),
-		Name:    user.Name,
-		Sex:     int32(user.Sex),
-		Phone:   user.Phone,
-		Created: timestamppb.New(user.Created),
-	}
+	reply.User = changeFromUEntityToRpc(&user)
 	reply.Ok = true
 	return reply, nil
 }
@@ -77,30 +66,15 @@ func (s *RpcServServer) GetUsers(ctx context.Context, in *pb.GetUsersRequest) (*
 		reply.Error = err.Error()
 		return reply, err
 	}
-	for _, user := range users {
-		u := &pb.User{
-			Id:      uint32(user.ID),
-			Name:    user.Name,
-			Phone:   user.Phone,
-			Sex:     int32(user.Sex),
-			Created: timestamppb.New(user.Created),
-		}
-		reply.Users = append(reply.Users, u)
-	}
+	reply.Users = changeFromUEntitysToRpc(users)
 	reply.Ok = true
 	return reply, nil
 }
 
 func (s *RpcServServer) CreateOrder(ctx context.Context, in *pb.CreateOrderRequest) (*pb.CreateOrderReply, error) {
 	reply := &pb.CreateOrderReply{}
-	order := &entity.Order{
-		UserId:    uint(in.GetOrder().GetUserId()),
-		ProductId: uint(in.GetOrder().GetProductId()),
-		Num:       int(in.GetOrder().GetNum()),
-		Price:     float64(in.GetOrder().GetPrice()),
-		Created:   in.GetOrder().GetCreated().AsTime(),
-	}
-	err := s.OrderServ.AddOrder(order)
+	order := changeFromORpcToEntity(in.GetOrder())
+	err := s.OrderServ.AddOrder(&order)
 	if err != nil {
 		reply.Ok = false
 		reply.Error = err.Error()
@@ -117,15 +91,7 @@ func (s *RpcServServer) GetOrderById(ctx context.Context, in *pb.GetOrderByIdReq
 		reply.Error = err.Error()
 		return reply, err
 	}
-	o := &pb.Order{
-		Id:        uint32(order.ID),
-		UserId:    uint32(order.UserId),
-		ProductId: uint32(order.ProductId),
-		Num:       int32(order.Num),
-		Price:     float32(order.Price),
-		Created:   timestamppb.New(order.Created),
-	}
-	reply.Order = o
+	reply.Order = changeFromOEntityToRpc(&order)
 	reply.Ok = true
 	return reply, nil
 }
@@ -137,17 +103,7 @@ func (s *RpcServServer) GetOrderByUId(ctx context.Context, in *pb.GetOrderByUIdR
 		reply.Error = err.Error()
 		return reply, err
 	}
-	for _, order := range orders {
-		o := &pb.Order{
-			Id:        uint32(order.ID),
-			UserId:    uint32(order.UserId),
-			ProductId: uint32(order.ProductId),
-			Num:       int32(order.Num),
-			Price:     float32(order.Price),
-			Created:   timestamppb.New(order.Created),
-		}
-		reply.Orders = append(reply.Orders, o)
-	}
+	reply.Orders = changeFromOEntitysToRpc(orders)
 	reply.Ok = true
 	return reply, nil
 }
@@ -159,17 +115,7 @@ func (s *RpcServServer) GetOrderByPId(ctx context.Context, in *pb.GetOrderByPIdR
 		reply.Error = err.Error()
 		return reply, err
 	}
-	for _, order := range orders {
-		o := &pb.Order{
-			Id:        uint32(order.ID),
-			UserId:    uint32(order.UserId),
-			ProductId: uint32(order.ProductId),
-			Num:       int32(order.Num),
-			Price:     float32(order.Price),
-			Created:   timestamppb.New(order.Created),
-		}
-		reply.Orders = append(reply.Orders, o)
-	}
+	reply.Orders = changeFromOEntitysToRpc(orders)
 	reply.Ok = true
 	return reply, nil
 }
@@ -192,31 +138,15 @@ func (s *RpcServServer) GetOrders(ctx context.Context, in *pb.GetOrdersRequest) 
 		reply.Error = err.Error()
 		return reply, err
 	}
-	for _, order := range orders {
-		o := &pb.Order{
-			Id:        uint32(order.ID),
-			UserId:    uint32(order.UserId),
-			ProductId: uint32(order.ProductId),
-			Num:       int32(order.Num),
-			Price:     float32(order.Price),
-			Created:   timestamppb.New(order.Created),
-		}
-		reply.Orders = append(reply.Orders, o)
-	}
+	reply.Orders = changeFromOEntitysToRpc(orders)
 	reply.Ok = true
 	return reply, nil
 }
 
 func (s *RpcServServer) CreateProduct(ctx context.Context, in *pb.CreateProductRequest) (*pb.CreateProductReply, error) {
 	reply := &pb.CreateProductReply{}
-	product := &entity.Product{
-		Name:        in.GetProduct().GetName(),
-		Price:       float64(in.GetProduct().GetPrice()),
-		Stock:       int(in.GetProduct().GetStock()),
-		Description: in.GetProduct().GetDescription(),
-		Created:     in.GetProduct().GetCreated().AsTime(),
-	}
-	err := s.ProductServ.AddProduct(product)
+	product := changeFromPRpcToEntity(in.GetProduct())
+	err := s.ProductServ.AddProduct(&product)
 	if err != nil {
 		reply.Ok = false
 		reply.Error = err.Error()
@@ -233,14 +163,7 @@ func (s *RpcServServer) GetProduct(ctx context.Context, in *pb.GetProductRequest
 		reply.Error = err.Error()
 		return reply, err
 	}
-	p := &pb.Product{
-		Id:          uint32(product.ID),
-		Name:        product.Name,
-		Price:       float32(product.Price),
-		Stock:       int32(product.Stock),
-		Description: product.Description,
-		Created:     timestamppb.New(product.Created),
-	}
+	p := changeFromPEntityToRpc(&product)
 	reply.Product = p
 	reply.Ok = true
 	return reply, nil
@@ -264,17 +187,7 @@ func (s *RpcServServer) GetProducts(ctx context.Context, in *pb.GetProductsReque
 		reply.Error = err.Error()
 		return reply, err
 	}
-	for _, product := range products {
-		p := &pb.Product{
-			Id:          uint32(product.ID),
-			Name:        product.Name,
-			Price:       float32(product.Price),
-			Stock:       int32(product.Stock),
-			Description: product.Description,
-			Created:     timestamppb.New(product.Created),
-		}
-		reply.Products = append(reply.Products, p)
-	}
+	reply.Products = changeFromPEntitysToRpc(products)
 	reply.Ok = true
 	return reply, nil
 }
@@ -347,4 +260,89 @@ func GetRpcServServer() *RpcServServer {
 		mu.Unlock()
 	}
 	return rpcServ
+}
+
+func changeFromPEntityToRpc(product *entity2.Product) *pb.Product {
+	return &pb.Product{
+		Name:        product.Name,
+		Price:       float32(product.Price),
+		Stock:       int32(product.Stock),
+		Description: product.Description,
+		Created:     product.Created,
+	}
+}
+
+func changeFromPRpcToEntity(product *pb.Product) entity2.Product {
+	return entity2.Product{
+		ID:          uint(product.GetId()),
+		Name:        product.GetName(),
+		Price:       float64(product.GetPrice()),
+		Stock:       int(product.GetStock()),
+		Description: product.GetDescription(),
+		Created:     product.GetCreated(),
+	}
+}
+
+func changeFromPEntitysToRpc(products []entity2.Product) []*pb.Product {
+	entityPs := make([]*pb.Product, 0)
+	for _, product := range products {
+		entityPs = append(entityPs, changeFromPEntityToRpc(&product))
+	}
+	return entityPs
+}
+
+func changeFromUEntityToRpc(user *entity2.User) *pb.User {
+	return &pb.User{
+		Name:    user.Name,
+		Sex:     int32(user.Sex),
+		Phone:   user.Phone,
+		Created: user.Created,
+	}
+}
+
+func changeFromURpcToEntity(user pb.User) *entity2.User {
+	return &entity2.User{
+		ID:      uint(user.GetId()),
+		Name:    user.GetName(),
+		Sex:     int(user.GetSex()),
+		Phone:   user.GetPhone(),
+		Created: user.GetCreated(),
+	}
+}
+
+func changeFromUEntitysToRpc(users []entity2.User) []*pb.User {
+	entityUs := make([]*pb.User, 0)
+	for _, user := range users {
+		entityUs = append(entityUs, changeFromUEntityToRpc(&user))
+	}
+	return entityUs
+}
+
+func changeFromOEntityToRpc(order *entity2.Order) *pb.Order {
+	return &pb.Order{
+		UserId:    uint32(order.UserId),
+		ProductId: uint32(order.ProductId),
+		Price:     float32(order.Price),
+		Num:       int32(order.Num),
+		Created:   order.Created,
+	}
+}
+
+func changeFromORpcToEntity(order *pb.Order) entity2.Order {
+	return entity2.Order{
+		ID:        uint(order.GetId()),
+		UserId:    uint(order.GetUserId()),
+		ProductId: uint(order.GetProductId()),
+		Price:     float64(order.GetPrice()),
+		Num:       int(order.GetNum()),
+		Created:   order.GetCreated(),
+	}
+}
+
+func changeFromOEntitysToRpc(orders []entity2.Order) []*pb.Order {
+	entityOs := make([]*pb.Order, 0)
+	for _, order := range orders {
+		entityOs = append(entityOs, changeFromOEntityToRpc(&order))
+	}
+	return entityOs
 }

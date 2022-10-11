@@ -3,7 +3,7 @@ package store
 import (
 	"fmt"
 	"gorm.io/gorm"
-	"seckill/entity"
+	"seckill/common/entity"
 )
 
 type OrderStore interface {
