@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"net/http"
 	"seckill/clientservice/service"
+	"seckill/common/consts"
 	"seckill/common/entity"
 	"seckill/common/interfaces"
 	"seckill/common/response"
 	"strconv"
+	"strings"
 	"sync"
 
 	"github.com/gin-gonic/gin"
@@ -34,7 +36,13 @@ func (o *OrderController) Create(ctx *gin.Context) {
 		response.Success(ctx, http.StatusOK, "", "库存不足")
 		return
 	}
-	err = o.serv.AddOrder(order)
+	method := ctx.Query("method")
+	method = strings.ToUpper(method)
+	if _, ok := consts.MethodSet[method]; !ok {
+		response.Error(ctx, http.StatusBadRequest, "method not support")
+		return
+	}
+	err = o.serv.AddOrder(order, method)
 	if err != nil {
 		response.Error(ctx, http.StatusBadGateway, err.Error())
 		return
@@ -87,6 +95,7 @@ func (o *OrderController) GetByPID(ctx *gin.Context) {
 	}
 	response.Success(ctx, http.StatusOK, orders, "ok")
 }
+
 func (o *OrderController) Delete(ctx *gin.Context) {
 	id_str := ctx.Param("id")
 	id, err := strconv.Atoi(id_str)
@@ -101,6 +110,7 @@ func (o *OrderController) Delete(ctx *gin.Context) {
 	}
 	response.Success(ctx, http.StatusOK, "", fmt.Sprintf("delete order(id:%s) success", id_str))
 }
+
 func (o *OrderController) List(ctx *gin.Context) {
 	orders, err := o.serv.GetOrders()
 	if err != nil {
@@ -108,6 +118,15 @@ func (o *OrderController) List(ctx *gin.Context) {
 		return
 	}
 	response.Success(ctx, http.StatusOK, orders, "ok")
+}
+
+func (o *OrderController) Clear(ctx *gin.Context) {
+	err := o.serv.ClearOrders()
+	if err != nil {
+		response.Error(ctx, http.StatusBadGateway, err.Error())
+		return
+	}
+	response.Success(ctx, http.StatusOK, "", "ok")
 }
 
 var orderCliOnce = new(sync.Once)

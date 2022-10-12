@@ -1,6 +1,8 @@
 package service
 
 import (
+	"fmt"
+	"seckill/common/consts"
 	"seckill/common/entity"
 	"seckill/common/interfaces"
 	"seckill/dbservice/store"
@@ -28,8 +30,17 @@ func GetOrderServ() interfaces.OrderServ {
 	return orderServ
 }
 
-func (o OrderServImpl) AddOrder(order *entity.Order) error {
-	return o.store.Create(order)
+func (o OrderServImpl) AddOrder(order *entity.Order, method string) error {
+	switch method {
+	case consts.DBPESSIMISTICLOCK:
+		return o.store.CreateByDbPLock(order)
+	case consts.SERVICELOCK:
+		return o.store.CreateByServLock(order)
+	case consts.SERVICECHANNEL:
+		return o.store.CreateByServChan(order)
+	default:
+		return fmt.Errorf("method %s not supported", method)
+	}
 }
 
 func (o OrderServImpl) GetOrderById(id uint) (entity.Order, error) {
@@ -50,6 +61,10 @@ func (o OrderServImpl) DeleteOrder(id uint) error {
 
 func (o OrderServImpl) GetOrders() (orders []entity.Order, err error) {
 	return o.store.List()
+}
+
+func (o OrderServImpl) ClearOrders() error {
+	return o.store.ClearOrders()
 }
 
 var _ interfaces.OrderServ = (*OrderServImpl)(nil)

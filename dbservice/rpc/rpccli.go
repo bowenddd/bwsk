@@ -85,8 +85,9 @@ var _ interfaces.OrderServ = (*OrderRpcServCli)(nil)
 
 var _ interfaces.ProductServ = (*ProductRpcServCli)(nil)
 
-func (o *OrderRpcServCli) AddOrder(order *entity2.Order) error {
+func (o *OrderRpcServCli) AddOrder(order *entity2.Order, method string) error {
 	req := &pb.CreateOrderRequest{
+		Method: method,
 		Order: o.changeFromEntityToRpc(order),
 	}
 	ctx, cancle := context.WithTimeout(context.Background(), o.timeout)
@@ -188,6 +189,15 @@ func (o *OrderRpcServCli) GetOrders() ([]entity2.Order, error) {
 	orders = o.changeFromRpcToEntitys(reply.GetOrders())
 
 	return orders, nil
+}
+
+func (o *OrderRpcServCli) ClearOrders() error {
+	req := &pb.ClearOrdersRequest{}
+	ctx, cancle := context.WithTimeout(context.Background(), o.timeout)
+	defer cancle()
+
+	_, err := o.rpcClient.ClearOrders(ctx, req)
+	return err
 }
 
 func (o *OrderRpcServCli) changeFromEntityToRpc(order *entity2.Order) *pb.Order {

@@ -27,7 +27,7 @@ type ProductServ interface {
 }
 
 type OrderServ interface {
-	AddOrder(order *entity.Order) error
+	AddOrder(order *entity.Order,method string) error
 
 	GetOrderById(id uint) (entity.Order, error)
 
@@ -38,4 +38,6 @@ type OrderServ interface {
 	DeleteOrder(id uint) error
 
 	GetOrders() ([]entity.Order, error)
+
+	ClearOrders() error
 }

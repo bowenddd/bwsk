@@ -24,7 +24,7 @@ type RpcServServer struct {
 }
 
 func (s *RpcServServer) CreateUser(ctx context.Context, in *pb.CreateUserRequest) (*pb.CreateUserReply, error) {
-	user := changeFromURpcToEntity(*in.GetUser())
+	user := changeFromURpcToEntity(in.GetUser())
 	reply := &pb.CreateUserReply{}
 	err := s.UserServ.AddUser(user)
 	if err != nil {
@@ -75,7 +75,7 @@ func (s *RpcServServer) GetUsers(ctx context.Context, in *pb.GetUsersRequest) (*
 func (s *RpcServServer) CreateOrder(ctx context.Context, in *pb.CreateOrderRequest) (*pb.CreateOrderReply, error) {
 	reply := &pb.CreateOrderReply{}
 	order := changeFromORpcToEntity(in.GetOrder())
-	err := s.OrderServ.AddOrder(&order)
+	err := s.OrderServ.AddOrder(&order,in.GetMethod())
 	if err != nil {
 		reply.Ok = false
 		reply.Error = err.Error()
@@ -140,6 +140,18 @@ func (s *RpcServServer) GetOrders(ctx context.Context, in *pb.GetOrdersRequest) 
 		return reply, err
 	}
 	reply.Orders = changeFromOEntitysToRpc(orders)
+	reply.Ok = true
+	return reply, nil
+}
+
+func (s *RpcServServer) ClearOrders(ctx context.Context, in *pb.ClearOrdersRequest) (*pb.ClearOrdersReply, error) {
+	reply := &pb.ClearOrdersReply{}
+	err := s.OrderServ.ClearOrders()
+	if err != nil {
+		reply.Ok = false
+		reply.Error = err.Error()
+		return reply, err
+	}
 	reply.Ok = true
 	return reply, nil
 }
@@ -278,7 +290,7 @@ func GetRpcServServer() *RpcServServer {
 
 func changeFromPEntityToRpc(product *entity2.Product) *pb.Product {
 	return &pb.Product{
-		Id: 		uint32(product.ID),
+		Id:          uint32(product.ID),
 		Name:        product.Name,
 		Price:       float32(product.Price),
 		Stock:       int32(product.Stock),
@@ -308,7 +320,7 @@ func changeFromPEntitysToRpc(products []entity2.Product) []*pb.Product {
 
 func changeFromUEntityToRpc(user *entity2.User) *pb.User {
 	return &pb.User{
-		Id: 	 uint32(user.ID),
+		Id:      uint32(user.ID),
 		Name:    user.Name,
 		Sex:     int32(user.Sex),
 		Phone:   user.Phone,
@@ -316,7 +328,7 @@ func changeFromUEntityToRpc(user *entity2.User) *pb.User {
 	}
 }
 
-func changeFromURpcToEntity(user pb.User) *entity2.User {
+func changeFromURpcToEntity(user *pb.User) *entity2.User {
 	return &entity2.User{
 		ID:      uint(user.GetId()),
 		Name:    user.GetName(),

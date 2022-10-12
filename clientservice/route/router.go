@@ -60,6 +60,8 @@ func InitRouter(r *gin.Engine) {
 
 		orderGroup.DELETE(":id", orderController.Delete)
 
+		orderGroup.PUT("clear", orderController.Clear)
+
 	}
 
 }

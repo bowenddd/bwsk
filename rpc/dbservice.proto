@@ -18,6 +18,7 @@ service OrderServ{
   rpc GetOrderByPId(GetOrderByPIdRequest) returns(GetOrderByPIdReply){}
   rpc DeleteOrder(DeleteOrderRequest) returns (DeleteOrderReply) {}
   rpc GetOrders(GetOrdersRequest) returns (GetOrdersReply) {}
+  rpc ClearOrders(ClearOrdersRequest) returns (ClearOrdersReply) {}
 }
 
 service ProductServ{
@@ -94,7 +95,8 @@ message GetUsersReply{
 }
 
 message CreateOrderRequest{
-  Order order = 1;
+  string method = 1;
+  Order order = 2;
 }
 
 message CreateOrderReply{
@@ -134,6 +136,15 @@ message GetOrderByPIdReply{
 
 message DeleteOrderRequest{
   uint32 id = 1;
+}
+
+message ClearOrdersRequest{
+  
+}
+
+message ClearOrdersReply{
+  bool ok = 1;
+  string error = 2;
 }
 
 message DeleteOrderReply{
