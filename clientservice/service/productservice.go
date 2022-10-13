@@ -38,8 +38,12 @@ func(p *ProductServImpl)SetStock(id uint, num int) error{
 	return p.cli.SetStock(id, num)
 }
 
+func(p *ProductServImpl)GetStock(id uint) (int,error){
+	return p.cli.GetStock(id)
+}
 
-func GetProductServ() interfaces.ProductServ {
+
+func GetProductService() interfaces.ProductServ {
 	cli, err := GetDbServRpcCli()
 	if err != nil {
 		return (*ProductServImpl)(nil)

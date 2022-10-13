@@ -3,13 +3,14 @@ package rpc
 import (
 	"context"
 	"fmt"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 	"math"
 	entity2 "seckill/common/entity"
 	"seckill/common/interfaces"
 	pb "seckill/rpc/dbservice"
 	"time"
+
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 type ServClient struct {
@@ -84,8 +85,9 @@ var _ interfaces.OrderServ = (*OrderRpcServCli)(nil)
 
 var _ interfaces.ProductServ = (*ProductRpcServCli)(nil)
 
-func (o *OrderRpcServCli) AddOrder(order *entity2.Order) error {
+func (o *OrderRpcServCli) AddOrder(order *entity2.Order, method string) error {
 	req := &pb.CreateOrderRequest{
+		Method: method,
 		Order: o.changeFromEntityToRpc(order),
 	}
 	ctx, cancle := context.WithTimeout(context.Background(), o.timeout)
@@ -187,6 +189,15 @@ func (o *OrderRpcServCli) GetOrders() ([]entity2.Order, error) {
 	orders = o.changeFromRpcToEntitys(reply.GetOrders())
 
 	return orders, nil
+}
+
+func (o *OrderRpcServCli) ClearOrders() error {
+	req := &pb.ClearOrdersRequest{}
+	ctx, cancle := context.WithTimeout(context.Background(), o.timeout)
+	defer cancle()
+
+	_, err := o.rpcClient.ClearOrders(ctx, req)
+	return err
 }
 
 func (o *OrderRpcServCli) changeFromEntityToRpc(order *entity2.Order) *pb.Order {
@@ -366,6 +377,21 @@ func (p *ProductRpcServCli) SetStock(id uint, num int) error {
 	return err
 }
 
+func (p *ProductRpcServCli) GetStock(id uint) (int, error) {
+	req := &pb.GetStockRequest{
+		Id: uint32(id),
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), p.timeout)
+	defer cancel()
+
+	reply, err := p.rpcClient.GetStock(ctx, req)
+	if err != nil {
+		return 0, err
+	}
+	return int(reply.GetStock()), nil
+}
+
 func (p *ProductRpcServCli) changeFromEntityToRpc(product *entity2.Product) *pb.Product {
 	return &pb.Product{
 		Name:        product.Name,
@@ -373,6 +399,7 @@ func (p *ProductRpcServCli) changeFromEntityToRpc(product *entity2.Product) *pb.
 		Stock:       int32(product.Stock),
 		Description: product.Description,
 		Created:     product.Created,
+		Version:    int32(product.Version),
 	}
 }
 
@@ -384,6 +411,7 @@ func (p *ProductRpcServCli) changeFromRpcToEntity(product *pb.Product) entity2.P
 		Stock:       int(product.GetStock()),
 		Description: product.GetDescription(),
 		Created:     product.GetCreated(),
+		Version:    int(product.GetVersion()),
 	}
 }
 

@@ -3,10 +3,10 @@ package controller
 import (
 	"fmt"
 	"net/http"
+	"seckill/clientservice/service"
 	"seckill/common/entity"
 	"seckill/common/interfaces"
 	"seckill/common/response"
-	"seckill/dbservice/service"
 	"sync"
 
 	"github.com/gin-gonic/gin"
@@ -71,7 +71,7 @@ var userctlOnce = new(sync.Once)
 func GetUserController() *UserController {
 	userctlOnce.Do(func() {
 		userController = &UserController{
-			serv: service.GetUserServ(),
+			serv: service.GetUserService(),
 		}
 	})
 	return userController

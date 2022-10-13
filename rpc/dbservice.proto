@@ -1,5 +1,4 @@
 syntax = "proto3";
-import "google/protobuf/timestamp.proto";
 
 option go_package = "/dbservice";
 
@@ -19,6 +18,7 @@ service OrderServ{
   rpc GetOrderByPId(GetOrderByPIdRequest) returns(GetOrderByPIdReply){}
   rpc DeleteOrder(DeleteOrderRequest) returns (DeleteOrderReply) {}
   rpc GetOrders(GetOrdersRequest) returns (GetOrdersReply) {}
+  rpc ClearOrders(ClearOrdersRequest) returns (ClearOrdersReply) {}
 }
 
 service ProductServ{
@@ -27,6 +27,7 @@ service ProductServ{
   rpc DeleteProduct(DeleteProductRequest) returns (DeleteProductReply){}
   rpc GetProducts(GetProductsRequest) returns (GetProductsReply){}
   rpc SetStock(SetStockRequest) returns (SetStockReply){}
+  rpc GetStock(GetStockRequest) returns (GetStockReply){}
 }
 
 message User{
@@ -53,6 +54,7 @@ message Product{
   string description = 4;
   int32 stock = 5;
   string created = 6;
+  int32 version = 7;
 }
 
 message CreateUserRequest{
@@ -94,7 +96,8 @@ message GetUsersReply{
 }
 
 message CreateOrderRequest{
-  Order order = 1;
+  string method = 1;
+  Order order = 2;
 }
 
 message CreateOrderReply{
@@ -134,6 +137,15 @@ message GetOrderByPIdReply{
 
 message DeleteOrderRequest{
   uint32 id = 1;
+}
+
+message ClearOrdersRequest{
+
+}
+
+message ClearOrdersReply{
+  bool ok = 1;
+  string error = 2;
 }
 
 message DeleteOrderReply{
@@ -197,4 +209,14 @@ message SetStockRequest{
 message SetStockReply{
   bool ok = 1;
   string error = 2;
+}
+
+message GetStockRequest{
+  uint32 id = 1;
+}
+
+message GetStockReply{
+  int32 stock = 1;
+  bool ok = 2;
+  string error = 3;
 }

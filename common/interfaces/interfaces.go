@@ -22,10 +22,12 @@ type ProductServ interface {
 	DeleteProduct(name string) error
 
 	SetStock(id uint, num int) error
+
+	GetStock(int uint)(int, error)
 }
 
 type OrderServ interface {
-	AddOrder(order *entity.Order) error
+	AddOrder(order *entity.Order,method string) error
 
 	GetOrderById(id uint) (entity.Order, error)
 
@@ -36,4 +38,6 @@ type OrderServ interface {
 	DeleteOrder(id uint) error
 
 	GetOrders() ([]entity.Order, error)
+
+	ClearOrders() error
 }

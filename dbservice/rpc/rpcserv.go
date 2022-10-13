@@ -3,7 +3,6 @@ package rpc
 import (
 	"context"
 	"fmt"
-	"google.golang.org/grpc"
 	"net"
 	entity2 "seckill/common/entity"
 	"seckill/common/interfaces"
@@ -11,6 +10,8 @@ import (
 	pb "seckill/rpc/dbservice"
 	"seckill/seetings"
 	"sync"
+
+	"google.golang.org/grpc"
 )
 
 type RpcServServer struct {
@@ -23,7 +24,7 @@ type RpcServServer struct {
 }
 
 func (s *RpcServServer) CreateUser(ctx context.Context, in *pb.CreateUserRequest) (*pb.CreateUserReply, error) {
-	user := changeFromURpcToEntity(*in.GetUser())
+	user := changeFromURpcToEntity(in.GetUser())
 	reply := &pb.CreateUserReply{}
 	err := s.UserServ.AddUser(user)
 	if err != nil {
@@ -74,7 +75,7 @@ func (s *RpcServServer) GetUsers(ctx context.Context, in *pb.GetUsersRequest) (*
 func (s *RpcServServer) CreateOrder(ctx context.Context, in *pb.CreateOrderRequest) (*pb.CreateOrderReply, error) {
 	reply := &pb.CreateOrderReply{}
 	order := changeFromORpcToEntity(in.GetOrder())
-	err := s.OrderServ.AddOrder(&order)
+	err := s.OrderServ.AddOrder(&order, in.GetMethod())
 	if err != nil {
 		reply.Ok = false
 		reply.Error = err.Error()
@@ -143,6 +144,18 @@ func (s *RpcServServer) GetOrders(ctx context.Context, in *pb.GetOrdersRequest) 
 	return reply, nil
 }
 
+func (s *RpcServServer) ClearOrders(ctx context.Context, in *pb.ClearOrdersRequest) (*pb.ClearOrdersReply, error) {
+	reply := &pb.ClearOrdersReply{}
+	err := s.OrderServ.ClearOrders()
+	if err != nil {
+		reply.Ok = false
+		reply.Error = err.Error()
+		return reply, err
+	}
+	reply.Ok = true
+	return reply, nil
+}
+
 func (s *RpcServServer) CreateProduct(ctx context.Context, in *pb.CreateProductRequest) (*pb.CreateProductReply, error) {
 	reply := &pb.CreateProductReply{}
 	product := changeFromPRpcToEntity(in.GetProduct())
@@ -199,6 +212,19 @@ func (s *RpcServServer) SetStock(ctx context.Context, in *pb.SetStockRequest) (*
 		reply.Error = err.Error()
 		return reply, err
 	}
+	reply.Ok = true
+	return reply, nil
+}
+
+func (s *RpcServServer) GetStock(ctx context.Context, in *pb.GetStockRequest) (*pb.GetStockReply, error) {
+	reply := &pb.GetStockReply{}
+	stock, err := s.ProductServ.GetStock(uint(in.GetId()))
+	if err != nil {
+		reply.Ok = false
+		reply.Error = err.Error()
+		return reply, err
+	}
+	reply.Stock = int32(stock)
 	reply.Ok = true
 	return reply, nil
 }
@@ -264,11 +290,13 @@ func GetRpcServServer() *RpcServServer {
 
 func changeFromPEntityToRpc(product *entity2.Product) *pb.Product {
 	return &pb.Product{
+		Id:          uint32(product.ID),
 		Name:        product.Name,
 		Price:       float32(product.Price),
 		Stock:       int32(product.Stock),
 		Description: product.Description,
 		Created:     product.Created,
+		Version:     int32(product.Version),
 	}
 }
 
@@ -280,6 +308,7 @@ func changeFromPRpcToEntity(product *pb.Product) entity2.Product {
 		Stock:       int(product.GetStock()),
 		Description: product.GetDescription(),
 		Created:     product.GetCreated(),
+		Version:     int(product.GetVersion()),
 	}
 }
 
@@ -293,6 +322,7 @@ func changeFromPEntitysToRpc(products []entity2.Product) []*pb.Product {
 
 func changeFromUEntityToRpc(user *entity2.User) *pb.User {
 	return &pb.User{
+		Id:      uint32(user.ID),
 		Name:    user.Name,
 		Sex:     int32(user.Sex),
 		Phone:   user.Phone,
@@ -300,7 +330,7 @@ func changeFromUEntityToRpc(user *entity2.User) *pb.User {
 	}
 }
 
-func changeFromURpcToEntity(user pb.User) *entity2.User {
+func changeFromURpcToEntity(user *pb.User) *entity2.User {
 	return &entity2.User{
 		ID:      uint(user.GetId()),
 		Name:    user.GetName(),
@@ -320,6 +350,7 @@ func changeFromUEntitysToRpc(users []entity2.User) []*pb.User {
 
 func changeFromOEntityToRpc(order *entity2.Order) *pb.Order {
 	return &pb.Order{
+		Id:        uint32(order.ID),
 		UserId:    uint32(order.UserId),
 		ProductId: uint32(order.ProductId),
 		Price:     float32(order.Price),

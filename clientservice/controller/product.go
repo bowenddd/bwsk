@@ -6,7 +6,7 @@ import (
 	"seckill/common/entity"
 	"seckill/common/interfaces"
 	"seckill/common/response"
-	"seckill/dbservice/service"
+	"seckill/clientservice/service"
 	"sync"
 	"strconv"
 	"github.com/gin-gonic/gin"
@@ -86,6 +86,21 @@ func (p *ProductController)SetStock(ctx *gin.Context){
 	response.Success(ctx,http.StatusOK,"",fmt.Sprintf("product %s 's stock is set to %s",id_str,num_str))
 }
 
+func (p *ProductController)GetStock(ctx *gin.Context){
+	id_str := ctx.Param("id")
+	id, err := strconv.Atoi(id_str)
+	if err != nil{
+		response.Error(ctx,http.StatusBadRequest,"id must be an unsigned integer")
+		return
+	}
+	stock, err := p.serv.GetStock(uint(id))
+	if err != nil{
+		response.Error(ctx,http.StatusBadGateway,err.Error())
+		return
+	}
+	response.Success(ctx,http.StatusOK,stock,"ok")
+}
+
 
 var productCtlOnce = new(sync.Once)
 
@@ -95,7 +110,7 @@ var productController *ProductController
 func GetProductController() *ProductController{
 	productCtlOnce.Do(func() {
 		productController = & ProductController{
-			serv: service.GetProductServ(),
+			serv: service.GetProductService(),
 		}	
 	})
 	return productController

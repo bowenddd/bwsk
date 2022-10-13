@@ -31,6 +31,10 @@ func (p ProductServImpl) SetStock(id uint, num int) error {
 	return p.store.SetStock(id, num)
 }
 
+func (p ProductServImpl)GetStock(id uint) (int, error){
+	return p.store.GetStock(id)
+}
+
 var productServOnce sync.Once
 
 var productServ interfaces.ProductServ

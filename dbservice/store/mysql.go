@@ -2,9 +2,11 @@ package store
 
 import (
 	"fmt"
+	"seckill/seetings"
+	"sync"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"seckill/seetings"
 )
 
 type datastore struct {
@@ -41,7 +43,13 @@ func (ds *datastore) NewUserStore() UserStore {
 }
 
 func (ds *datastore) NewOrderStore() OrderStore {
-	return &OrderOp{db: ds.db}
+	orderOp := &OrderOp{
+		db: ds.db,
+		mu: &sync.Mutex{},
+		ch: make(chan orderChan, 100),
+	}
+	go orderOp.HandleOrderChan()
+	return orderOp
 }
 
 func (ds *datastore) NewProductStore() ProductStore {
