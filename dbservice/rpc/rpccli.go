@@ -399,6 +399,7 @@ func (p *ProductRpcServCli) changeFromEntityToRpc(product *entity2.Product) *pb.
 		Stock:       int32(product.Stock),
 		Description: product.Description,
 		Created:     product.Created,
+		Version:    int32(product.Version),
 	}
 }
 
@@ -410,6 +411,7 @@ func (p *ProductRpcServCli) changeFromRpcToEntity(product *pb.Product) entity2.P
 		Stock:       int(product.GetStock()),
 		Description: product.GetDescription(),
 		Created:     product.GetCreated(),
+		Version:    int(product.GetVersion()),
 	}
 }
 

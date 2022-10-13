@@ -7,6 +7,7 @@ type Product struct {
 	Description string  `json:"description"`
 	Stock       int     `json:"stock"`
 	Created     string  `json:"created"`
+	Version     int     `json:"version"`
 }
 
 func (Product) TableName() string {

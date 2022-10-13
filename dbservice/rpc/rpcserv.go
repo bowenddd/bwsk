@@ -75,7 +75,7 @@ func (s *RpcServServer) GetUsers(ctx context.Context, in *pb.GetUsersRequest) (*
 func (s *RpcServServer) CreateOrder(ctx context.Context, in *pb.CreateOrderRequest) (*pb.CreateOrderReply, error) {
 	reply := &pb.CreateOrderReply{}
 	order := changeFromORpcToEntity(in.GetOrder())
-	err := s.OrderServ.AddOrder(&order,in.GetMethod())
+	err := s.OrderServ.AddOrder(&order, in.GetMethod())
 	if err != nil {
 		reply.Ok = false
 		reply.Error = err.Error()
@@ -296,6 +296,7 @@ func changeFromPEntityToRpc(product *entity2.Product) *pb.Product {
 		Stock:       int32(product.Stock),
 		Description: product.Description,
 		Created:     product.Created,
+		Version:     int32(product.Version),
 	}
 }
 
@@ -307,6 +308,7 @@ func changeFromPRpcToEntity(product *pb.Product) entity2.Product {
 		Stock:       int(product.GetStock()),
 		Description: product.GetDescription(),
 		Created:     product.GetCreated(),
+		Version:     int(product.GetVersion()),
 	}
 }
 

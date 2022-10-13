@@ -15,6 +15,8 @@ type OrderStore interface {
 
 	CreateByServChan(order *entity.Order) error
 
+	CreateByDbOLock(order *entity.Order) error
+
 	DeleteById(id uint) error
 
 	FindByOrderId(id uint) (entity.Order, error)
@@ -61,9 +63,43 @@ func (o *OrderOp) CreateByDbPLock(order *entity.Order) error {
 	return nil
 }
 
+func (o *OrderOp) CreateByDbOLock(order *entity.Order) error {
+	succ := false
+	retry := 0
+	for !succ && retry < 5 {
+		p := &entity.Product{}
+		tx := o.DB().Begin()
+		tx.Model(p).Where("id = ?", order.ProductId).Select("stock", "version").Scan(p)
+		if p.Stock < order.Num {
+			tx.Rollback()
+			return fmt.Errorf("stock is not enough or product not exist")
+		}
+		// 这里用gorm封装的update导致乐观锁有问题，所以拿原生的sql试一下
+		// exec := tx.Model(p).Where("id = ? and version = ?", order.ProductId, oldV).Updates(p)
+		// 使用数据库乐观锁，会出现少买的情况，因为大量的请求都失效了，这里增加一个重试。
+		exec := tx.Exec("update product set stock = stock - ?, version = version + 1 where id = ? and version = ?",
+			order.Num, order.ProductId, p.Version)
+		affected := exec.RowsAffected
+		if affected != 1 {
+			tx.Rollback()
+			retry++
+			continue
+		}
+		create := tx.Create(order)
+		if create.Error != nil || exec.Error != nil {
+			tx.Rollback()
+			return fmt.Errorf("order transaction error")
+		}
+		tx.Commit()
+		succ = true
+	}
+	if succ {
+		return nil
+	}
+	return fmt.Errorf("抢购失败")
+}
+
 func (o *OrderOp) CreateByServLock(order *entity.Order) error {
-	// 执行事务，首先减库存，如果减库存失败，即rowsaffected!=1，则事务失败
-	// 然后再执行新增订单表操作
 	o.mu.Lock()
 	defer o.mu.Unlock()
 	tx := o.DB().Begin()
@@ -96,8 +132,6 @@ func (o *OrderOp) CreateByServChan(order *entity.Order) error {
 
 func (o *OrderOp) HandleOrderChan() {
 	for ochan := range o.ch {
-		// 执行事务，首先减库存，如果减库存失败，即rowsaffected!=1，则事务失败
-		// 然后再执行新增订单表操作
 		tx := o.DB().Begin()
 		stock := 0
 		o.DB().Model(&entity.Product{}).Where("id = ?", ochan.order.ProductId).Select("stock").Scan(&stock)
