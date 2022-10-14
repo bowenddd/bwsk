@@ -17,6 +17,8 @@ type OrderStore interface {
 
 	CreateByDbOLock(order *entity.Order) error
 
+	CreateWithNoMeasure(order *entity.Order) error
+
 	DeleteById(id uint) error
 
 	FindByOrderId(id uint) (entity.Order, error)
@@ -128,6 +130,19 @@ func (o *OrderOp) CreateByServChan(order *entity.Order) error {
 	o.ch <- ochan
 	return <-ochan.res
 
+}
+
+func (o *OrderOp) CreateWithNoMeasure(order *entity.Order) error {
+	tx := o.DB().Begin()
+	exec := tx.Exec("update product set stock = stock - ? where id = ?",
+	order.Num, order.ProductId)
+	create := tx.Create(order)
+	if create.Error != nil || exec.Error != nil {
+		tx.Rollback()
+		return fmt.Errorf("order transaction error")
+	}
+	tx.Commit()
+	return nil
 }
 
 func (o *OrderOp) HandleOrderChan() {

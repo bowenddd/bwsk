@@ -8,7 +8,8 @@ import (
 	"seckill/common/interfaces"
 	pb "seckill/rpc/dbservice"
 	"time"
-
+	"sync"
+	"seckill/seetings"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -421,4 +422,38 @@ func (p *ProductRpcServCli) changeFromRpcToEntitys(products []*pb.Product) []ent
 		entityPs = append(entityPs, p.changeFromRpcToEntity(product))
 	}
 	return entityPs
+}
+
+var dbServRpcCliOnce = new(sync.Once)
+
+func getRpcSettings() (addr string, timeout int, err error) {
+	setting, err := seetings.GetSetting()
+	if err != nil {
+		fmt.Println("get setting error in clientservice!")
+		return
+	}
+	port := setting.RPC.DbServPort
+	addr = fmt.Sprintf("localhost%s", port)
+	timeout = setting.RPC.Timeout
+	return
+}
+
+var rpcCli *ServClient
+
+func GetDbServRpcCli() (*ServClient, error) {
+	dbServRpcCliOnce.Do(func() {
+		addr, timeout, err := getRpcSettings()
+		if err != nil {
+			return
+		}
+		cli, err := NewServClient(addr, time.Duration(timeout)*time.Second)
+		if err != nil {
+			return
+		}
+		rpcCli = &cli
+	})
+	if rpcCli == nil {
+		return rpcCli, fmt.Errorf("get db service rpc client error")
+	}
+	return rpcCli, nil
 }

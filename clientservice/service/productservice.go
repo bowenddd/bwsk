@@ -44,7 +44,7 @@ func(p *ProductServImpl)GetStock(id uint) (int,error){
 
 
 func GetProductService() interfaces.ProductServ {
-	cli, err := GetDbServRpcCli()
+	cli, err := rpc.GetDbServRpcCli()
 	if err != nil {
 		return (*ProductServImpl)(nil)
 	}

@@ -8,4 +8,12 @@ mysql:
 
 rpc:
   dbservport: ":53277"
+  cacheservport: ":46288"
   timeout: 5
+
+redis:
+  host: "localhost"
+  port: 6379
+  password: "dbw06151x"
+  db: 0
+  
