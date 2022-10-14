@@ -6,9 +6,12 @@ import (
 	"seckill/common/consts"
 	"seckill/common/entity"
 	"seckill/common/interfaces"
+	dbrpc "seckill/dbservice/rpc"
 	"strconv"
 	"sync"
 	"time"
+
+	"github.com/go-redis/redis/v8"
 )
 
 type CacheServImpl struct {
@@ -18,6 +21,23 @@ type CacheServImpl struct {
 func (c *CacheServImpl) GetStock(id uint) (int, error) {
 	id_str := strconv.Itoa(int(id))
 	stock_str, err := c.store.Get(id_str)
+	if err == redis.Nil {
+		// 如果在redis中找不到的话，需要从数据库中查找，然后将数据写入redis
+		serv, err := dbrpc.GetDbServRpcCli()
+		if err != nil {
+			return 0, err
+		}
+		prsc := serv.GetProductRpcServCli()
+		stock, err := prsc.GetStock(id)
+		if err != nil {
+			return 0, nil
+		}
+		err = c.SetStock(id, stock, 0)
+		if err != nil {
+			return 0, err
+		}
+		return stock, nil
+	}
 	if err != nil {
 		return 0, err
 	}
