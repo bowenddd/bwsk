@@ -378,7 +378,7 @@ func (p *ProductRpcServCli) SetStock(id uint, num int) error {
 	return err
 }
 
-func (p *ProductRpcServCli) GetStock(id uint) (int, error) {
+func (p *ProductRpcServCli) GetStock(id uint, method string) (int, error) {
 	req := &pb.GetStockRequest{
 		Id: uint32(id),
 	}

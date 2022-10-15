@@ -26,7 +26,7 @@ type ProductServ interface {
 
 	SetStock(id uint, num int) error
 
-	GetStock(int uint) (int, error)
+	GetStock(int uint, method string) (int, error)
 }
 
 type OrderServ interface {

@@ -62,6 +62,8 @@ func (o OrderServImpl) AddOrder(order *entity.Order, method string) error {
 		o.SetStragegy(o.store.CreateByServChan)
 	case consts.DBOPTIMISTICLOCK:
 		o.SetStragegy(o.store.CreateByDbOLock)
+	case consts.NOMEASURE:
+		o.SetStragegy(o.store.CreateWithNoMeasure)
 	default:
 		return fmt.Errorf("method %s not supported", method)
 	}

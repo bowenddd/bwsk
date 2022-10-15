@@ -10,6 +10,8 @@ import (
 	"sync"
 	"strconv"
 	"github.com/gin-gonic/gin"
+	"strings"
+	"seckill/common/consts"
 )
 
 
@@ -93,7 +95,19 @@ func (p *ProductController)GetStock(ctx *gin.Context){
 		response.Error(ctx,http.StatusBadRequest,"id must be an unsigned integer")
 		return
 	}
-	stock, err := p.serv.GetStock(uint(id))
+
+	method := ctx.Query("method")
+	method = strings.ToUpper(method)
+	if _, ok := consts.MethodSet[method]; !ok {
+		response.Error(ctx, http.StatusBadRequest, "method not support")
+		return
+	}
+
+	if method == consts.NOMEASURE {
+		response.Error(ctx, http.StatusBadRequest, "method not support")
+	}
+
+	stock, err := p.serv.GetStock(uint(id) ,method)
 	if err != nil{
 		response.Error(ctx,http.StatusBadGateway,err.Error())
 		return

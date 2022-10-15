@@ -28,7 +28,7 @@ func (c *CacheServImpl) GetStock(id uint) (int, error) {
 			return 0, err
 		}
 		prsc := serv.GetProductRpcServCli()
-		stock, err := prsc.GetStock(id)
+		stock, err := prsc.GetStock(id, "")
 		if err != nil {
 			return 0, nil
 		}

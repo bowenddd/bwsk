@@ -17,14 +17,14 @@ import (
 	"context"
 )
 
-type CacheServClient struct {
+type CacheServCli struct {
 	client  pb.CacheServiceClient
 	timeout time.Duration
 }
 
-var _ interfaces.CacheServ = (*CacheServClient)(nil)
+var _ interfaces.CacheServ = (*CacheServCli)(nil)
 
-func (c *CacheServClient) SetStock(id uint, num int, exp time.Duration) error {
+func (c *CacheServCli) SetStock(id uint, num int, exp time.Duration) error {
 	ctx, cancel := context.WithTimeout(context.Background(), c.timeout)
 	defer cancel()
 	_, err := c.client.SetStock(ctx, &pb.SetStockRequest{
@@ -37,7 +37,7 @@ func (c *CacheServClient) SetStock(id uint, num int, exp time.Duration) error {
 	}
 	return nil
 }
-func (c *CacheServClient) GetStock(id uint) (int, error) {
+func (c *CacheServCli) GetStock(id uint) (int, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), c.timeout)
 	defer cancel()
 	resp, err := c.client.GetStock(ctx, &pb.GetStockRequest{
@@ -48,7 +48,7 @@ func (c *CacheServClient) GetStock(id uint) (int, error) {
 	}
 	return int(resp.Num), nil
 }
-func (c *CacheServClient) CreateOrder(order *entity.Order, method string) error {
+func (c *CacheServCli) CreateOrder(order *entity.Order, method string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), c.timeout)
 	defer cancel()
 	request := &pb.CreateOrderRequest{
@@ -68,7 +68,7 @@ func (c *CacheServClient) CreateOrder(order *entity.Order, method string) error 
 	}
 	return nil
 }
-func (c *CacheServClient) Lock(key string, ex time.Duration) (bool, error) {
+func (c *CacheServCli) Lock(key string, ex time.Duration) (bool, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), c.timeout)
 	defer cancel()
 	resp, err := c.client.Lock(ctx, &pb.LockRequest{
@@ -80,7 +80,7 @@ func (c *CacheServClient) Lock(key string, ex time.Duration) (bool, error) {
 	}
 	return resp.Ok, nil
 }
-func (c *CacheServClient) UnLock(key string) int64 {
+func (c *CacheServCli) UnLock(key string) int64 {
 	ctx, cancel := context.WithTimeout(context.Background(), c.timeout)
 	defer cancel()
 	resp, err := c.client.Unlock(ctx, &pb.UnlockRequest{Key: key})
@@ -90,7 +90,7 @@ func (c *CacheServClient) UnLock(key string) int64 {
 	return int64(resp.N)
 }
 
-func CreateCacheServClient(addr string, timeout time.Duration) (*CacheServClient, error) {
+func CreateCacheServClient(addr string, timeout time.Duration) (*CacheServCli, error) {
 	var conn *grpc.ClientConn
 	var err error
 	if timeout == -1 {
@@ -101,10 +101,10 @@ func CreateCacheServClient(addr string, timeout time.Duration) (*CacheServClient
 	}
 	if err != nil {
 		fmt.Println("cacheservice:grpc dial error! in new serv client")
-		return &CacheServClient{}, err
+		return &CacheServCli{}, err
 	}
 	client := pb.NewCacheServiceClient(conn)
-	return &CacheServClient{
+	return &CacheServCli{
 		client:  client,
 		timeout: timeout,
 	}, nil
@@ -122,9 +122,9 @@ func getRpcSeetings() (addr string, timeout int, err error) {
 	return
 }
 
-func NewCacheServClient() (*CacheServClient, error) {
+func NewCacheServClient() (*CacheServCli, error) {
 	addr, timeout, err := getRpcSeetings()
-	var cli *CacheServClient
+	var cli *CacheServCli
 	if err != nil {
 		fmt.Println("cacheservice: get rpc seeting error! in get cache serv client")
 		return cli, err

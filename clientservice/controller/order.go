@@ -26,8 +26,20 @@ func (o *OrderController) Create(ctx *gin.Context) {
 		response.Error(ctx, http.StatusBadRequest, err.Error())
 		return
 	}
+
+	method := ctx.Query("method")
+	method = strings.ToUpper(method)
+	if _, ok := consts.MethodSet[method]; !ok {
+		response.Error(ctx, http.StatusBadRequest, "method not support")
+		return
+	}
+
+	if method == consts.NOMEASURE {
+		response.Error(ctx, http.StatusBadRequest, "method not support")
+	}
+
 	productServ := service.GetProductService()
-	stock, err := productServ.GetStock(order.ProductId)
+	stock, err := productServ.GetStock(order.ProductId, method)
 	if err != nil {
 		response.Error(ctx, http.StatusBadGateway, err.Error())
 		return
@@ -36,14 +48,13 @@ func (o *OrderController) Create(ctx *gin.Context) {
 		response.Success(ctx, http.StatusOK, "", "库存不足")
 		return
 	}
-	method := ctx.Query("method")
-	method = strings.ToUpper(method)
-	if _, ok := consts.MethodSet[method]; !ok {
-		response.Error(ctx, http.StatusBadRequest, "method not support")
-		return
-	}
+
 	err = o.serv.AddOrder(order, method)
 	if err != nil {
+		if err.Error() == "库存不足" {
+			response.Success(ctx, http.StatusOK, "", "库存不足")
+			return
+		}
 		response.Error(ctx, http.StatusBadGateway, err.Error())
 		return
 	}

@@ -23,4 +23,6 @@ func init() {
 	MethodSet[SERVICELOCK] = struct{}{}
 	MethodSet[SERVICECHANNEL] = struct{}{}
 	MethodSet[NOMEASURE] = struct{}{}
+	MethodSet[CACHEPESSIMISTICLOCK] = struct{}{}
+	MethodSet[CACHEOPTIMISTICLOCK] = struct{}{}
 }

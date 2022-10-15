@@ -218,7 +218,7 @@ func (s *RpcServServer) SetStock(ctx context.Context, in *pb.SetStockRequest) (*
 
 func (s *RpcServServer) GetStock(ctx context.Context, in *pb.GetStockRequest) (*pb.GetStockReply, error) {
 	reply := &pb.GetStockReply{}
-	stock, err := s.ProductServ.GetStock(uint(in.GetId()))
+	stock, err := s.ProductServ.GetStock(uint(in.GetId()),"")
 	if err != nil {
 		reply.Ok = false
 		reply.Error = err.Error()
