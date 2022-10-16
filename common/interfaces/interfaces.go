@@ -1,6 +1,9 @@
 package interfaces
 
-import "seckill/common/entity"
+import (
+	"seckill/common/entity"
+	"time"
+)
 
 type UserServ interface {
 	AddUser(user *entity.User) error
@@ -23,11 +26,11 @@ type ProductServ interface {
 
 	SetStock(id uint, num int) error
 
-	GetStock(int uint)(int, error)
+	GetStock(int uint, method string) (int, error)
 }
 
 type OrderServ interface {
-	AddOrder(order *entity.Order,method string) error
+	AddOrder(order *entity.Order, method string) error
 
 	GetOrderById(id uint) (entity.Order, error)
 
@@ -40,4 +43,16 @@ type OrderServ interface {
 	GetOrders() ([]entity.Order, error)
 
 	ClearOrders() error
+}
+
+type CacheServ interface {
+	SetStock(id uint, num int, exp time.Duration) error
+
+	GetStock(id uint) (int, error)
+
+	CreateOrder(order *entity.Order, method string) error
+
+	Lock(key string, ex time.Duration) (bool, error)
+
+	UnLock (key string) int64
 }

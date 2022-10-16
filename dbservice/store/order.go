@@ -17,6 +17,8 @@ type OrderStore interface {
 
 	CreateByDbOLock(order *entity.Order) error
 
+	CreateWithNoMeasure(order *entity.Order) error
+
 	DeleteById(id uint) error
 
 	FindByOrderId(id uint) (entity.Order, error)
@@ -52,7 +54,7 @@ func (o *OrderOp) CreateByDbPLock(order *entity.Order) error {
 	affected := exec.RowsAffected
 	if affected != 1 {
 		tx.Rollback()
-		return fmt.Errorf("stock is not enough or product not exist")
+		return fmt.Errorf("库存不足")
 	}
 	create := tx.Create(order)
 	if create.Error != nil || exec.Error != nil {
@@ -72,7 +74,7 @@ func (o *OrderOp) CreateByDbOLock(order *entity.Order) error {
 		tx.Model(p).Where("id = ?", order.ProductId).Select("stock", "version").Scan(p)
 		if p.Stock < order.Num {
 			tx.Rollback()
-			return fmt.Errorf("stock is not enough or product not exist")
+			return fmt.Errorf("库存不足")
 		}
 		// 这里用gorm封装的update导致乐观锁有问题，所以拿原生的sql试一下
 		// exec := tx.Model(p).Where("id = ? and version = ?", order.ProductId, oldV).Updates(p)
@@ -107,7 +109,7 @@ func (o *OrderOp) CreateByServLock(order *entity.Order) error {
 	o.DB().Model(&entity.Product{}).Where("id = ?", order.ProductId).Select("stock").Scan(&stock)
 	if stock < order.Num {
 		tx.Rollback()
-		return fmt.Errorf("stock is not enough or product not exist")
+		return fmt.Errorf("库存不足")
 	}
 	exec := tx.Exec("update product set stock = stock - ? where id = ?",
 		order.Num, order.ProductId)
@@ -130,6 +132,19 @@ func (o *OrderOp) CreateByServChan(order *entity.Order) error {
 
 }
 
+func (o *OrderOp) CreateWithNoMeasure(order *entity.Order) error {
+	tx := o.DB().Begin()
+	exec := tx.Exec("update product set stock = stock - ? where id = ?",
+	order.Num, order.ProductId)
+	create := tx.Create(order)
+	if create.Error != nil || exec.Error != nil {
+		tx.Rollback()
+		return fmt.Errorf("order transaction error")
+	}
+	tx.Commit()
+	return nil
+}
+
 func (o *OrderOp) HandleOrderChan() {
 	for ochan := range o.ch {
 		tx := o.DB().Begin()
@@ -137,7 +152,7 @@ func (o *OrderOp) HandleOrderChan() {
 		o.DB().Model(&entity.Product{}).Where("id = ?", ochan.order.ProductId).Select("stock").Scan(&stock)
 		if stock < ochan.order.Num {
 			tx.Rollback()
-			ochan.res <- fmt.Errorf("stock is not enough or product not exist")
+			ochan.res <- fmt.Errorf("库存不足")
 			continue
 		}
 		exec := tx.Exec("update product set stock = stock - ? where id = ?",

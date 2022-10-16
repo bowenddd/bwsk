@@ -2,12 +2,14 @@ package seetings
 
 import (
 	"fmt"
+
 	"github.com/spf13/viper"
 )
 
 type Setting struct {
 	Mysql MySQLSetting `yaml:"mysql"`
 	RPC   RPCSetting   `yaml:"rpc"`
+	Redis RedisSetting `yaml:"redis"`
 }
 
 type MySQLSetting struct {
@@ -20,8 +22,16 @@ type MySQLSetting struct {
 }
 
 type RPCSetting struct {
-	DbServPort string `yaml:"dbservport"`
-	Timeout    int    `yaml:"timeout"`
+	DbServPort    string `yaml:"dbservport"`
+	CacheServPort string `yaml:"cacheservport"`
+	Timeout       int    `yaml:"timeout"`
+}
+
+type RedisSetting struct {
+	Host     string `yaml:"host"`
+	Port     int    `yaml:"port"`
+	Password string `yaml:"password"`
+	Db       int    `yaml:"db"`
 }
 
 var setting *Setting
