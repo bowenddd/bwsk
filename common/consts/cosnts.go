@@ -1,5 +1,7 @@
 package consts
 
+import "time"
+
 const (
 	DBPESSIMISTICLOCK = "DBPESSIMISTICLOCK"
 	DBOPTIMISTICLOCK  = "DBOPTIMISTICLOCK"
@@ -12,6 +14,10 @@ const (
 
 const (
 	REDIS_CREATE_ORDER_MAX_RETRY = 20
+)
+
+const (
+	TokenExpireTime = 2*time.Hour
 )
 
 var MethodSet map[string]struct{}

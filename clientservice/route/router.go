@@ -2,20 +2,25 @@ package route
 
 import (
 	"seckill/clientservice/controller"
+	"seckill/clientservice/middleware"
 
 	"github.com/gin-gonic/gin"
 )
 
 func InitRouter(r *gin.Engine) {
-	r.Use(Cors())
-	userGroup := r.Group("/user/")
+	r.Use(middleware.Cors())
+	r.Use(middleware.Auth())
 
+	userGroup := r.Group("/user/")
 	{
+
 		userController := controller.GetUserController()
 
-		userGroup.GET(":name", userController.Get)
+		userGroup.POST("login", userController.Login)
 
-		userGroup.POST("create", userController.Create)
+		userGroup.GET("name/:name", userController.Get)
+
+		userGroup.POST("register", userController.Create)
 
 		userGroup.GET("list", userController.List)
 
@@ -38,8 +43,6 @@ func InitRouter(r *gin.Engine) {
 		productGroup.PUT("stock", productController.SetStock)
 
 		productGroup.DELETE(":name", productController.Delete)
-
-	
 
 	}
 

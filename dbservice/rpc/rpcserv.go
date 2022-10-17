@@ -218,7 +218,7 @@ func (s *RpcServServer) SetStock(ctx context.Context, in *pb.SetStockRequest) (*
 
 func (s *RpcServServer) GetStock(ctx context.Context, in *pb.GetStockRequest) (*pb.GetStockReply, error) {
 	reply := &pb.GetStockReply{}
-	stock, err := s.ProductServ.GetStock(uint(in.GetId()),"")
+	stock, err := s.ProductServ.GetStock(uint(in.GetId()), "")
 	if err != nil {
 		reply.Ok = false
 		reply.Error = err.Error()
@@ -322,21 +322,23 @@ func changeFromPEntitysToRpc(products []entity2.Product) []*pb.Product {
 
 func changeFromUEntityToRpc(user *entity2.User) *pb.User {
 	return &pb.User{
-		Id:      uint32(user.ID),
-		Name:    user.Name,
-		Sex:     int32(user.Sex),
-		Phone:   user.Phone,
-		Created: user.Created,
+		Id:       uint32(user.ID),
+		Name:     user.Name,
+		Password: user.Password,
+		Sex:      int32(user.Sex),
+		Phone:    user.Phone,
+		Created:  user.Created,
 	}
 }
 
 func changeFromURpcToEntity(user *pb.User) *entity2.User {
 	return &entity2.User{
-		ID:      uint(user.GetId()),
-		Name:    user.GetName(),
-		Sex:     int(user.GetSex()),
-		Phone:   user.GetPhone(),
-		Created: user.GetCreated(),
+		ID:       uint(user.GetId()),
+		Name:     user.GetName(),
+		Password: user.GetPassword(),
+		Sex:      int(user.GetSex()),
+		Phone:    user.GetPhone(),
+		Created:  user.GetCreated(),
 	}
 }
 

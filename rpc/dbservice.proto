@@ -33,9 +33,10 @@ service ProductServ{
 message User{
   uint32 id = 1;
   string name = 2;
-  int32 sex = 3;
-  string phone = 4;
-  string created = 5;
+  string password = 3;
+  int32 sex = 4;
+  string phone = 5;
+  string created = 6;
 }
 
 message Order{

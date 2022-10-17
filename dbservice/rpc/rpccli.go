@@ -7,9 +7,10 @@ import (
 	entity2 "seckill/common/entity"
 	"seckill/common/interfaces"
 	pb "seckill/rpc/dbservice"
-	"time"
-	"sync"
 	"seckill/seetings"
+	"sync"
+	"time"
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -89,7 +90,7 @@ var _ interfaces.ProductServ = (*ProductRpcServCli)(nil)
 func (o *OrderRpcServCli) AddOrder(order *entity2.Order, method string) error {
 	req := &pb.CreateOrderRequest{
 		Method: method,
-		Order: o.changeFromEntityToRpc(order),
+		Order:  o.changeFromEntityToRpc(order),
 	}
 	ctx, cancle := context.WithTimeout(context.Background(), o.timeout)
 	defer cancle()
@@ -284,20 +285,22 @@ func (u *UserRpcServCli) GetUsers() ([]entity2.User, error) {
 
 func (u *UserRpcServCli) changeFromEntityToRpc(user *entity2.User) *pb.User {
 	return &pb.User{
-		Name:    user.Name,
-		Sex:     int32(user.Sex),
-		Phone:   user.Phone,
-		Created: user.Created,
+		Name:     user.Name,
+		Password: user.Password,
+		Sex:      int32(user.Sex),
+		Phone:    user.Phone,
+		Created:  user.Created,
 	}
 }
 
 func (u *UserRpcServCli) changeFromRpcToEntity(user *pb.User) entity2.User {
 	return entity2.User{
-		ID:      uint(user.GetId()),
-		Name:    user.GetName(),
-		Sex:     int(user.GetSex()),
-		Phone:   user.GetPhone(),
-		Created: user.GetCreated(),
+		ID:       uint(user.GetId()),
+		Name:     user.GetName(),
+		Password: user.GetPassword(),
+		Sex:      int(user.GetSex()),
+		Phone:    user.GetPhone(),
+		Created:  user.GetCreated(),
 	}
 }
 
@@ -400,7 +403,7 @@ func (p *ProductRpcServCli) changeFromEntityToRpc(product *entity2.Product) *pb.
 		Stock:       int32(product.Stock),
 		Description: product.Description,
 		Created:     product.Created,
-		Version:    int32(product.Version),
+		Version:     int32(product.Version),
 	}
 }
 
@@ -412,7 +415,7 @@ func (p *ProductRpcServCli) changeFromRpcToEntity(product *pb.Product) entity2.P
 		Stock:       int(product.GetStock()),
 		Description: product.GetDescription(),
 		Created:     product.GetCreated(),
-		Version:    int(product.GetVersion()),
+		Version:     int(product.GetVersion()),
 	}
 }
 
