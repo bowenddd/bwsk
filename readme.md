@@ -12,7 +12,7 @@ client service、cache service、 db service三层
 - 服务器中安装Redis6.2.6
 - 数据库增加相应的表
  
-```
+```sql
 create database seckill;
 
 use seckill;

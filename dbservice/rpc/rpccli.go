@@ -35,6 +35,11 @@ type ProductRpcServCli struct {
 	timeout   time.Duration
 }
 
+type PermRpcServCli struct {
+	rpcClient pb.PermServClient
+	timeout   time.Duration
+}
+
 func NewServClient(addr string, timeout time.Duration) (ServClient, error) {
 	var conn *grpc.ClientConn
 	var err error
@@ -81,11 +86,22 @@ func (s *ServClient) GetProductRpcServCli() ProductRpcServCli {
 	return productRpcCli
 }
 
+func (s *ServClient) GetPermRpcServCli() PermRpcServCli {
+	client := pb.NewPermServClient(s.conn)
+	permRpcCli := PermRpcServCli{
+		rpcClient: client,
+		timeout:   s.timeout,
+	}
+	return permRpcCli
+}
+
 var _ interfaces.UserServ = (*UserRpcServCli)(nil)
 
 var _ interfaces.OrderServ = (*OrderRpcServCli)(nil)
 
 var _ interfaces.ProductServ = (*ProductRpcServCli)(nil)
+
+var _ interfaces.PermServ = (*PermRpcServCli)(nil)
 
 func (o *OrderRpcServCli) AddOrder(order *entity2.Order, method string) error {
 	req := &pb.CreateOrderRequest{
@@ -396,6 +412,73 @@ func (p *ProductRpcServCli) GetStock(id uint, method string) (int, error) {
 	return int(reply.GetStock()), nil
 }
 
+func (p *PermRpcServCli) RoleList() ([]entity2.Role, error) {
+	req := &pb.GetRolesRequest{}
+	ctx, cancel := context.WithTimeout(context.Background(), p.timeout)
+	defer cancel()
+
+	reply, err := p.rpcClient.GetRoles(ctx, req)
+	var roles []entity2.Role
+	if err != nil {
+		return roles, err
+	}
+	roles = p.changeFromRoleRpcToEntitys(reply.GetRoles())
+	return roles, err
+}
+func (p *PermRpcServCli) PermList() ([]entity2.Perm, error) {
+	req := &pb.GetPermsRequest{}
+	ctx, cancel := context.WithTimeout(context.Background(), p.timeout)
+	defer cancel()
+
+	reply, err := p.rpcClient.GetPerms(ctx, req)
+	var perms []entity2.Perm
+	if err != nil {
+		return perms, err
+	}
+	perms = p.changeFromPermRpcToEntitys(reply.GetPerms())
+	return perms, err
+}
+func (p *PermRpcServCli) AddRole(*entity2.Role) error {
+	req := &pb.AddRoleRequest{}
+	ctx, cancel := context.WithTimeout(context.Background(), p.timeout)
+	defer cancel()
+
+	_, err := p.rpcClient.AddRole(ctx, req)
+	return err
+}
+func (p *PermRpcServCli) AddPerm(*entity2.Perm) error {
+	req := &pb.AddPermRequest{}
+	ctx, cancel := context.WithTimeout(context.Background(), p.timeout)
+	defer cancel()
+
+	_, err := p.rpcClient.AddPerm(ctx, req)
+	return err
+}
+func (p *PermRpcServCli) GetPerm(uid uint) (string, error) {
+	req := &pb.GetPermRequest{
+		Uid: uint32(uid),
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), p.timeout)
+	defer cancel()
+
+	reply, err := p.rpcClient.GetPerm(ctx, req)
+	if err != nil {
+		return "", err
+	}
+	return reply.GetPerms(), nil
+}
+func (p *PermRpcServCli) SetRole(userId, roleId int) error {
+	req := &pb.SetRoleRequest{
+		Uid: uint32(userId),
+		Rid: uint32(roleId),
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), p.timeout)
+	defer cancel()
+
+	_, err := p.rpcClient.SetRole(ctx, req)
+	return err
+}
+
 func (p *ProductRpcServCli) changeFromEntityToRpc(product *entity2.Product) *pb.Product {
 	return &pb.Product{
 		Name:        product.Name,
@@ -423,6 +506,36 @@ func (p *ProductRpcServCli) changeFromRpcToEntitys(products []*pb.Product) []ent
 	entityPs := make([]entity2.Product, 0)
 	for _, product := range products {
 		entityPs = append(entityPs, p.changeFromRpcToEntity(product))
+	}
+	return entityPs
+}
+
+func (p *PermRpcServCli) changeFromRoleRpcToEntity(role *pb.Role) entity2.Role {
+	return entity2.Role{
+		ID:   uint(role.GetId()),
+		Name: role.GetName(),
+	}
+}
+
+func (p *PermRpcServCli) changeFromPermRpcToEntity(perm *pb.Perm) entity2.Perm {
+	return entity2.Perm{
+		ID:   uint(perm.GetId()),
+		Path: perm.GetPath(),
+	}
+}
+
+func (p *PermRpcServCli) changeFromRoleRpcToEntitys(roles []*pb.Role) []entity2.Role {
+	entityPs := make([]entity2.Role, 0)
+	for _, role := range roles {
+		entityPs = append(entityPs, p.changeFromRoleRpcToEntity(role))
+	}
+	return entityPs
+}
+
+func (p *PermRpcServCli) changeFromPermRpcToEntitys(perms []*pb.Perm) []entity2.Perm {
+	entityPs := make([]entity2.Perm, 0)
+	for _, perm := range perms {
+		entityPs = append(entityPs, p.changeFromPermRpcToEntity(perm))
 	}
 	return entityPs
 }

@@ -90,6 +90,19 @@ func (c *CacheServCli) UnLock(key string) int64 {
 	return int64(resp.N)
 }
 
+func (c *CacheServCli) GetUserPerms(userId uint) (string, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), c.timeout)
+	defer cancel()
+	resp, err := c.client.GetUserPerms(ctx, &pb.GetUserPermsRequest{
+		UserId: uint32(userId),
+	})
+	if err != nil {
+		fmt.Println(err.Error())
+		return "", err
+	}
+	return resp.Perms, nil
+}
+
 func CreateCacheServClient(addr string, timeout time.Duration) (*CacheServCli, error) {
 	var conn *grpc.ClientConn
 	var err error

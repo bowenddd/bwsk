@@ -82,7 +82,7 @@ func (u *UserController) Login(ctx *gin.Context) {
 		response.Error(ctx, http.StatusOK, "password error")
 		return
 	}
-	token, err := jwt.GenerateToken(userInfo.UserName)
+	token, err := jwt.GenerateToken(userInfo.UserName,user.ID)
 	if err != nil {
 		response.Error(ctx, http.StatusInternalServerError, err.Error())
 		return

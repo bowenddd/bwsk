@@ -55,4 +55,21 @@ type CacheServ interface {
 	Lock(key string, ex time.Duration) (bool, error)
 
 	UnLock (key string) int64
+
+	GetUserPerms(id uint) (string, error)
+}
+
+type PermServ interface{
+
+	RoleList() ([]entity.Role, error)
+
+	PermList() ([]entity.Perm, error)
+
+	AddRole(*entity.Role) error
+
+	AddPerm(*entity.Perm) error
+
+	GetPerm(uid uint) (string, error)
+
+	SetRole(userId,roleId int) error
 }

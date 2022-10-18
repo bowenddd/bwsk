@@ -96,6 +96,19 @@ func (s *CacheRpcServ) Unlock(ctx context.Context, in *pb.UnlockRequest) (*pb.Un
 	return reply, nil
 }
 
+func (s *CacheRpcServ) GetUserPerms(ctx context.Context, in *pb.GetUserPermsRequest) (*pb.GetUserPermsReply, error) {
+	reply := &pb.GetUserPermsReply{}
+	perms, err := s.serv.GetUserPerms(uint(in.GetUserId()))
+	if err != nil {
+		reply.Ok = false
+		reply.Error = err.Error()
+		return reply, err
+	}
+	reply.Ok = true
+	reply.Perms = perms
+	return reply, nil
+}
+
 func ChangeFromRpcToEntity(order *pb.Order) *entity.Order {
 	return &entity.Order{
 		ProductId: uint(order.GetProductId()),
@@ -109,7 +122,6 @@ func ChangeFromRpcToEntity(order *pb.Order) *entity.Order {
 var cacheRpcServService *CacheRpcServ
 
 var cacheRpcServOnce = new(sync.Once)
-
 
 func GetCacheRpcService() *CacheRpcServ {
 	cacheRpcServOnce.Do(func() {

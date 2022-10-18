@@ -293,6 +293,116 @@ func (x *Product) GetVersion() int32 {
 	return 0
 }
 
+type Role struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id   uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+}
+
+func (x *Role) Reset() {
+	*x = Role{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_dbservice_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Role) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Role) ProtoMessage() {}
+
+func (x *Role) ProtoReflect() protoreflect.Message {
+	mi := &file_dbservice_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Role.ProtoReflect.Descriptor instead.
+func (*Role) Descriptor() ([]byte, []int) {
+	return file_dbservice_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *Role) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *Role) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+type Perm struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id   uint32 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Path string `protobuf:"bytes,2,opt,name=path,proto3" json:"path,omitempty"`
+}
+
+func (x *Perm) Reset() {
+	*x = Perm{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_dbservice_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Perm) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Perm) ProtoMessage() {}
+
+func (x *Perm) ProtoReflect() protoreflect.Message {
+	mi := &file_dbservice_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Perm.ProtoReflect.Descriptor instead.
+func (*Perm) Descriptor() ([]byte, []int) {
+	return file_dbservice_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *Perm) GetId() uint32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *Perm) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
 type CreateUserRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -304,7 +414,7 @@ type CreateUserRequest struct {
 func (x *CreateUserRequest) Reset() {
 	*x = CreateUserRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[3]
+		mi := &file_dbservice_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -317,7 +427,7 @@ func (x *CreateUserRequest) String() string {
 func (*CreateUserRequest) ProtoMessage() {}
 
 func (x *CreateUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[3]
+	mi := &file_dbservice_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -330,7 +440,7 @@ func (x *CreateUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateUserRequest.ProtoReflect.Descriptor instead.
 func (*CreateUserRequest) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{3}
+	return file_dbservice_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *CreateUserRequest) GetUser() *User {
@@ -352,7 +462,7 @@ type CreateUserReply struct {
 func (x *CreateUserReply) Reset() {
 	*x = CreateUserReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[4]
+		mi := &file_dbservice_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -365,7 +475,7 @@ func (x *CreateUserReply) String() string {
 func (*CreateUserReply) ProtoMessage() {}
 
 func (x *CreateUserReply) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[4]
+	mi := &file_dbservice_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -378,7 +488,7 @@ func (x *CreateUserReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateUserReply.ProtoReflect.Descriptor instead.
 func (*CreateUserReply) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{4}
+	return file_dbservice_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *CreateUserReply) GetOk() bool {
@@ -406,7 +516,7 @@ type GetUserRequest struct {
 func (x *GetUserRequest) Reset() {
 	*x = GetUserRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[5]
+		mi := &file_dbservice_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -419,7 +529,7 @@ func (x *GetUserRequest) String() string {
 func (*GetUserRequest) ProtoMessage() {}
 
 func (x *GetUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[5]
+	mi := &file_dbservice_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -432,7 +542,7 @@ func (x *GetUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUserRequest.ProtoReflect.Descriptor instead.
 func (*GetUserRequest) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{5}
+	return file_dbservice_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *GetUserRequest) GetName() string {
@@ -455,7 +565,7 @@ type GetUserReply struct {
 func (x *GetUserReply) Reset() {
 	*x = GetUserReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[6]
+		mi := &file_dbservice_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -468,7 +578,7 @@ func (x *GetUserReply) String() string {
 func (*GetUserReply) ProtoMessage() {}
 
 func (x *GetUserReply) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[6]
+	mi := &file_dbservice_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -481,7 +591,7 @@ func (x *GetUserReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUserReply.ProtoReflect.Descriptor instead.
 func (*GetUserReply) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{6}
+	return file_dbservice_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *GetUserReply) GetUser() *User {
@@ -516,7 +626,7 @@ type DeleteUserRequest struct {
 func (x *DeleteUserRequest) Reset() {
 	*x = DeleteUserRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[7]
+		mi := &file_dbservice_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -529,7 +639,7 @@ func (x *DeleteUserRequest) String() string {
 func (*DeleteUserRequest) ProtoMessage() {}
 
 func (x *DeleteUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[7]
+	mi := &file_dbservice_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -542,7 +652,7 @@ func (x *DeleteUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteUserRequest.ProtoReflect.Descriptor instead.
 func (*DeleteUserRequest) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{7}
+	return file_dbservice_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *DeleteUserRequest) GetName() string {
@@ -564,7 +674,7 @@ type DeleteUserReply struct {
 func (x *DeleteUserReply) Reset() {
 	*x = DeleteUserReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[8]
+		mi := &file_dbservice_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -577,7 +687,7 @@ func (x *DeleteUserReply) String() string {
 func (*DeleteUserReply) ProtoMessage() {}
 
 func (x *DeleteUserReply) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[8]
+	mi := &file_dbservice_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -590,7 +700,7 @@ func (x *DeleteUserReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteUserReply.ProtoReflect.Descriptor instead.
 func (*DeleteUserReply) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{8}
+	return file_dbservice_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *DeleteUserReply) GetOk() bool {
@@ -616,7 +726,7 @@ type GetUsersRequest struct {
 func (x *GetUsersRequest) Reset() {
 	*x = GetUsersRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[9]
+		mi := &file_dbservice_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -629,7 +739,7 @@ func (x *GetUsersRequest) String() string {
 func (*GetUsersRequest) ProtoMessage() {}
 
 func (x *GetUsersRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[9]
+	mi := &file_dbservice_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -642,7 +752,7 @@ func (x *GetUsersRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUsersRequest.ProtoReflect.Descriptor instead.
 func (*GetUsersRequest) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{9}
+	return file_dbservice_proto_rawDescGZIP(), []int{11}
 }
 
 type GetUsersReply struct {
@@ -658,7 +768,7 @@ type GetUsersReply struct {
 func (x *GetUsersReply) Reset() {
 	*x = GetUsersReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[10]
+		mi := &file_dbservice_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -671,7 +781,7 @@ func (x *GetUsersReply) String() string {
 func (*GetUsersReply) ProtoMessage() {}
 
 func (x *GetUsersReply) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[10]
+	mi := &file_dbservice_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -684,7 +794,7 @@ func (x *GetUsersReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetUsersReply.ProtoReflect.Descriptor instead.
 func (*GetUsersReply) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{10}
+	return file_dbservice_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *GetUsersReply) GetUsers() []*User {
@@ -720,7 +830,7 @@ type CreateOrderRequest struct {
 func (x *CreateOrderRequest) Reset() {
 	*x = CreateOrderRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[11]
+		mi := &file_dbservice_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -733,7 +843,7 @@ func (x *CreateOrderRequest) String() string {
 func (*CreateOrderRequest) ProtoMessage() {}
 
 func (x *CreateOrderRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[11]
+	mi := &file_dbservice_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -746,7 +856,7 @@ func (x *CreateOrderRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateOrderRequest.ProtoReflect.Descriptor instead.
 func (*CreateOrderRequest) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{11}
+	return file_dbservice_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *CreateOrderRequest) GetMethod() string {
@@ -775,7 +885,7 @@ type CreateOrderReply struct {
 func (x *CreateOrderReply) Reset() {
 	*x = CreateOrderReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[12]
+		mi := &file_dbservice_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -788,7 +898,7 @@ func (x *CreateOrderReply) String() string {
 func (*CreateOrderReply) ProtoMessage() {}
 
 func (x *CreateOrderReply) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[12]
+	mi := &file_dbservice_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -801,7 +911,7 @@ func (x *CreateOrderReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateOrderReply.ProtoReflect.Descriptor instead.
 func (*CreateOrderReply) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{12}
+	return file_dbservice_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *CreateOrderReply) GetOk() bool {
@@ -829,7 +939,7 @@ type GetOrderByIdRequest struct {
 func (x *GetOrderByIdRequest) Reset() {
 	*x = GetOrderByIdRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[13]
+		mi := &file_dbservice_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -842,7 +952,7 @@ func (x *GetOrderByIdRequest) String() string {
 func (*GetOrderByIdRequest) ProtoMessage() {}
 
 func (x *GetOrderByIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[13]
+	mi := &file_dbservice_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -855,7 +965,7 @@ func (x *GetOrderByIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetOrderByIdRequest.ProtoReflect.Descriptor instead.
 func (*GetOrderByIdRequest) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{13}
+	return file_dbservice_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *GetOrderByIdRequest) GetId() uint32 {
@@ -878,7 +988,7 @@ type GetOrderByIdReply struct {
 func (x *GetOrderByIdReply) Reset() {
 	*x = GetOrderByIdReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[14]
+		mi := &file_dbservice_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -891,7 +1001,7 @@ func (x *GetOrderByIdReply) String() string {
 func (*GetOrderByIdReply) ProtoMessage() {}
 
 func (x *GetOrderByIdReply) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[14]
+	mi := &file_dbservice_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -904,7 +1014,7 @@ func (x *GetOrderByIdReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetOrderByIdReply.ProtoReflect.Descriptor instead.
 func (*GetOrderByIdReply) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{14}
+	return file_dbservice_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *GetOrderByIdReply) GetOrder() *Order {
@@ -939,7 +1049,7 @@ type GetOrderByUIdRequest struct {
 func (x *GetOrderByUIdRequest) Reset() {
 	*x = GetOrderByUIdRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[15]
+		mi := &file_dbservice_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -952,7 +1062,7 @@ func (x *GetOrderByUIdRequest) String() string {
 func (*GetOrderByUIdRequest) ProtoMessage() {}
 
 func (x *GetOrderByUIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[15]
+	mi := &file_dbservice_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -965,7 +1075,7 @@ func (x *GetOrderByUIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetOrderByUIdRequest.ProtoReflect.Descriptor instead.
 func (*GetOrderByUIdRequest) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{15}
+	return file_dbservice_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *GetOrderByUIdRequest) GetUid() uint32 {
@@ -988,7 +1098,7 @@ type GetOrderByUIdReply struct {
 func (x *GetOrderByUIdReply) Reset() {
 	*x = GetOrderByUIdReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[16]
+		mi := &file_dbservice_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1001,7 +1111,7 @@ func (x *GetOrderByUIdReply) String() string {
 func (*GetOrderByUIdReply) ProtoMessage() {}
 
 func (x *GetOrderByUIdReply) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[16]
+	mi := &file_dbservice_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1014,7 +1124,7 @@ func (x *GetOrderByUIdReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetOrderByUIdReply.ProtoReflect.Descriptor instead.
 func (*GetOrderByUIdReply) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{16}
+	return file_dbservice_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *GetOrderByUIdReply) GetOrders() []*Order {
@@ -1049,7 +1159,7 @@ type GetOrderByPIdRequest struct {
 func (x *GetOrderByPIdRequest) Reset() {
 	*x = GetOrderByPIdRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[17]
+		mi := &file_dbservice_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1062,7 +1172,7 @@ func (x *GetOrderByPIdRequest) String() string {
 func (*GetOrderByPIdRequest) ProtoMessage() {}
 
 func (x *GetOrderByPIdRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[17]
+	mi := &file_dbservice_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1075,7 +1185,7 @@ func (x *GetOrderByPIdRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetOrderByPIdRequest.ProtoReflect.Descriptor instead.
 func (*GetOrderByPIdRequest) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{17}
+	return file_dbservice_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *GetOrderByPIdRequest) GetPid() uint32 {
@@ -1098,7 +1208,7 @@ type GetOrderByPIdReply struct {
 func (x *GetOrderByPIdReply) Reset() {
 	*x = GetOrderByPIdReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[18]
+		mi := &file_dbservice_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1111,7 +1221,7 @@ func (x *GetOrderByPIdReply) String() string {
 func (*GetOrderByPIdReply) ProtoMessage() {}
 
 func (x *GetOrderByPIdReply) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[18]
+	mi := &file_dbservice_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1124,7 +1234,7 @@ func (x *GetOrderByPIdReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetOrderByPIdReply.ProtoReflect.Descriptor instead.
 func (*GetOrderByPIdReply) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{18}
+	return file_dbservice_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *GetOrderByPIdReply) GetOrders() []*Order {
@@ -1159,7 +1269,7 @@ type DeleteOrderRequest struct {
 func (x *DeleteOrderRequest) Reset() {
 	*x = DeleteOrderRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[19]
+		mi := &file_dbservice_proto_msgTypes[21]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1172,7 +1282,7 @@ func (x *DeleteOrderRequest) String() string {
 func (*DeleteOrderRequest) ProtoMessage() {}
 
 func (x *DeleteOrderRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[19]
+	mi := &file_dbservice_proto_msgTypes[21]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1185,7 +1295,7 @@ func (x *DeleteOrderRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteOrderRequest.ProtoReflect.Descriptor instead.
 func (*DeleteOrderRequest) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{19}
+	return file_dbservice_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *DeleteOrderRequest) GetId() uint32 {
@@ -1204,7 +1314,7 @@ type ClearOrdersRequest struct {
 func (x *ClearOrdersRequest) Reset() {
 	*x = ClearOrdersRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[20]
+		mi := &file_dbservice_proto_msgTypes[22]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1217,7 +1327,7 @@ func (x *ClearOrdersRequest) String() string {
 func (*ClearOrdersRequest) ProtoMessage() {}
 
 func (x *ClearOrdersRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[20]
+	mi := &file_dbservice_proto_msgTypes[22]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1230,7 +1340,7 @@ func (x *ClearOrdersRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ClearOrdersRequest.ProtoReflect.Descriptor instead.
 func (*ClearOrdersRequest) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{20}
+	return file_dbservice_proto_rawDescGZIP(), []int{22}
 }
 
 type ClearOrdersReply struct {
@@ -1245,7 +1355,7 @@ type ClearOrdersReply struct {
 func (x *ClearOrdersReply) Reset() {
 	*x = ClearOrdersReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[21]
+		mi := &file_dbservice_proto_msgTypes[23]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1258,7 +1368,7 @@ func (x *ClearOrdersReply) String() string {
 func (*ClearOrdersReply) ProtoMessage() {}
 
 func (x *ClearOrdersReply) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[21]
+	mi := &file_dbservice_proto_msgTypes[23]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1271,7 +1381,7 @@ func (x *ClearOrdersReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ClearOrdersReply.ProtoReflect.Descriptor instead.
 func (*ClearOrdersReply) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{21}
+	return file_dbservice_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *ClearOrdersReply) GetOk() bool {
@@ -1300,7 +1410,7 @@ type DeleteOrderReply struct {
 func (x *DeleteOrderReply) Reset() {
 	*x = DeleteOrderReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[22]
+		mi := &file_dbservice_proto_msgTypes[24]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1313,7 +1423,7 @@ func (x *DeleteOrderReply) String() string {
 func (*DeleteOrderReply) ProtoMessage() {}
 
 func (x *DeleteOrderReply) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[22]
+	mi := &file_dbservice_proto_msgTypes[24]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1326,7 +1436,7 @@ func (x *DeleteOrderReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteOrderReply.ProtoReflect.Descriptor instead.
 func (*DeleteOrderReply) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{22}
+	return file_dbservice_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *DeleteOrderReply) GetOk() bool {
@@ -1352,7 +1462,7 @@ type GetOrdersRequest struct {
 func (x *GetOrdersRequest) Reset() {
 	*x = GetOrdersRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[23]
+		mi := &file_dbservice_proto_msgTypes[25]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1365,7 +1475,7 @@ func (x *GetOrdersRequest) String() string {
 func (*GetOrdersRequest) ProtoMessage() {}
 
 func (x *GetOrdersRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[23]
+	mi := &file_dbservice_proto_msgTypes[25]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1378,7 +1488,7 @@ func (x *GetOrdersRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetOrdersRequest.ProtoReflect.Descriptor instead.
 func (*GetOrdersRequest) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{23}
+	return file_dbservice_proto_rawDescGZIP(), []int{25}
 }
 
 type GetOrdersReply struct {
@@ -1394,7 +1504,7 @@ type GetOrdersReply struct {
 func (x *GetOrdersReply) Reset() {
 	*x = GetOrdersReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[24]
+		mi := &file_dbservice_proto_msgTypes[26]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1407,7 +1517,7 @@ func (x *GetOrdersReply) String() string {
 func (*GetOrdersReply) ProtoMessage() {}
 
 func (x *GetOrdersReply) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[24]
+	mi := &file_dbservice_proto_msgTypes[26]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1420,7 +1530,7 @@ func (x *GetOrdersReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetOrdersReply.ProtoReflect.Descriptor instead.
 func (*GetOrdersReply) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{24}
+	return file_dbservice_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *GetOrdersReply) GetOrders() []*Order {
@@ -1455,7 +1565,7 @@ type CreateProductRequest struct {
 func (x *CreateProductRequest) Reset() {
 	*x = CreateProductRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[25]
+		mi := &file_dbservice_proto_msgTypes[27]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1468,7 +1578,7 @@ func (x *CreateProductRequest) String() string {
 func (*CreateProductRequest) ProtoMessage() {}
 
 func (x *CreateProductRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[25]
+	mi := &file_dbservice_proto_msgTypes[27]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1481,7 +1591,7 @@ func (x *CreateProductRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateProductRequest.ProtoReflect.Descriptor instead.
 func (*CreateProductRequest) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{25}
+	return file_dbservice_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *CreateProductRequest) GetProduct() *Product {
@@ -1503,7 +1613,7 @@ type CreateProductReply struct {
 func (x *CreateProductReply) Reset() {
 	*x = CreateProductReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[26]
+		mi := &file_dbservice_proto_msgTypes[28]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1516,7 +1626,7 @@ func (x *CreateProductReply) String() string {
 func (*CreateProductReply) ProtoMessage() {}
 
 func (x *CreateProductReply) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[26]
+	mi := &file_dbservice_proto_msgTypes[28]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1529,7 +1639,7 @@ func (x *CreateProductReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateProductReply.ProtoReflect.Descriptor instead.
 func (*CreateProductReply) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{26}
+	return file_dbservice_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *CreateProductReply) GetOk() bool {
@@ -1557,7 +1667,7 @@ type GetProductRequest struct {
 func (x *GetProductRequest) Reset() {
 	*x = GetProductRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[27]
+		mi := &file_dbservice_proto_msgTypes[29]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1570,7 +1680,7 @@ func (x *GetProductRequest) String() string {
 func (*GetProductRequest) ProtoMessage() {}
 
 func (x *GetProductRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[27]
+	mi := &file_dbservice_proto_msgTypes[29]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1583,7 +1693,7 @@ func (x *GetProductRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetProductRequest.ProtoReflect.Descriptor instead.
 func (*GetProductRequest) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{27}
+	return file_dbservice_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *GetProductRequest) GetName() string {
@@ -1606,7 +1716,7 @@ type GetProductReply struct {
 func (x *GetProductReply) Reset() {
 	*x = GetProductReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[28]
+		mi := &file_dbservice_proto_msgTypes[30]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1619,7 +1729,7 @@ func (x *GetProductReply) String() string {
 func (*GetProductReply) ProtoMessage() {}
 
 func (x *GetProductReply) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[28]
+	mi := &file_dbservice_proto_msgTypes[30]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1632,7 +1742,7 @@ func (x *GetProductReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetProductReply.ProtoReflect.Descriptor instead.
 func (*GetProductReply) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{28}
+	return file_dbservice_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *GetProductReply) GetProduct() *Product {
@@ -1667,7 +1777,7 @@ type DeleteProductRequest struct {
 func (x *DeleteProductRequest) Reset() {
 	*x = DeleteProductRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[29]
+		mi := &file_dbservice_proto_msgTypes[31]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1680,7 +1790,7 @@ func (x *DeleteProductRequest) String() string {
 func (*DeleteProductRequest) ProtoMessage() {}
 
 func (x *DeleteProductRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[29]
+	mi := &file_dbservice_proto_msgTypes[31]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1693,7 +1803,7 @@ func (x *DeleteProductRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteProductRequest.ProtoReflect.Descriptor instead.
 func (*DeleteProductRequest) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{29}
+	return file_dbservice_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *DeleteProductRequest) GetName() string {
@@ -1715,7 +1825,7 @@ type DeleteProductReply struct {
 func (x *DeleteProductReply) Reset() {
 	*x = DeleteProductReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[30]
+		mi := &file_dbservice_proto_msgTypes[32]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1728,7 +1838,7 @@ func (x *DeleteProductReply) String() string {
 func (*DeleteProductReply) ProtoMessage() {}
 
 func (x *DeleteProductReply) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[30]
+	mi := &file_dbservice_proto_msgTypes[32]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1741,7 +1851,7 @@ func (x *DeleteProductReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteProductReply.ProtoReflect.Descriptor instead.
 func (*DeleteProductReply) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{30}
+	return file_dbservice_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *DeleteProductReply) GetOk() bool {
@@ -1767,7 +1877,7 @@ type GetProductsRequest struct {
 func (x *GetProductsRequest) Reset() {
 	*x = GetProductsRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[31]
+		mi := &file_dbservice_proto_msgTypes[33]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1780,7 +1890,7 @@ func (x *GetProductsRequest) String() string {
 func (*GetProductsRequest) ProtoMessage() {}
 
 func (x *GetProductsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[31]
+	mi := &file_dbservice_proto_msgTypes[33]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1793,7 +1903,7 @@ func (x *GetProductsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetProductsRequest.ProtoReflect.Descriptor instead.
 func (*GetProductsRequest) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{31}
+	return file_dbservice_proto_rawDescGZIP(), []int{33}
 }
 
 type GetProductsReply struct {
@@ -1809,7 +1919,7 @@ type GetProductsReply struct {
 func (x *GetProductsReply) Reset() {
 	*x = GetProductsReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[32]
+		mi := &file_dbservice_proto_msgTypes[34]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1822,7 +1932,7 @@ func (x *GetProductsReply) String() string {
 func (*GetProductsReply) ProtoMessage() {}
 
 func (x *GetProductsReply) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[32]
+	mi := &file_dbservice_proto_msgTypes[34]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1835,7 +1945,7 @@ func (x *GetProductsReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetProductsReply.ProtoReflect.Descriptor instead.
 func (*GetProductsReply) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{32}
+	return file_dbservice_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *GetProductsReply) GetProducts() []*Product {
@@ -1871,7 +1981,7 @@ type SetStockRequest struct {
 func (x *SetStockRequest) Reset() {
 	*x = SetStockRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[33]
+		mi := &file_dbservice_proto_msgTypes[35]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1884,7 +1994,7 @@ func (x *SetStockRequest) String() string {
 func (*SetStockRequest) ProtoMessage() {}
 
 func (x *SetStockRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[33]
+	mi := &file_dbservice_proto_msgTypes[35]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1897,7 +2007,7 @@ func (x *SetStockRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetStockRequest.ProtoReflect.Descriptor instead.
 func (*SetStockRequest) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{33}
+	return file_dbservice_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *SetStockRequest) GetId() uint32 {
@@ -1926,7 +2036,7 @@ type SetStockReply struct {
 func (x *SetStockReply) Reset() {
 	*x = SetStockReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[34]
+		mi := &file_dbservice_proto_msgTypes[36]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1939,7 +2049,7 @@ func (x *SetStockReply) String() string {
 func (*SetStockReply) ProtoMessage() {}
 
 func (x *SetStockReply) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[34]
+	mi := &file_dbservice_proto_msgTypes[36]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1952,7 +2062,7 @@ func (x *SetStockReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetStockReply.ProtoReflect.Descriptor instead.
 func (*SetStockReply) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{34}
+	return file_dbservice_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *SetStockReply) GetOk() bool {
@@ -1980,7 +2090,7 @@ type GetStockRequest struct {
 func (x *GetStockRequest) Reset() {
 	*x = GetStockRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[35]
+		mi := &file_dbservice_proto_msgTypes[37]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1993,7 +2103,7 @@ func (x *GetStockRequest) String() string {
 func (*GetStockRequest) ProtoMessage() {}
 
 func (x *GetStockRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[35]
+	mi := &file_dbservice_proto_msgTypes[37]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2006,7 +2116,7 @@ func (x *GetStockRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetStockRequest.ProtoReflect.Descriptor instead.
 func (*GetStockRequest) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{35}
+	return file_dbservice_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *GetStockRequest) GetId() uint32 {
@@ -2029,7 +2139,7 @@ type GetStockReply struct {
 func (x *GetStockReply) Reset() {
 	*x = GetStockReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_dbservice_proto_msgTypes[36]
+		mi := &file_dbservice_proto_msgTypes[38]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2042,7 +2152,7 @@ func (x *GetStockReply) String() string {
 func (*GetStockReply) ProtoMessage() {}
 
 func (x *GetStockReply) ProtoReflect() protoreflect.Message {
-	mi := &file_dbservice_proto_msgTypes[36]
+	mi := &file_dbservice_proto_msgTypes[38]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2055,7 +2165,7 @@ func (x *GetStockReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetStockReply.ProtoReflect.Descriptor instead.
 func (*GetStockReply) Descriptor() ([]byte, []int) {
-	return file_dbservice_proto_rawDescGZIP(), []int{36}
+	return file_dbservice_proto_rawDescGZIP(), []int{38}
 }
 
 func (x *GetStockReply) GetStock() int32 {
@@ -2073,6 +2183,632 @@ func (x *GetStockReply) GetOk() bool {
 }
 
 func (x *GetStockReply) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
+type GetRolesRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *GetRolesRequest) Reset() {
+	*x = GetRolesRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_dbservice_proto_msgTypes[39]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetRolesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRolesRequest) ProtoMessage() {}
+
+func (x *GetRolesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dbservice_proto_msgTypes[39]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRolesRequest.ProtoReflect.Descriptor instead.
+func (*GetRolesRequest) Descriptor() ([]byte, []int) {
+	return file_dbservice_proto_rawDescGZIP(), []int{39}
+}
+
+type GetRolesReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Roles []*Role `protobuf:"bytes,1,rep,name=roles,proto3" json:"roles,omitempty"`
+	Ok    bool    `protobuf:"varint,2,opt,name=ok,proto3" json:"ok,omitempty"`
+	Error string  `protobuf:"bytes,3,opt,name=error,proto3" json:"error,omitempty"`
+}
+
+func (x *GetRolesReply) Reset() {
+	*x = GetRolesReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_dbservice_proto_msgTypes[40]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetRolesReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRolesReply) ProtoMessage() {}
+
+func (x *GetRolesReply) ProtoReflect() protoreflect.Message {
+	mi := &file_dbservice_proto_msgTypes[40]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRolesReply.ProtoReflect.Descriptor instead.
+func (*GetRolesReply) Descriptor() ([]byte, []int) {
+	return file_dbservice_proto_rawDescGZIP(), []int{40}
+}
+
+func (x *GetRolesReply) GetRoles() []*Role {
+	if x != nil {
+		return x.Roles
+	}
+	return nil
+}
+
+func (x *GetRolesReply) GetOk() bool {
+	if x != nil {
+		return x.Ok
+	}
+	return false
+}
+
+func (x *GetRolesReply) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
+type GetPermsRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *GetPermsRequest) Reset() {
+	*x = GetPermsRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_dbservice_proto_msgTypes[41]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetPermsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetPermsRequest) ProtoMessage() {}
+
+func (x *GetPermsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dbservice_proto_msgTypes[41]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetPermsRequest.ProtoReflect.Descriptor instead.
+func (*GetPermsRequest) Descriptor() ([]byte, []int) {
+	return file_dbservice_proto_rawDescGZIP(), []int{41}
+}
+
+type GetPermsReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Perms []*Perm `protobuf:"bytes,1,rep,name=perms,proto3" json:"perms,omitempty"`
+	Ok    bool    `protobuf:"varint,2,opt,name=ok,proto3" json:"ok,omitempty"`
+	Error string  `protobuf:"bytes,3,opt,name=error,proto3" json:"error,omitempty"`
+}
+
+func (x *GetPermsReply) Reset() {
+	*x = GetPermsReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_dbservice_proto_msgTypes[42]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetPermsReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetPermsReply) ProtoMessage() {}
+
+func (x *GetPermsReply) ProtoReflect() protoreflect.Message {
+	mi := &file_dbservice_proto_msgTypes[42]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetPermsReply.ProtoReflect.Descriptor instead.
+func (*GetPermsReply) Descriptor() ([]byte, []int) {
+	return file_dbservice_proto_rawDescGZIP(), []int{42}
+}
+
+func (x *GetPermsReply) GetPerms() []*Perm {
+	if x != nil {
+		return x.Perms
+	}
+	return nil
+}
+
+func (x *GetPermsReply) GetOk() bool {
+	if x != nil {
+		return x.Ok
+	}
+	return false
+}
+
+func (x *GetPermsReply) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
+type AddRoleRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Role *Role `protobuf:"bytes,1,opt,name=role,proto3" json:"role,omitempty"`
+}
+
+func (x *AddRoleRequest) Reset() {
+	*x = AddRoleRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_dbservice_proto_msgTypes[43]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AddRoleRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddRoleRequest) ProtoMessage() {}
+
+func (x *AddRoleRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dbservice_proto_msgTypes[43]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddRoleRequest.ProtoReflect.Descriptor instead.
+func (*AddRoleRequest) Descriptor() ([]byte, []int) {
+	return file_dbservice_proto_rawDescGZIP(), []int{43}
+}
+
+func (x *AddRoleRequest) GetRole() *Role {
+	if x != nil {
+		return x.Role
+	}
+	return nil
+}
+
+type AddRoleReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Ok    bool   `protobuf:"varint,1,opt,name=ok,proto3" json:"ok,omitempty"`
+	Error string `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
+}
+
+func (x *AddRoleReply) Reset() {
+	*x = AddRoleReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_dbservice_proto_msgTypes[44]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AddRoleReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddRoleReply) ProtoMessage() {}
+
+func (x *AddRoleReply) ProtoReflect() protoreflect.Message {
+	mi := &file_dbservice_proto_msgTypes[44]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddRoleReply.ProtoReflect.Descriptor instead.
+func (*AddRoleReply) Descriptor() ([]byte, []int) {
+	return file_dbservice_proto_rawDescGZIP(), []int{44}
+}
+
+func (x *AddRoleReply) GetOk() bool {
+	if x != nil {
+		return x.Ok
+	}
+	return false
+}
+
+func (x *AddRoleReply) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
+type AddPermRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Perm *Perm `protobuf:"bytes,1,opt,name=perm,proto3" json:"perm,omitempty"`
+}
+
+func (x *AddPermRequest) Reset() {
+	*x = AddPermRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_dbservice_proto_msgTypes[45]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AddPermRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddPermRequest) ProtoMessage() {}
+
+func (x *AddPermRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dbservice_proto_msgTypes[45]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddPermRequest.ProtoReflect.Descriptor instead.
+func (*AddPermRequest) Descriptor() ([]byte, []int) {
+	return file_dbservice_proto_rawDescGZIP(), []int{45}
+}
+
+func (x *AddPermRequest) GetPerm() *Perm {
+	if x != nil {
+		return x.Perm
+	}
+	return nil
+}
+
+type AddPermReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Ok    bool   `protobuf:"varint,1,opt,name=ok,proto3" json:"ok,omitempty"`
+	Error string `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
+}
+
+func (x *AddPermReply) Reset() {
+	*x = AddPermReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_dbservice_proto_msgTypes[46]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AddPermReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddPermReply) ProtoMessage() {}
+
+func (x *AddPermReply) ProtoReflect() protoreflect.Message {
+	mi := &file_dbservice_proto_msgTypes[46]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddPermReply.ProtoReflect.Descriptor instead.
+func (*AddPermReply) Descriptor() ([]byte, []int) {
+	return file_dbservice_proto_rawDescGZIP(), []int{46}
+}
+
+func (x *AddPermReply) GetOk() bool {
+	if x != nil {
+		return x.Ok
+	}
+	return false
+}
+
+func (x *AddPermReply) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
+type GetPermRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Uid uint32 `protobuf:"varint,1,opt,name=uid,proto3" json:"uid,omitempty"`
+}
+
+func (x *GetPermRequest) Reset() {
+	*x = GetPermRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_dbservice_proto_msgTypes[47]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetPermRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetPermRequest) ProtoMessage() {}
+
+func (x *GetPermRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dbservice_proto_msgTypes[47]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetPermRequest.ProtoReflect.Descriptor instead.
+func (*GetPermRequest) Descriptor() ([]byte, []int) {
+	return file_dbservice_proto_rawDescGZIP(), []int{47}
+}
+
+func (x *GetPermRequest) GetUid() uint32 {
+	if x != nil {
+		return x.Uid
+	}
+	return 0
+}
+
+type GetPermReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Perms string `protobuf:"bytes,1,opt,name=perms,proto3" json:"perms,omitempty"`
+	Ok    bool   `protobuf:"varint,2,opt,name=ok,proto3" json:"ok,omitempty"`
+	Error string `protobuf:"bytes,3,opt,name=error,proto3" json:"error,omitempty"`
+}
+
+func (x *GetPermReply) Reset() {
+	*x = GetPermReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_dbservice_proto_msgTypes[48]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetPermReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetPermReply) ProtoMessage() {}
+
+func (x *GetPermReply) ProtoReflect() protoreflect.Message {
+	mi := &file_dbservice_proto_msgTypes[48]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetPermReply.ProtoReflect.Descriptor instead.
+func (*GetPermReply) Descriptor() ([]byte, []int) {
+	return file_dbservice_proto_rawDescGZIP(), []int{48}
+}
+
+func (x *GetPermReply) GetPerms() string {
+	if x != nil {
+		return x.Perms
+	}
+	return ""
+}
+
+func (x *GetPermReply) GetOk() bool {
+	if x != nil {
+		return x.Ok
+	}
+	return false
+}
+
+func (x *GetPermReply) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
+type SetRoleRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Uid uint32 `protobuf:"varint,1,opt,name=uid,proto3" json:"uid,omitempty"`
+	Rid uint32 `protobuf:"varint,2,opt,name=rid,proto3" json:"rid,omitempty"`
+}
+
+func (x *SetRoleRequest) Reset() {
+	*x = SetRoleRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_dbservice_proto_msgTypes[49]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SetRoleRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetRoleRequest) ProtoMessage() {}
+
+func (x *SetRoleRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dbservice_proto_msgTypes[49]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetRoleRequest.ProtoReflect.Descriptor instead.
+func (*SetRoleRequest) Descriptor() ([]byte, []int) {
+	return file_dbservice_proto_rawDescGZIP(), []int{49}
+}
+
+func (x *SetRoleRequest) GetUid() uint32 {
+	if x != nil {
+		return x.Uid
+	}
+	return 0
+}
+
+func (x *SetRoleRequest) GetRid() uint32 {
+	if x != nil {
+		return x.Rid
+	}
+	return 0
+}
+
+type SetRoleReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Ok    bool   `protobuf:"varint,1,opt,name=ok,proto3" json:"ok,omitempty"`
+	Error string `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
+}
+
+func (x *SetRoleReply) Reset() {
+	*x = SetRoleReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_dbservice_proto_msgTypes[50]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SetRoleReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetRoleReply) ProtoMessage() {}
+
+func (x *SetRoleReply) ProtoReflect() protoreflect.Message {
+	mi := &file_dbservice_proto_msgTypes[50]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetRoleReply.ProtoReflect.Descriptor instead.
+func (*SetRoleReply) Descriptor() ([]byte, []int) {
+	return file_dbservice_proto_rawDescGZIP(), []int{50}
+}
+
+func (x *SetRoleReply) GetOk() bool {
+	if x != nil {
+		return x.Ok
+	}
+	return false
+}
+
+func (x *SetRoleReply) GetError() string {
 	if x != nil {
 		return x.Error
 	}
@@ -2112,134 +2848,181 @@ var file_dbservice_proto_rawDesc = []byte{
 	0x52, 0x05, 0x73, 0x74, 0x6f, 0x63, 0x6b, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74,
 	0x65, 0x64, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65,
 	0x64, 0x12, 0x18, 0x0a, 0x07, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x07, 0x20, 0x01,
-	0x28, 0x05, 0x52, 0x07, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x22, 0x38, 0x0a, 0x11, 0x43,
-	0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x12, 0x23, 0x0a, 0x04, 0x75, 0x73, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f,
-	0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x52,
-	0x04, 0x75, 0x73, 0x65, 0x72, 0x22, 0x37, 0x0a, 0x0f, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55,
-	0x73, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f,
-	0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x24,
-	0x0a, 0x0e, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04,
-	0x6e, 0x61, 0x6d, 0x65, 0x22, 0x59, 0x0a, 0x0c, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52,
-	0x65, 0x70, 0x6c, 0x79, 0x12, 0x23, 0x0a, 0x04, 0x75, 0x73, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x55,
-	0x73, 0x65, 0x72, 0x52, 0x04, 0x75, 0x73, 0x65, 0x72, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18,
-	0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72,
-	0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22,
-	0x27, 0x0a, 0x11, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71,
+	0x28, 0x05, 0x52, 0x07, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x22, 0x2a, 0x0a, 0x04, 0x52,
+	0x6f, 0x6c, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52,
+	0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x2a, 0x0a, 0x04, 0x50, 0x65, 0x72, 0x6d, 0x12,
+	0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x02, 0x69, 0x64, 0x12,
+	0x12, 0x0a, 0x04, 0x70, 0x61, 0x74, 0x68, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x70,
+	0x61, 0x74, 0x68, 0x22, 0x38, 0x0a, 0x11, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65,
+	0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x23, 0x0a, 0x04, 0x75, 0x73, 0x65, 0x72,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69,
+	0x63, 0x65, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x52, 0x04, 0x75, 0x73, 0x65, 0x72, 0x22, 0x37, 0x0a,
+	0x0f, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79,
+	0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b,
+	0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x24, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65,
+	0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x59, 0x0a, 0x0c,
+	0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x23, 0x0a, 0x04,
+	0x75, 0x73, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x64, 0x62, 0x73,
+	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x52, 0x04, 0x75, 0x73, 0x65,
+	0x72, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02, 0x6f,
+	0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x27, 0x0a, 0x11, 0x44, 0x65, 0x6c, 0x65, 0x74,
+	0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04,
+	0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65,
+	0x22, 0x37, 0x0a, 0x0f, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65,
+	0x70, 0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52,
+	0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x11, 0x0a, 0x0f, 0x47, 0x65, 0x74,
+	0x55, 0x73, 0x65, 0x72, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x5c, 0x0a, 0x0d,
+	0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x73, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x25, 0x0a,
+	0x05, 0x75, 0x73, 0x65, 0x72, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x64,
+	0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x52, 0x05, 0x75,
+	0x73, 0x65, 0x72, 0x73, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x02, 0x20, 0x01, 0x28, 0x08,
+	0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x54, 0x0a, 0x12, 0x43, 0x72,
+	0x65, 0x61, 0x74, 0x65, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x12, 0x16, 0x0a, 0x06, 0x6d, 0x65, 0x74, 0x68, 0x6f, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x06, 0x6d, 0x65, 0x74, 0x68, 0x6f, 0x64, 0x12, 0x26, 0x0a, 0x05, 0x6f, 0x72, 0x64, 0x65,
+	0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x2e, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x52, 0x05, 0x6f, 0x72, 0x64, 0x65, 0x72,
+	0x22, 0x38, 0x0a, 0x10, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x52,
+	0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08,
+	0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x25, 0x0a, 0x13, 0x47, 0x65,
+	0x74, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x02, 0x69,
+	0x64, 0x22, 0x61, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x42, 0x79, 0x49,
+	0x64, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x26, 0x0a, 0x05, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
+	0x65, 0x2e, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x52, 0x05, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x12, 0x0e,
+	0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14,
+	0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65,
+	0x72, 0x72, 0x6f, 0x72, 0x22, 0x28, 0x0a, 0x14, 0x47, 0x65, 0x74, 0x4f, 0x72, 0x64, 0x65, 0x72,
+	0x42, 0x79, 0x55, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x10, 0x0a, 0x03,
+	0x75, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x03, 0x75, 0x69, 0x64, 0x22, 0x64,
+	0x0a, 0x12, 0x47, 0x65, 0x74, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x42, 0x79, 0x55, 0x49, 0x64, 0x52,
+	0x65, 0x70, 0x6c, 0x79, 0x12, 0x28, 0x0a, 0x06, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x73, 0x18, 0x01,
+	0x20, 0x03, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x2e, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x52, 0x06, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x73, 0x12, 0x0e,
+	0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14,
+	0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65,
+	0x72, 0x72, 0x6f, 0x72, 0x22, 0x28, 0x0a, 0x14, 0x47, 0x65, 0x74, 0x4f, 0x72, 0x64, 0x65, 0x72,
+	0x42, 0x79, 0x50, 0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x10, 0x0a, 0x03,
+	0x70, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x03, 0x70, 0x69, 0x64, 0x22, 0x64,
+	0x0a, 0x12, 0x47, 0x65, 0x74, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x42, 0x79, 0x50, 0x49, 0x64, 0x52,
+	0x65, 0x70, 0x6c, 0x79, 0x12, 0x28, 0x0a, 0x06, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x73, 0x18, 0x01,
+	0x20, 0x03, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x2e, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x52, 0x06, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x73, 0x12, 0x0e,
+	0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14,
+	0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65,
+	0x72, 0x72, 0x6f, 0x72, 0x22, 0x24, 0x0a, 0x12, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x4f, 0x72,
+	0x64, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x02, 0x69, 0x64, 0x22, 0x14, 0x0a, 0x12, 0x43, 0x6c,
+	0x65, 0x61, 0x72, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x22, 0x38, 0x0a, 0x10, 0x43, 0x6c, 0x65, 0x61, 0x72, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x73, 0x52,
+	0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08,
+	0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x38, 0x0a, 0x10, 0x44, 0x65,
+	0x6c, 0x65, 0x74, 0x65, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e,
+	0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14,
+	0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65,
+	0x72, 0x72, 0x6f, 0x72, 0x22, 0x12, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x4f, 0x72, 0x64, 0x65, 0x72,
+	0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x60, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x4f,
+	0x72, 0x64, 0x65, 0x72, 0x73, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x28, 0x0a, 0x06, 0x6f, 0x72,
+	0x64, 0x65, 0x72, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x64, 0x62, 0x73,
+	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x52, 0x06, 0x6f, 0x72,
+	0x64, 0x65, 0x72, 0x73, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x02, 0x20, 0x01, 0x28, 0x08,
+	0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x44, 0x0a, 0x14, 0x43, 0x72,
+	0x65, 0x61, 0x74, 0x65, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x2c, 0x0a, 0x07, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e,
+	0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x07, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74,
+	0x22, 0x3a, 0x0a, 0x12, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63,
+	0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x27, 0x0a, 0x11,
+	0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x65, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x64,
+	0x75, 0x63, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x2c, 0x0a, 0x07, 0x70, 0x72, 0x6f, 0x64,
+	0x75, 0x63, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x64, 0x62, 0x73, 0x65,
+	0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x07, 0x70,
+	0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18,
+	0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x2a, 0x0a, 0x14,
+	0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x71,
 	0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x37, 0x0a, 0x0f, 0x44, 0x65, 0x6c, 0x65,
-	0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02, 0x6f,
-	0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65,
-	0x72, 0x72, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f,
-	0x72, 0x22, 0x11, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x73, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x22, 0x5c, 0x0a, 0x0d, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x73,
-	0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x25, 0x0a, 0x05, 0x75, 0x73, 0x65, 0x72, 0x73, 0x18, 0x01,
-	0x20, 0x03, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
-	0x2e, 0x55, 0x73, 0x65, 0x72, 0x52, 0x05, 0x75, 0x73, 0x65, 0x72, 0x73, 0x12, 0x0e, 0x0a, 0x02,
-	0x6f, 0x6b, 0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05,
-	0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72,
-	0x6f, 0x72, 0x22, 0x54, 0x0a, 0x12, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4f, 0x72, 0x64, 0x65,
-	0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x6d, 0x65, 0x74, 0x68,
-	0x6f, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x6d, 0x65, 0x74, 0x68, 0x6f, 0x64,
-	0x12, 0x26, 0x0a, 0x05, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32,
-	0x10, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x4f, 0x72, 0x64, 0x65,
-	0x72, 0x52, 0x05, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x22, 0x38, 0x0a, 0x10, 0x43, 0x72, 0x65, 0x61,
-	0x74, 0x65, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02,
-	0x6f, 0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05,
-	0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72,
-	0x6f, 0x72, 0x22, 0x25, 0x0a, 0x13, 0x47, 0x65, 0x74, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x42, 0x79,
-	0x49, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x02, 0x69, 0x64, 0x22, 0x61, 0x0a, 0x11, 0x47, 0x65, 0x74,
-	0x4f, 0x72, 0x64, 0x65, 0x72, 0x42, 0x79, 0x49, 0x64, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x26,
-	0x0a, 0x05, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x10, 0x2e,
-	0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x52,
-	0x05, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18,
-	0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x28, 0x0a, 0x14,
-	0x47, 0x65, 0x74, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x42, 0x79, 0x55, 0x49, 0x64, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x12, 0x10, 0x0a, 0x03, 0x75, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x0d, 0x52, 0x03, 0x75, 0x69, 0x64, 0x22, 0x64, 0x0a, 0x12, 0x47, 0x65, 0x74, 0x4f, 0x72, 0x64,
-	0x65, 0x72, 0x42, 0x79, 0x55, 0x49, 0x64, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x28, 0x0a, 0x06,
-	0x6f, 0x72, 0x64, 0x65, 0x72, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x64,
-	0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x52, 0x06,
-	0x6f, 0x72, 0x64, 0x65, 0x72, 0x73, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18,
-	0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x28, 0x0a, 0x14,
-	0x47, 0x65, 0x74, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x42, 0x79, 0x50, 0x49, 0x64, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x12, 0x10, 0x0a, 0x03, 0x70, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x0d, 0x52, 0x03, 0x70, 0x69, 0x64, 0x22, 0x64, 0x0a, 0x12, 0x47, 0x65, 0x74, 0x4f, 0x72, 0x64,
-	0x65, 0x72, 0x42, 0x79, 0x50, 0x49, 0x64, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x28, 0x0a, 0x06,
-	0x6f, 0x72, 0x64, 0x65, 0x72, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x64,
-	0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x52, 0x06,
-	0x6f, 0x72, 0x64, 0x65, 0x72, 0x73, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18,
-	0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x24, 0x0a, 0x12,
-	0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x02,
-	0x69, 0x64, 0x22, 0x14, 0x0a, 0x12, 0x43, 0x6c, 0x65, 0x61, 0x72, 0x4f, 0x72, 0x64, 0x65, 0x72,
-	0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x38, 0x0a, 0x10, 0x43, 0x6c, 0x65, 0x61,
-	0x72, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x73, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02,
-	0x6f, 0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05,
-	0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72,
-	0x6f, 0x72, 0x22, 0x38, 0x0a, 0x10, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x4f, 0x72, 0x64, 0x65,
-	0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18,
-	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x12, 0x0a, 0x10,
-	0x47, 0x65, 0x74, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x22, 0x60, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x73, 0x52, 0x65, 0x70,
-	0x6c, 0x79, 0x12, 0x28, 0x0a, 0x06, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x73, 0x18, 0x01, 0x20, 0x03,
-	0x28, 0x0b, 0x32, 0x10, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x4f,
-	0x72, 0x64, 0x65, 0x72, 0x52, 0x06, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x73, 0x12, 0x0e, 0x0a, 0x02,
-	0x6f, 0x6b, 0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05,
-	0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72,
-	0x6f, 0x72, 0x22, 0x44, 0x0a, 0x14, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x72, 0x6f, 0x64,
-	0x75, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x2c, 0x0a, 0x07, 0x70, 0x72,
-	0x6f, 0x64, 0x75, 0x63, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x64, 0x62,
-	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52,
-	0x07, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x22, 0x3a, 0x0a, 0x12, 0x43, 0x72, 0x65, 0x61,
+	0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x3a, 0x0a, 0x12, 0x44, 0x65, 0x6c, 0x65,
 	0x74, 0x65, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e,
 	0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14,
 	0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65,
-	0x72, 0x72, 0x6f, 0x72, 0x22, 0x27, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75,
-	0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d,
-	0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x65, 0x0a,
-	0x0f, 0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79,
-	0x12, 0x2c, 0x0a, 0x07, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x0b, 0x32, 0x12, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x50, 0x72,
-	0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x07, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x12, 0x0e,
+	0x72, 0x72, 0x6f, 0x72, 0x22, 0x14, 0x0a, 0x12, 0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75,
+	0x63, 0x74, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x68, 0x0a, 0x10, 0x47, 0x65,
+	0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x2e,
+	0x0a, 0x08, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b,
+	0x32, 0x12, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x50, 0x72, 0x6f,
+	0x64, 0x75, 0x63, 0x74, 0x52, 0x08, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x12, 0x0e,
 	0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14,
 	0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65,
-	0x72, 0x72, 0x6f, 0x72, 0x22, 0x2a, 0x0a, 0x14, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x50, 0x72,
-	0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04,
-	0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65,
-	0x22, 0x3a, 0x0a, 0x12, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63,
-	0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x01, 0x20, 0x01,
+	0x72, 0x72, 0x6f, 0x72, 0x22, 0x33, 0x0a, 0x0f, 0x53, 0x65, 0x74, 0x53, 0x74, 0x6f, 0x63, 0x6b,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x0d, 0x52, 0x02, 0x69, 0x64, 0x12, 0x10, 0x0a, 0x03, 0x6e, 0x75, 0x6d, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x05, 0x52, 0x03, 0x6e, 0x75, 0x6d, 0x22, 0x35, 0x0a, 0x0d, 0x53, 0x65, 0x74,
+	0x53, 0x74, 0x6f, 0x63, 0x6b, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72,
+	0x72, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72,
+	0x22, 0x21, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x53, 0x74, 0x6f, 0x63, 0x6b, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52,
+	0x02, 0x69, 0x64, 0x22, 0x4b, 0x0a, 0x0d, 0x47, 0x65, 0x74, 0x53, 0x74, 0x6f, 0x63, 0x6b, 0x52,
+	0x65, 0x70, 0x6c, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x73, 0x74, 0x6f, 0x63, 0x6b, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x05, 0x52, 0x05, 0x73, 0x74, 0x6f, 0x63, 0x6b, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72,
+	0x72, 0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72,
+	0x22, 0x11, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x52, 0x6f, 0x6c, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x22, 0x5c, 0x0a, 0x0d, 0x47, 0x65, 0x74, 0x52, 0x6f, 0x6c, 0x65, 0x73, 0x52,
+	0x65, 0x70, 0x6c, 0x79, 0x12, 0x25, 0x0a, 0x05, 0x72, 0x6f, 0x6c, 0x65, 0x73, 0x18, 0x01, 0x20,
+	0x03, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e,
+	0x52, 0x6f, 0x6c, 0x65, 0x52, 0x05, 0x72, 0x6f, 0x6c, 0x65, 0x73, 0x12, 0x0e, 0x0a, 0x02, 0x6f,
+	0x6b, 0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65,
+	0x72, 0x72, 0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f,
+	0x72, 0x22, 0x11, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x50, 0x65, 0x72, 0x6d, 0x73, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x22, 0x5c, 0x0a, 0x0d, 0x47, 0x65, 0x74, 0x50, 0x65, 0x72, 0x6d, 0x73,
+	0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x25, 0x0a, 0x05, 0x70, 0x65, 0x72, 0x6d, 0x73, 0x18, 0x01,
+	0x20, 0x03, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x2e, 0x50, 0x65, 0x72, 0x6d, 0x52, 0x05, 0x70, 0x65, 0x72, 0x6d, 0x73, 0x12, 0x0e, 0x0a, 0x02,
+	0x6f, 0x6b, 0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05,
+	0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72,
+	0x6f, 0x72, 0x22, 0x35, 0x0a, 0x0e, 0x41, 0x64, 0x64, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x12, 0x23, 0x0a, 0x04, 0x72, 0x6f, 0x6c, 0x65, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x52,
+	0x6f, 0x6c, 0x65, 0x52, 0x04, 0x72, 0x6f, 0x6c, 0x65, 0x22, 0x34, 0x0a, 0x0c, 0x41, 0x64, 0x64,
+	0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72,
+	0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22,
+	0x35, 0x0a, 0x0e, 0x41, 0x64, 0x64, 0x50, 0x65, 0x72, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x12, 0x23, 0x0a, 0x04, 0x70, 0x65, 0x72, 0x6d, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x0f, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x50, 0x65, 0x72, 0x6d,
+	0x52, 0x04, 0x70, 0x65, 0x72, 0x6d, 0x22, 0x34, 0x0a, 0x0c, 0x41, 0x64, 0x64, 0x50, 0x65, 0x72,
+	0x6d, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x01, 0x20, 0x01,
 	0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18,
-	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x14, 0x0a, 0x12,
-	0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x22, 0x68, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74,
-	0x73, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x2e, 0x0a, 0x08, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63,
-	0x74, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72,
-	0x76, 0x69, 0x63, 0x65, 0x2e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x08, 0x70, 0x72,
-	0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x02, 0x20, 0x01,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x22, 0x0a, 0x0e,
+	0x47, 0x65, 0x74, 0x50, 0x65, 0x72, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x10,
+	0x0a, 0x03, 0x75, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x03, 0x75, 0x69, 0x64,
+	0x22, 0x4a, 0x0a, 0x0c, 0x47, 0x65, 0x74, 0x50, 0x65, 0x72, 0x6d, 0x52, 0x65, 0x70, 0x6c, 0x79,
+	0x12, 0x14, 0x0a, 0x05, 0x70, 0x65, 0x72, 0x6d, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x05, 0x70, 0x65, 0x72, 0x6d, 0x73, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x02, 0x20, 0x01,
 	0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18,
-	0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x33, 0x0a, 0x0f,
-	0x53, 0x65, 0x74, 0x53, 0x74, 0x6f, 0x63, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
-	0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x02, 0x69, 0x64, 0x12,
-	0x10, 0x0a, 0x03, 0x6e, 0x75, 0x6d, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x03, 0x6e, 0x75,
-	0x6d, 0x22, 0x35, 0x0a, 0x0d, 0x53, 0x65, 0x74, 0x53, 0x74, 0x6f, 0x63, 0x6b, 0x52, 0x65, 0x70,
+	0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x34, 0x0a, 0x0e,
+	0x53, 0x65, 0x74, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x10,
+	0x0a, 0x03, 0x75, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x03, 0x75, 0x69, 0x64,
+	0x12, 0x10, 0x0a, 0x03, 0x72, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x03, 0x72,
+	0x69, 0x64, 0x22, 0x34, 0x0a, 0x0c, 0x53, 0x65, 0x74, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x70,
 	0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02,
 	0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28,
-	0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x21, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x53,
-	0x74, 0x6f, 0x63, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69,
-	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x02, 0x69, 0x64, 0x22, 0x4b, 0x0a, 0x0d, 0x47,
-	0x65, 0x74, 0x53, 0x74, 0x6f, 0x63, 0x6b, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x14, 0x0a, 0x05,
-	0x73, 0x74, 0x6f, 0x63, 0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x73, 0x74, 0x6f,
-	0x63, 0x6b, 0x12, 0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02,
-	0x6f, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28,
 	0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x32, 0xa3, 0x02, 0x0a, 0x08, 0x55, 0x73, 0x65,
 	0x72, 0x53, 0x65, 0x72, 0x76, 0x12, 0x48, 0x0a, 0x0a, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55,
 	0x73, 0x65, 0x72, 0x12, 0x1c, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e,
@@ -2323,8 +3106,34 @@ var file_dbservice_proto_rawDesc = []byte{
 	0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x47, 0x65, 0x74, 0x53, 0x74, 0x6f,
 	0x63, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x18, 0x2e, 0x64, 0x62, 0x73, 0x65,
 	0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x47, 0x65, 0x74, 0x53, 0x74, 0x6f, 0x63, 0x6b, 0x52, 0x65,
-	0x70, 0x6c, 0x79, 0x22, 0x00, 0x42, 0x0c, 0x5a, 0x0a, 0x2f, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76,
-	0x69, 0x63, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x70, 0x6c, 0x79, 0x22, 0x00, 0x32, 0x96, 0x03, 0x0a, 0x08, 0x50, 0x65, 0x72, 0x6d, 0x53, 0x65,
+	0x72, 0x76, 0x12, 0x42, 0x0a, 0x08, 0x47, 0x65, 0x74, 0x52, 0x6f, 0x6c, 0x65, 0x73, 0x12, 0x1a,
+	0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x6f,
+	0x6c, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x18, 0x2e, 0x64, 0x62, 0x73,
+	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x6f, 0x6c, 0x65, 0x73, 0x52,
+	0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x12, 0x3f, 0x0a, 0x07, 0x47, 0x65, 0x74, 0x50, 0x65, 0x72,
+	0x6d, 0x12, 0x19, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x47, 0x65,
+	0x74, 0x50, 0x65, 0x72, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x64,
+	0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x47, 0x65, 0x74, 0x50, 0x65, 0x72, 0x6d,
+	0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x12, 0x42, 0x0a, 0x08, 0x47, 0x65, 0x74, 0x50, 0x65,
+	0x72, 0x6d, 0x73, 0x12, 0x1a, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e,
+	0x47, 0x65, 0x74, 0x50, 0x65, 0x72, 0x6d, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+	0x18, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x47, 0x65, 0x74, 0x50,
+	0x65, 0x72, 0x6d, 0x73, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x12, 0x3f, 0x0a, 0x07, 0x41,
+	0x64, 0x64, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x19, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69,
+	0x63, 0x65, 0x2e, 0x41, 0x64, 0x64, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x1a, 0x17, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x41, 0x64,
+	0x64, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x12, 0x3f, 0x0a, 0x07,
+	0x41, 0x64, 0x64, 0x50, 0x65, 0x72, 0x6d, 0x12, 0x19, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x2e, 0x41, 0x64, 0x64, 0x50, 0x65, 0x72, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x1a, 0x17, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x41,
+	0x64, 0x64, 0x50, 0x65, 0x72, 0x6d, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x12, 0x3f, 0x0a,
+	0x07, 0x53, 0x65, 0x74, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x19, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72,
+	0x76, 0x69, 0x63, 0x65, 0x2e, 0x53, 0x65, 0x74, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e,
+	0x53, 0x65, 0x74, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x42, 0x0c,
+	0x5a, 0x0a, 0x2f, 0x64, 0x62, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x62, 0x06, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -2339,45 +3148,59 @@ func file_dbservice_proto_rawDescGZIP() []byte {
 	return file_dbservice_proto_rawDescData
 }
 
-var file_dbservice_proto_msgTypes = make([]protoimpl.MessageInfo, 37)
+var file_dbservice_proto_msgTypes = make([]protoimpl.MessageInfo, 51)
 var file_dbservice_proto_goTypes = []interface{}{
 	(*User)(nil),                 // 0: dbservice.User
 	(*Order)(nil),                // 1: dbservice.Order
 	(*Product)(nil),              // 2: dbservice.Product
-	(*CreateUserRequest)(nil),    // 3: dbservice.CreateUserRequest
-	(*CreateUserReply)(nil),      // 4: dbservice.CreateUserReply
-	(*GetUserRequest)(nil),       // 5: dbservice.GetUserRequest
-	(*GetUserReply)(nil),         // 6: dbservice.GetUserReply
-	(*DeleteUserRequest)(nil),    // 7: dbservice.DeleteUserRequest
-	(*DeleteUserReply)(nil),      // 8: dbservice.DeleteUserReply
-	(*GetUsersRequest)(nil),      // 9: dbservice.GetUsersRequest
-	(*GetUsersReply)(nil),        // 10: dbservice.GetUsersReply
-	(*CreateOrderRequest)(nil),   // 11: dbservice.CreateOrderRequest
-	(*CreateOrderReply)(nil),     // 12: dbservice.CreateOrderReply
-	(*GetOrderByIdRequest)(nil),  // 13: dbservice.GetOrderByIdRequest
-	(*GetOrderByIdReply)(nil),    // 14: dbservice.GetOrderByIdReply
-	(*GetOrderByUIdRequest)(nil), // 15: dbservice.GetOrderByUIdRequest
-	(*GetOrderByUIdReply)(nil),   // 16: dbservice.GetOrderByUIdReply
-	(*GetOrderByPIdRequest)(nil), // 17: dbservice.GetOrderByPIdRequest
-	(*GetOrderByPIdReply)(nil),   // 18: dbservice.GetOrderByPIdReply
-	(*DeleteOrderRequest)(nil),   // 19: dbservice.DeleteOrderRequest
-	(*ClearOrdersRequest)(nil),   // 20: dbservice.ClearOrdersRequest
-	(*ClearOrdersReply)(nil),     // 21: dbservice.ClearOrdersReply
-	(*DeleteOrderReply)(nil),     // 22: dbservice.DeleteOrderReply
-	(*GetOrdersRequest)(nil),     // 23: dbservice.GetOrdersRequest
-	(*GetOrdersReply)(nil),       // 24: dbservice.GetOrdersReply
-	(*CreateProductRequest)(nil), // 25: dbservice.CreateProductRequest
-	(*CreateProductReply)(nil),   // 26: dbservice.CreateProductReply
-	(*GetProductRequest)(nil),    // 27: dbservice.GetProductRequest
-	(*GetProductReply)(nil),      // 28: dbservice.GetProductReply
-	(*DeleteProductRequest)(nil), // 29: dbservice.DeleteProductRequest
-	(*DeleteProductReply)(nil),   // 30: dbservice.DeleteProductReply
-	(*GetProductsRequest)(nil),   // 31: dbservice.GetProductsRequest
-	(*GetProductsReply)(nil),     // 32: dbservice.GetProductsReply
-	(*SetStockRequest)(nil),      // 33: dbservice.SetStockRequest
-	(*SetStockReply)(nil),        // 34: dbservice.SetStockReply
-	(*GetStockRequest)(nil),      // 35: dbservice.GetStockRequest
-	(*GetStockReply)(nil),        // 36: dbservice.GetStockReply
+	(*Role)(nil),                 // 3: dbservice.Role
+	(*Perm)(nil),                 // 4: dbservice.Perm
+	(*CreateUserRequest)(nil),    // 5: dbservice.CreateUserRequest
+	(*CreateUserReply)(nil),      // 6: dbservice.CreateUserReply
+	(*GetUserRequest)(nil),       // 7: dbservice.GetUserRequest
+	(*GetUserReply)(nil),         // 8: dbservice.GetUserReply
+	(*DeleteUserRequest)(nil),    // 9: dbservice.DeleteUserRequest
+	(*DeleteUserReply)(nil),      // 10: dbservice.DeleteUserReply
+	(*GetUsersRequest)(nil),      // 11: dbservice.GetUsersRequest
+	(*GetUsersReply)(nil),        // 12: dbservice.GetUsersReply
+	(*CreateOrderRequest)(nil),   // 13: dbservice.CreateOrderRequest
+	(*CreateOrderReply)(nil),     // 14: dbservice.CreateOrderReply
+	(*GetOrderByIdRequest)(nil),  // 15: dbservice.GetOrderByIdRequest
+	(*GetOrderByIdReply)(nil),    // 16: dbservice.GetOrderByIdReply
+	(*GetOrderByUIdRequest)(nil), // 17: dbservice.GetOrderByUIdRequest
+	(*GetOrderByUIdReply)(nil),   // 18: dbservice.GetOrderByUIdReply
+	(*GetOrderByPIdRequest)(nil), // 19: dbservice.GetOrderByPIdRequest
+	(*GetOrderByPIdReply)(nil),   // 20: dbservice.GetOrderByPIdReply
+	(*DeleteOrderRequest)(nil),   // 21: dbservice.DeleteOrderRequest
+	(*ClearOrdersRequest)(nil),   // 22: dbservice.ClearOrdersRequest
+	(*ClearOrdersReply)(nil),     // 23: dbservice.ClearOrdersReply
+	(*DeleteOrderReply)(nil),     // 24: dbservice.DeleteOrderReply
+	(*GetOrdersRequest)(nil),     // 25: dbservice.GetOrdersRequest
+	(*GetOrdersReply)(nil),       // 26: dbservice.GetOrdersReply
+	(*CreateProductRequest)(nil), // 27: dbservice.CreateProductRequest
+	(*CreateProductReply)(nil),   // 28: dbservice.CreateProductReply
+	(*GetProductRequest)(nil),    // 29: dbservice.GetProductRequest
+	(*GetProductReply)(nil),      // 30: dbservice.GetProductReply
+	(*DeleteProductRequest)(nil), // 31: dbservice.DeleteProductRequest
+	(*DeleteProductReply)(nil),   // 32: dbservice.DeleteProductReply
+	(*GetProductsRequest)(nil),   // 33: dbservice.GetProductsRequest
+	(*GetProductsReply)(nil),     // 34: dbservice.GetProductsReply
+	(*SetStockRequest)(nil),      // 35: dbservice.SetStockRequest
+	(*SetStockReply)(nil),        // 36: dbservice.SetStockReply
+	(*GetStockRequest)(nil),      // 37: dbservice.GetStockRequest
+	(*GetStockReply)(nil),        // 38: dbservice.GetStockReply
+	(*GetRolesRequest)(nil),      // 39: dbservice.GetRolesRequest
+	(*GetRolesReply)(nil),        // 40: dbservice.GetRolesReply
+	(*GetPermsRequest)(nil),      // 41: dbservice.GetPermsRequest
+	(*GetPermsReply)(nil),        // 42: dbservice.GetPermsReply
+	(*AddRoleRequest)(nil),       // 43: dbservice.AddRoleRequest
+	(*AddRoleReply)(nil),         // 44: dbservice.AddRoleReply
+	(*AddPermRequest)(nil),       // 45: dbservice.AddPermRequest
+	(*AddPermReply)(nil),         // 46: dbservice.AddPermReply
+	(*GetPermRequest)(nil),       // 47: dbservice.GetPermRequest
+	(*GetPermReply)(nil),         // 48: dbservice.GetPermReply
+	(*SetRoleRequest)(nil),       // 49: dbservice.SetRoleRequest
+	(*SetRoleReply)(nil),         // 50: dbservice.SetRoleReply
 }
 var file_dbservice_proto_depIdxs = []int32{
 	0,  // 0: dbservice.CreateUserRequest.user:type_name -> dbservice.User
@@ -2391,45 +3214,61 @@ var file_dbservice_proto_depIdxs = []int32{
 	2,  // 8: dbservice.CreateProductRequest.product:type_name -> dbservice.Product
 	2,  // 9: dbservice.GetProductReply.product:type_name -> dbservice.Product
 	2,  // 10: dbservice.GetProductsReply.products:type_name -> dbservice.Product
-	3,  // 11: dbservice.UserServ.CreateUser:input_type -> dbservice.CreateUserRequest
-	5,  // 12: dbservice.UserServ.GetUser:input_type -> dbservice.GetUserRequest
-	7,  // 13: dbservice.UserServ.DeleteUser:input_type -> dbservice.DeleteUserRequest
-	9,  // 14: dbservice.UserServ.GetUsers:input_type -> dbservice.GetUsersRequest
-	11, // 15: dbservice.OrderServ.CreateOrder:input_type -> dbservice.CreateOrderRequest
-	13, // 16: dbservice.OrderServ.GetOrderById:input_type -> dbservice.GetOrderByIdRequest
-	15, // 17: dbservice.OrderServ.GetOrderByUId:input_type -> dbservice.GetOrderByUIdRequest
-	17, // 18: dbservice.OrderServ.GetOrderByPId:input_type -> dbservice.GetOrderByPIdRequest
-	19, // 19: dbservice.OrderServ.DeleteOrder:input_type -> dbservice.DeleteOrderRequest
-	23, // 20: dbservice.OrderServ.GetOrders:input_type -> dbservice.GetOrdersRequest
-	20, // 21: dbservice.OrderServ.ClearOrders:input_type -> dbservice.ClearOrdersRequest
-	25, // 22: dbservice.ProductServ.CreateProduct:input_type -> dbservice.CreateProductRequest
-	27, // 23: dbservice.ProductServ.GetProduct:input_type -> dbservice.GetProductRequest
-	29, // 24: dbservice.ProductServ.DeleteProduct:input_type -> dbservice.DeleteProductRequest
-	31, // 25: dbservice.ProductServ.GetProducts:input_type -> dbservice.GetProductsRequest
-	33, // 26: dbservice.ProductServ.SetStock:input_type -> dbservice.SetStockRequest
-	35, // 27: dbservice.ProductServ.GetStock:input_type -> dbservice.GetStockRequest
-	4,  // 28: dbservice.UserServ.CreateUser:output_type -> dbservice.CreateUserReply
-	6,  // 29: dbservice.UserServ.GetUser:output_type -> dbservice.GetUserReply
-	8,  // 30: dbservice.UserServ.DeleteUser:output_type -> dbservice.DeleteUserReply
-	10, // 31: dbservice.UserServ.GetUsers:output_type -> dbservice.GetUsersReply
-	12, // 32: dbservice.OrderServ.CreateOrder:output_type -> dbservice.CreateOrderReply
-	14, // 33: dbservice.OrderServ.GetOrderById:output_type -> dbservice.GetOrderByIdReply
-	16, // 34: dbservice.OrderServ.GetOrderByUId:output_type -> dbservice.GetOrderByUIdReply
-	18, // 35: dbservice.OrderServ.GetOrderByPId:output_type -> dbservice.GetOrderByPIdReply
-	22, // 36: dbservice.OrderServ.DeleteOrder:output_type -> dbservice.DeleteOrderReply
-	24, // 37: dbservice.OrderServ.GetOrders:output_type -> dbservice.GetOrdersReply
-	21, // 38: dbservice.OrderServ.ClearOrders:output_type -> dbservice.ClearOrdersReply
-	26, // 39: dbservice.ProductServ.CreateProduct:output_type -> dbservice.CreateProductReply
-	28, // 40: dbservice.ProductServ.GetProduct:output_type -> dbservice.GetProductReply
-	30, // 41: dbservice.ProductServ.DeleteProduct:output_type -> dbservice.DeleteProductReply
-	32, // 42: dbservice.ProductServ.GetProducts:output_type -> dbservice.GetProductsReply
-	34, // 43: dbservice.ProductServ.SetStock:output_type -> dbservice.SetStockReply
-	36, // 44: dbservice.ProductServ.GetStock:output_type -> dbservice.GetStockReply
-	28, // [28:45] is the sub-list for method output_type
-	11, // [11:28] is the sub-list for method input_type
-	11, // [11:11] is the sub-list for extension type_name
-	11, // [11:11] is the sub-list for extension extendee
-	0,  // [0:11] is the sub-list for field type_name
+	3,  // 11: dbservice.GetRolesReply.roles:type_name -> dbservice.Role
+	4,  // 12: dbservice.GetPermsReply.perms:type_name -> dbservice.Perm
+	3,  // 13: dbservice.AddRoleRequest.role:type_name -> dbservice.Role
+	4,  // 14: dbservice.AddPermRequest.perm:type_name -> dbservice.Perm
+	5,  // 15: dbservice.UserServ.CreateUser:input_type -> dbservice.CreateUserRequest
+	7,  // 16: dbservice.UserServ.GetUser:input_type -> dbservice.GetUserRequest
+	9,  // 17: dbservice.UserServ.DeleteUser:input_type -> dbservice.DeleteUserRequest
+	11, // 18: dbservice.UserServ.GetUsers:input_type -> dbservice.GetUsersRequest
+	13, // 19: dbservice.OrderServ.CreateOrder:input_type -> dbservice.CreateOrderRequest
+	15, // 20: dbservice.OrderServ.GetOrderById:input_type -> dbservice.GetOrderByIdRequest
+	17, // 21: dbservice.OrderServ.GetOrderByUId:input_type -> dbservice.GetOrderByUIdRequest
+	19, // 22: dbservice.OrderServ.GetOrderByPId:input_type -> dbservice.GetOrderByPIdRequest
+	21, // 23: dbservice.OrderServ.DeleteOrder:input_type -> dbservice.DeleteOrderRequest
+	25, // 24: dbservice.OrderServ.GetOrders:input_type -> dbservice.GetOrdersRequest
+	22, // 25: dbservice.OrderServ.ClearOrders:input_type -> dbservice.ClearOrdersRequest
+	27, // 26: dbservice.ProductServ.CreateProduct:input_type -> dbservice.CreateProductRequest
+	29, // 27: dbservice.ProductServ.GetProduct:input_type -> dbservice.GetProductRequest
+	31, // 28: dbservice.ProductServ.DeleteProduct:input_type -> dbservice.DeleteProductRequest
+	33, // 29: dbservice.ProductServ.GetProducts:input_type -> dbservice.GetProductsRequest
+	35, // 30: dbservice.ProductServ.SetStock:input_type -> dbservice.SetStockRequest
+	37, // 31: dbservice.ProductServ.GetStock:input_type -> dbservice.GetStockRequest
+	39, // 32: dbservice.PermServ.GetRoles:input_type -> dbservice.GetRolesRequest
+	47, // 33: dbservice.PermServ.GetPerm:input_type -> dbservice.GetPermRequest
+	41, // 34: dbservice.PermServ.GetPerms:input_type -> dbservice.GetPermsRequest
+	43, // 35: dbservice.PermServ.AddRole:input_type -> dbservice.AddRoleRequest
+	45, // 36: dbservice.PermServ.AddPerm:input_type -> dbservice.AddPermRequest
+	49, // 37: dbservice.PermServ.SetRole:input_type -> dbservice.SetRoleRequest
+	6,  // 38: dbservice.UserServ.CreateUser:output_type -> dbservice.CreateUserReply
+	8,  // 39: dbservice.UserServ.GetUser:output_type -> dbservice.GetUserReply
+	10, // 40: dbservice.UserServ.DeleteUser:output_type -> dbservice.DeleteUserReply
+	12, // 41: dbservice.UserServ.GetUsers:output_type -> dbservice.GetUsersReply
+	14, // 42: dbservice.OrderServ.CreateOrder:output_type -> dbservice.CreateOrderReply
+	16, // 43: dbservice.OrderServ.GetOrderById:output_type -> dbservice.GetOrderByIdReply
+	18, // 44: dbservice.OrderServ.GetOrderByUId:output_type -> dbservice.GetOrderByUIdReply
+	20, // 45: dbservice.OrderServ.GetOrderByPId:output_type -> dbservice.GetOrderByPIdReply
+	24, // 46: dbservice.OrderServ.DeleteOrder:output_type -> dbservice.DeleteOrderReply
+	26, // 47: dbservice.OrderServ.GetOrders:output_type -> dbservice.GetOrdersReply
+	23, // 48: dbservice.OrderServ.ClearOrders:output_type -> dbservice.ClearOrdersReply
+	28, // 49: dbservice.ProductServ.CreateProduct:output_type -> dbservice.CreateProductReply
+	30, // 50: dbservice.ProductServ.GetProduct:output_type -> dbservice.GetProductReply
+	32, // 51: dbservice.ProductServ.DeleteProduct:output_type -> dbservice.DeleteProductReply
+	34, // 52: dbservice.ProductServ.GetProducts:output_type -> dbservice.GetProductsReply
+	36, // 53: dbservice.ProductServ.SetStock:output_type -> dbservice.SetStockReply
+	38, // 54: dbservice.ProductServ.GetStock:output_type -> dbservice.GetStockReply
+	40, // 55: dbservice.PermServ.GetRoles:output_type -> dbservice.GetRolesReply
+	48, // 56: dbservice.PermServ.GetPerm:output_type -> dbservice.GetPermReply
+	42, // 57: dbservice.PermServ.GetPerms:output_type -> dbservice.GetPermsReply
+	44, // 58: dbservice.PermServ.AddRole:output_type -> dbservice.AddRoleReply
+	46, // 59: dbservice.PermServ.AddPerm:output_type -> dbservice.AddPermReply
+	50, // 60: dbservice.PermServ.SetRole:output_type -> dbservice.SetRoleReply
+	38, // [38:61] is the sub-list for method output_type
+	15, // [15:38] is the sub-list for method input_type
+	15, // [15:15] is the sub-list for extension type_name
+	15, // [15:15] is the sub-list for extension extendee
+	0,  // [0:15] is the sub-list for field type_name
 }
 
 func init() { file_dbservice_proto_init() }
@@ -2475,7 +3314,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateUserRequest); i {
+			switch v := v.(*Role); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2487,7 +3326,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateUserReply); i {
+			switch v := v.(*Perm); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2499,7 +3338,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetUserRequest); i {
+			switch v := v.(*CreateUserRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2511,7 +3350,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetUserReply); i {
+			switch v := v.(*CreateUserReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2523,7 +3362,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteUserRequest); i {
+			switch v := v.(*GetUserRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2535,7 +3374,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteUserReply); i {
+			switch v := v.(*GetUserReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2547,7 +3386,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetUsersRequest); i {
+			switch v := v.(*DeleteUserRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2559,7 +3398,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetUsersReply); i {
+			switch v := v.(*DeleteUserReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2571,7 +3410,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateOrderRequest); i {
+			switch v := v.(*GetUsersRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2583,7 +3422,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateOrderReply); i {
+			switch v := v.(*GetUsersReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2595,7 +3434,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetOrderByIdRequest); i {
+			switch v := v.(*CreateOrderRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2607,7 +3446,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetOrderByIdReply); i {
+			switch v := v.(*CreateOrderReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2619,7 +3458,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetOrderByUIdRequest); i {
+			switch v := v.(*GetOrderByIdRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2631,7 +3470,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetOrderByUIdReply); i {
+			switch v := v.(*GetOrderByIdReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2643,7 +3482,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetOrderByPIdRequest); i {
+			switch v := v.(*GetOrderByUIdRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2655,7 +3494,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetOrderByPIdReply); i {
+			switch v := v.(*GetOrderByUIdReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2667,7 +3506,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteOrderRequest); i {
+			switch v := v.(*GetOrderByPIdRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2679,7 +3518,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ClearOrdersRequest); i {
+			switch v := v.(*GetOrderByPIdReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2691,7 +3530,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ClearOrdersReply); i {
+			switch v := v.(*DeleteOrderRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2703,7 +3542,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteOrderReply); i {
+			switch v := v.(*ClearOrdersRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2715,7 +3554,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetOrdersRequest); i {
+			switch v := v.(*ClearOrdersReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2727,7 +3566,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetOrdersReply); i {
+			switch v := v.(*DeleteOrderReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2739,7 +3578,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateProductRequest); i {
+			switch v := v.(*GetOrdersRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2751,7 +3590,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateProductReply); i {
+			switch v := v.(*GetOrdersReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2763,7 +3602,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetProductRequest); i {
+			switch v := v.(*CreateProductRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2775,7 +3614,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetProductReply); i {
+			switch v := v.(*CreateProductReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2787,7 +3626,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[29].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteProductRequest); i {
+			switch v := v.(*GetProductRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2799,7 +3638,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[30].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteProductReply); i {
+			switch v := v.(*GetProductReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2811,7 +3650,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[31].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetProductsRequest); i {
+			switch v := v.(*DeleteProductRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2823,7 +3662,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[32].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetProductsReply); i {
+			switch v := v.(*DeleteProductReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2835,7 +3674,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[33].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SetStockRequest); i {
+			switch v := v.(*GetProductsRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2847,7 +3686,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[34].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SetStockReply); i {
+			switch v := v.(*GetProductsReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2859,7 +3698,7 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[35].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetStockRequest); i {
+			switch v := v.(*SetStockRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2871,7 +3710,175 @@ func file_dbservice_proto_init() {
 			}
 		}
 		file_dbservice_proto_msgTypes[36].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SetStockReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_dbservice_proto_msgTypes[37].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetStockRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_dbservice_proto_msgTypes[38].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetStockReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_dbservice_proto_msgTypes[39].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetRolesRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_dbservice_proto_msgTypes[40].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetRolesReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_dbservice_proto_msgTypes[41].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetPermsRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_dbservice_proto_msgTypes[42].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetPermsReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_dbservice_proto_msgTypes[43].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AddRoleRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_dbservice_proto_msgTypes[44].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AddRoleReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_dbservice_proto_msgTypes[45].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AddPermRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_dbservice_proto_msgTypes[46].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AddPermReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_dbservice_proto_msgTypes[47].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetPermRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_dbservice_proto_msgTypes[48].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetPermReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_dbservice_proto_msgTypes[49].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SetRoleRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_dbservice_proto_msgTypes[50].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SetRoleReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2889,9 +3896,9 @@ func file_dbservice_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_dbservice_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   37,
+			NumMessages:   51,
 			NumExtensions: 0,
-			NumServices:   3,
+			NumServices:   4,
 		},
 		GoTypes:           file_dbservice_proto_goTypes,
 		DependencyIndexes: file_dbservice_proto_depIdxs,
@@ -3625,6 +4632,258 @@ var _ProductServ_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetStock",
 			Handler:    _ProductServ_GetStock_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "dbservice.proto",
+}
+
+// PermServClient is the client API for PermServ service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type PermServClient interface {
+	GetRoles(ctx context.Context, in *GetRolesRequest, opts ...grpc.CallOption) (*GetRolesReply, error)
+	GetPerm(ctx context.Context, in *GetPermRequest, opts ...grpc.CallOption) (*GetPermReply, error)
+	GetPerms(ctx context.Context, in *GetPermsRequest, opts ...grpc.CallOption) (*GetPermsReply, error)
+	AddRole(ctx context.Context, in *AddRoleRequest, opts ...grpc.CallOption) (*AddRoleReply, error)
+	AddPerm(ctx context.Context, in *AddPermRequest, opts ...grpc.CallOption) (*AddPermReply, error)
+	SetRole(ctx context.Context, in *SetRoleRequest, opts ...grpc.CallOption) (*SetRoleReply, error)
+}
+
+type permServClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewPermServClient(cc grpc.ClientConnInterface) PermServClient {
+	return &permServClient{cc}
+}
+
+func (c *permServClient) GetRoles(ctx context.Context, in *GetRolesRequest, opts ...grpc.CallOption) (*GetRolesReply, error) {
+	out := new(GetRolesReply)
+	err := c.cc.Invoke(ctx, "/dbservice.PermServ/GetRoles", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *permServClient) GetPerm(ctx context.Context, in *GetPermRequest, opts ...grpc.CallOption) (*GetPermReply, error) {
+	out := new(GetPermReply)
+	err := c.cc.Invoke(ctx, "/dbservice.PermServ/GetPerm", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *permServClient) GetPerms(ctx context.Context, in *GetPermsRequest, opts ...grpc.CallOption) (*GetPermsReply, error) {
+	out := new(GetPermsReply)
+	err := c.cc.Invoke(ctx, "/dbservice.PermServ/GetPerms", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *permServClient) AddRole(ctx context.Context, in *AddRoleRequest, opts ...grpc.CallOption) (*AddRoleReply, error) {
+	out := new(AddRoleReply)
+	err := c.cc.Invoke(ctx, "/dbservice.PermServ/AddRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *permServClient) AddPerm(ctx context.Context, in *AddPermRequest, opts ...grpc.CallOption) (*AddPermReply, error) {
+	out := new(AddPermReply)
+	err := c.cc.Invoke(ctx, "/dbservice.PermServ/AddPerm", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *permServClient) SetRole(ctx context.Context, in *SetRoleRequest, opts ...grpc.CallOption) (*SetRoleReply, error) {
+	out := new(SetRoleReply)
+	err := c.cc.Invoke(ctx, "/dbservice.PermServ/SetRole", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// PermServServer is the server API for PermServ service.
+type PermServServer interface {
+	GetRoles(context.Context, *GetRolesRequest) (*GetRolesReply, error)
+	GetPerm(context.Context, *GetPermRequest) (*GetPermReply, error)
+	GetPerms(context.Context, *GetPermsRequest) (*GetPermsReply, error)
+	AddRole(context.Context, *AddRoleRequest) (*AddRoleReply, error)
+	AddPerm(context.Context, *AddPermRequest) (*AddPermReply, error)
+	SetRole(context.Context, *SetRoleRequest) (*SetRoleReply, error)
+}
+
+// UnimplementedPermServServer can be embedded to have forward compatible implementations.
+type UnimplementedPermServServer struct {
+}
+
+func (*UnimplementedPermServServer) GetRoles(context.Context, *GetRolesRequest) (*GetRolesReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRoles not implemented")
+}
+func (*UnimplementedPermServServer) GetPerm(context.Context, *GetPermRequest) (*GetPermReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPerm not implemented")
+}
+func (*UnimplementedPermServServer) GetPerms(context.Context, *GetPermsRequest) (*GetPermsReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPerms not implemented")
+}
+func (*UnimplementedPermServServer) AddRole(context.Context, *AddRoleRequest) (*AddRoleReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddRole not implemented")
+}
+func (*UnimplementedPermServServer) AddPerm(context.Context, *AddPermRequest) (*AddPermReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddPerm not implemented")
+}
+func (*UnimplementedPermServServer) SetRole(context.Context, *SetRoleRequest) (*SetRoleReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetRole not implemented")
+}
+
+func RegisterPermServServer(s *grpc.Server, srv PermServServer) {
+	s.RegisterService(&_PermServ_serviceDesc, srv)
+}
+
+func _PermServ_GetRoles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRolesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PermServServer).GetRoles(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/dbservice.PermServ/GetRoles",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PermServServer).GetRoles(ctx, req.(*GetRolesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PermServ_GetPerm_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPermRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PermServServer).GetPerm(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/dbservice.PermServ/GetPerm",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PermServServer).GetPerm(ctx, req.(*GetPermRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PermServ_GetPerms_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPermsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PermServServer).GetPerms(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/dbservice.PermServ/GetPerms",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PermServServer).GetPerms(ctx, req.(*GetPermsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PermServ_AddRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PermServServer).AddRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/dbservice.PermServ/AddRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PermServServer).AddRole(ctx, req.(*AddRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PermServ_AddPerm_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddPermRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PermServServer).AddPerm(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/dbservice.PermServ/AddPerm",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PermServServer).AddPerm(ctx, req.(*AddPermRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PermServ_SetRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PermServServer).SetRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/dbservice.PermServ/SetRole",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PermServServer).SetRole(ctx, req.(*SetRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _PermServ_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "dbservice.PermServ",
+	HandlerType: (*PermServServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetRoles",
+			Handler:    _PermServ_GetRoles_Handler,
+		},
+		{
+			MethodName: "GetPerm",
+			Handler:    _PermServ_GetPerm_Handler,
+		},
+		{
+			MethodName: "GetPerms",
+			Handler:    _PermServ_GetPerms_Handler,
+		},
+		{
+			MethodName: "AddRole",
+			Handler:    _PermServ_AddRole_Handler,
+		},
+		{
+			MethodName: "AddPerm",
+			Handler:    _PermServ_AddPerm_Handler,
+		},
+		{
+			MethodName: "SetRole",
+			Handler:    _PermServ_SetRole_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

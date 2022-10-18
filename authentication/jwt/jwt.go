@@ -10,15 +10,17 @@ import (
 )
 
 type Claims struct {
-	Username string 
+	UserName string 
+	UserId   uint
 	jwt.StandardClaims
 }
 
 var jwtKey = []byte("bwsk_auth_secret_key")
 
-func GenerateToken(username string) (string, error) {
+func GenerateToken(username string, userid uint) (string, error) {
 	claims := &Claims{
-		Username: username,
+		UserName: username,
+		UserId: userid,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(consts.TokenExpireTime).Unix(),
 			Issuer:    "bwsk-auth",

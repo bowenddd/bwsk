@@ -56,6 +56,10 @@ func (ds *datastore) NewProductStore() ProductStore {
 	return &ProductOp{db: ds.db}
 }
 
+func(ds *datastore) NewPermStore() PermStore {
+	return &PermOp{db: ds.db}
+}
+
 func (ds *datastore) DB() *gorm.DB {
 	return ds.db
 }

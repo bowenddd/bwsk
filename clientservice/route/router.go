@@ -24,7 +24,7 @@ func InitRouter(r *gin.Engine) {
 
 		userGroup.GET("list", userController.List)
 
-		userGroup.DELETE(":name", userController.Delete)
+		userGroup.DELETE("name/:name", userController.Delete)
 	}
 
 	productGroup := r.Group("/product/")
@@ -32,7 +32,7 @@ func InitRouter(r *gin.Engine) {
 	{
 		productController := controller.GetProductController()
 
-		productGroup.GET(":name", productController.Get)
+		productGroup.GET("name/:name", productController.Get)
 
 		productGroup.GET("list", productController.List)
 
@@ -42,7 +42,7 @@ func InitRouter(r *gin.Engine) {
 
 		productGroup.PUT("stock", productController.SetStock)
 
-		productGroup.DELETE(":name", productController.Delete)
+		productGroup.DELETE("/name:name", productController.Delete)
 
 	}
 
@@ -61,7 +61,7 @@ func InitRouter(r *gin.Engine) {
 
 		orderGroup.POST("create", orderController.Create)
 
-		orderGroup.DELETE(":id", orderController.Delete)
+		orderGroup.DELETE("id/:id", orderController.Delete)
 
 		orderGroup.PUT("clear", orderController.Clear)
 

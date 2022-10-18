@@ -18,9 +18,11 @@ type RpcServServer struct {
 	pb.UnimplementedUserServServer
 	pb.UnimplementedOrderServServer
 	pb.UnimplementedProductServServer
+	pb.UnimplementedPermServServer
 	UserServ    interfaces.UserServ
 	ProductServ interfaces.ProductServ
 	OrderServ   interfaces.OrderServ
+	PermServ    interfaces.PermServ
 }
 
 func (s *RpcServServer) CreateUser(ctx context.Context, in *pb.CreateUserRequest) (*pb.CreateUserReply, error) {
@@ -229,63 +231,76 @@ func (s *RpcServServer) GetStock(ctx context.Context, in *pb.GetStockRequest) (*
 	return reply, nil
 }
 
-func (s *RpcServServer) StartRpcServServer() error {
-	setting, err := seetings.GetSetting()
+func (s *RpcServServer) GetRoles(ctx context.Context, in *pb.GetRolesRequest) (*pb.GetRolesReply, error) {
+	reply := &pb.GetRolesReply{}
+	roles, err := s.PermServ.RoleList()
 	if err != nil {
-		fmt.Println("get settings error in start rpc serv!")
-		return err
+		reply.Ok = false
+		reply.Error = err.Error()
+		return reply, err
 	}
-	port := setting.RPC.DbServPort
-	lis, err := net.Listen("tcp", port)
+	reply.Roles = changeFromRoleEntitysToRpc(roles)
+	reply.Ok = true
+	return reply, nil
+}
+func (s *RpcServServer) GetPerm(ctx context.Context, in *pb.GetPermRequest) (*pb.GetPermReply, error) {
+	reply := &pb.GetPermReply{}
+	perm, err := s.PermServ.GetPerm(uint(in.GetUid()))
 	if err != nil {
-		fmt.Printf("rpc service listen port %s error", port)
-		return err
+		reply.Ok = false
+		reply.Error = err.Error()
+		return reply, err
 	}
-	s.initServ()
-	serv := grpc.NewServer()
-	pb.RegisterUserServServer(serv, s)
-	pb.RegisterOrderServServer(serv, s)
-	pb.RegisterProductServServer(serv, s)
-	if err = serv.Serve(lis); err != nil {
-		fmt.Println("serv rpc serve error")
-		return err
-	}
-	return nil
+	reply.Perms = perm
+	reply.Ok = true
+	return reply, nil
 }
-
-func (s *RpcServServer) initServ() {
-	if s.UserServ == nil {
-		s.UserServ = service.GetUserServ()
+func (s *RpcServServer) GetPerms(ctx context.Context, in *pb.GetPermsRequest) (*pb.GetPermsReply, error) {
+	reply := &pb.GetPermsReply{}
+	perms, err := s.PermServ.PermList()
+	if err != nil {
+		reply.Ok = false
+		reply.Error = err.Error()
+		return reply, err
 	}
-	if s.ProductServ == nil {
-		s.ProductServ = service.GetProductServ()
-	}
-	if s.OrderServ == nil {
-		s.OrderServ = service.GetOrderServ()
-	}
+	reply.Perms = changeFromPermEntitysToRpc(perms)
+	reply.Ok = true
+	return reply, nil
 }
-
-var rpcServ *RpcServServer
-
-var mu sync.Mutex
-
-func init() {
-	mu = sync.Mutex{}
-}
-
-func GetRpcServServer() *RpcServServer {
-	if rpcServ == nil {
-		mu.Lock()
-		if rpcServ == nil {
-			rpcServ = &RpcServServer{
-				UserServ:    service.GetUserServ(),
-				ProductServ: service.GetProductServ(),
-				OrderServ:   service.GetOrderServ(),
-			}
-		}
-		mu.Unlock()
+func (s *RpcServServer) AddRole(ctx context.Context, in *pb.AddRoleRequest) (*pb.AddRoleReply, error) {
+	reply := &pb.AddRoleReply{}
+	role := changeFromRoleRpcToEntity(in.GetRole())
+	err := s.PermServ.AddRole(&role)
+	if err != nil {
+		reply.Ok = false
+		reply.Error = err.Error()
+		return reply, err
 	}
-	return rpcServ
+	reply.Ok = true
+	return reply, nil
+}
+func (s *RpcServServer) AddPerm(ctx context.Context, in *pb.AddPermRequest) (*pb.AddPermReply, error) {
+	reply := &pb.AddPermReply{}
+	perm := changeFromPermRpcToEntity(in.GetPerm())
+	err := s.PermServ.AddPerm(&perm)
+	if err != nil {
+		reply.Ok = false
+		reply.Error = err.Error()
+		return reply, err
+	}
+	reply.Ok = true
+	return reply, nil
+}
+func (s *RpcServServer) SetRole(ctx context.Context, in *pb.SetRoleRequest) (*pb.SetRoleReply, error) {
+	reply := &pb.SetRoleReply{}
+	err := s.PermServ.SetRole(int(in.GetUid()), int(in.GetRid()))
+	if err != nil {
+		reply.Ok = false
+		reply.Error = err.Error()
+		return reply, err
+	}
+	reply.Ok = true
+	return reply, nil
 }
 
 func changeFromPEntityToRpc(product *entity2.Product) *pb.Product {
@@ -378,4 +393,112 @@ func changeFromOEntitysToRpc(orders []entity2.Order) []*pb.Order {
 		entityOs = append(entityOs, changeFromOEntityToRpc(&order))
 	}
 	return entityOs
+}
+
+func changeFromRoleEntitysToRpc(roles []entity2.Role) []*pb.Role {
+	entityRs := make([]*pb.Role, 0)
+	for _, role := range roles {
+		entityRs = append(entityRs, changeFromRoleEntityToRpc(&role))
+	}
+	return entityRs
+}
+
+func changeFromRoleEntityToRpc(role *entity2.Role) *pb.Role {
+	return &pb.Role{
+		Id:   uint32(role.ID),
+		Name: role.Name,
+	}
+}
+
+func changeFromRoleRpcToEntity(role *pb.Role) entity2.Role {
+	return entity2.Role{
+		ID:   uint(role.GetId()),
+		Name: role.GetName(),
+	}
+}
+
+func changeFromPermEntitysToRpc(perms []entity2.Perm) []*pb.Perm {
+	entityPs := make([]*pb.Perm, 0)
+	for _, perm := range perms {
+		entityPs = append(entityPs, changeFromPermEntityToRpc(&perm))
+	}
+	return entityPs
+}
+
+func changeFromPermEntityToRpc(perm *entity2.Perm) *pb.Perm {
+	return &pb.Perm{
+		Id:   uint32(perm.ID),
+		Path: perm.Path,
+	}
+}
+
+func changeFromPermRpcToEntity(perm *pb.Perm) entity2.Perm {
+	return entity2.Perm{
+		ID:   uint(perm.GetId()),
+		Path: perm.GetPath(),
+	}
+}
+
+func (s *RpcServServer) StartRpcServServer() error {
+	setting, err := seetings.GetSetting()
+	if err != nil {
+		fmt.Println("get settings error in start rpc serv!")
+		return err
+	}
+	port := setting.RPC.DbServPort
+	lis, err := net.Listen("tcp", port)
+	if err != nil {
+		fmt.Printf("rpc service listen port %s error", port)
+		return err
+	}
+	s.initServ()
+	serv := grpc.NewServer()
+	pb.RegisterUserServServer(serv, s)
+	pb.RegisterOrderServServer(serv, s)
+	pb.RegisterProductServServer(serv, s)
+	pb.RegisterPermServServer(serv, s)
+	if err = serv.Serve(lis); err != nil {
+		fmt.Println("serv rpc serve error")
+		return err
+	}
+	return nil
+}
+
+func (s *RpcServServer) initServ() {
+	if s.UserServ == nil {
+		s.UserServ = service.GetUserServ()
+	}
+	if s.ProductServ == nil {
+		s.ProductServ = service.GetProductServ()
+	}
+	if s.OrderServ == nil {
+		s.OrderServ = service.GetOrderServ()
+	}
+	if s.PermServ == nil {
+		s.PermServ = service.GetPermServ()
+	}
+}
+
+var rpcServ *RpcServServer
+
+var mu sync.Mutex
+
+func init() {
+	mu = sync.Mutex{}
+}
+
+func GetRpcServServer() *RpcServServer {
+	if rpcServ == nil {
+		mu.Lock()
+		if rpcServ == nil {
+			rpcServ = &RpcServServer{
+				UserServ:    service.GetUserServ(),
+				ProductServ: service.GetProductServ(),
+				OrderServ:   service.GetOrderServ(),
+				PermServ:    service.GetPermServ(),
+			}
+		}
+		mu.Unlock()
+	}
+	return rpcServ
 }

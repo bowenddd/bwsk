@@ -10,6 +10,7 @@ service CacheService {
     rpc CreateOrder (CreateOrderRequest) returns (CreateOrderReply) {}
     rpc Lock (LockRequest) returns (LockReply) {}
     rpc Unlock (UnlockRequest) returns (UnlockReply) {}
+    rpc GetUserPerms (GetUserPermsRequest) returns (GetUserPermsReply) {}   
 }
 
 message Order{
@@ -68,6 +69,16 @@ message UnlockRequest{
 
 message UnlockReply{
     int32 n = 1;
+    bool ok = 2;
+    string error = 3;
+}
+
+message GetUserPermsRequest{
+    uint32 userId = 1;
+}
+
+message GetUserPermsReply{
+    string perms = 1;
     bool ok = 2;
     string error = 3;
 }
