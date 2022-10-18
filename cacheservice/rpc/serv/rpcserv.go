@@ -1,4 +1,4 @@
-package rpc
+package serv
 
 import (
 	"context"
@@ -7,16 +7,15 @@ import (
 	"seckill/common/entity"
 	"seckill/common/interfaces"
 	pb "seckill/rpc/cacheservice"
-	"seckill/seetings"
-	"sync"
 	"time"
-
+	registercenter "seckill/registercenter/registerservice"
 	"google.golang.org/grpc"
 )
 
 type CacheRpcServ struct {
 	pb.UnimplementedCacheServiceServer
 	serv interfaces.CacheServ
+	registerCenter *registercenter.RegisterCenter
 }
 
 func (s *CacheRpcServ) initService() {
@@ -25,12 +24,9 @@ func (s *CacheRpcServ) initService() {
 	}
 }
 
-func (s *CacheRpcServ) StartCacheRpcServService() {
-	seeting, err := seetings.GetSetting()
-	if err != nil {
-		panic(err)
-	}
-	lis, err := net.Listen("tcp", seeting.RPC.CacheServPort)
+func (s *CacheRpcServ) StartCacheRpcServService(port string) {
+	lis, err := net.Listen("tcp", port)
+	s.registerCenter.Register("/bwsk/cacheservice/"+port, port)
 	if err != nil {
 		panic(err)
 	}
@@ -119,15 +115,11 @@ func ChangeFromRpcToEntity(order *pb.Order) *entity.Order {
 	}
 }
 
-var cacheRpcServService *CacheRpcServ
 
-var cacheRpcServOnce = new(sync.Once)
-
-func GetCacheRpcService() *CacheRpcServ {
-	cacheRpcServOnce.Do(func() {
-		cacheRpcServService = &CacheRpcServ{
-			serv: service.GetCacheServ(),
-		}
-	})
+func NewCacheRpcService() *CacheRpcServ {
+	cacheRpcServService := &CacheRpcServ{
+		serv: service.GetCacheServ(),
+		registerCenter: registercenter.GetRegisterCenter(),
+	}
 	return cacheRpcServService
 }

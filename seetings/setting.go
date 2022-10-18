@@ -10,6 +10,7 @@ type Setting struct {
 	Mysql MySQLSetting `yaml:"mysql"`
 	RPC   RPCSetting   `yaml:"rpc"`
 	Redis RedisSetting `yaml:"redis"`
+	RegisterCenter RegisterCenterSetting `yaml:"registercenter"`
 }
 
 type MySQLSetting struct {
@@ -32,6 +33,12 @@ type RedisSetting struct {
 	Port     int    `yaml:"port"`
 	Password string `yaml:"password"`
 	Db       int    `yaml:"db"`
+}
+
+type RegisterCenterSetting struct {
+	Host    string `yaml:"host"`
+	Port    int    `yaml:"port"`
+	Timeout int    `yaml:"timeout"`
 }
 
 var setting *Setting

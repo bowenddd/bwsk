@@ -6,7 +6,8 @@ import (
 	"fmt"
 	"seckill/common/consts"
 	"seckill/common/entity"
-	"seckill/dbservice/rpc"
+	dbrpccli "seckill/dbservice/rpc"
+	"seckill/registercenter/registerservice"
 	"seckill/seetings"
 	"strconv"
 	"sync"
@@ -16,8 +17,9 @@ import (
 )
 
 type DataStore struct {
-	client *redis.Client
-	mu     sync.Mutex
+	client         *redis.Client
+	mu             sync.Mutex
+	registerCenter *registerservice.RegisterCenter
 }
 
 var redisStore *DataStore
@@ -35,16 +37,27 @@ func GetDataStore() *DataStore {
 			panic(err)
 		}
 		addr := fmt.Sprintf("%s:%d", setting.Redis.Host, setting.Redis.Port)
+		center := registerservice.GetRegisterCenter()
+		go func() {
+			ch := make(chan error, 0)
+			registerservice.GetRegisterCenter().Discovery(ch)
+			<-ch
+		}()
 		redisStore = &DataStore{
 			client: redis.NewClient(&redis.Options{
 				Addr:     addr,
 				Password: setting.Redis.Password,
 				DB:       setting.Redis.Db,
 			}),
-			mu: sync.Mutex{},
+			mu:             sync.Mutex{},
+			registerCenter: center,
 		}
 	})
 	return redisStore
+}
+
+func (ds *DataStore) DbRpcCli() (*dbrpccli.ServClient, error) {
+	return ds.registerCenter.GetDbClient()
 }
 
 func (ds *DataStore) Set(key string, value interface{}, expiration time.Duration) error {
@@ -97,7 +110,7 @@ func (ds *DataStore) UnLock(key string) int64 {
 func (ds *DataStore) CreateOrderByPLOCK(order *entity.Order) error {
 	ctx := context.Background()
 	pid := strconv.Itoa(int(order.ProductId))
-	rpcCli, err := rpc.GetDbServRpcCli()
+	rpcCli, err := ds.DbRpcCli()
 	if err != nil {
 		return err
 	}
@@ -162,7 +175,7 @@ func (ds *DataStore) CreateOrderTransaction(order *entity.Order) error {
 	for i := 0; i < consts.REDIS_CREATE_ORDER_MAX_RETRY; i++ {
 		err := ds.client.Watch(ctx, txf, pid)
 		if err == nil {
-			rpcCli, err := rpc.GetDbServRpcCli()
+			rpcCli, err := ds.DbRpcCli()
 			if err != nil {
 				return err
 			}

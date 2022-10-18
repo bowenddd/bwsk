@@ -7,7 +7,8 @@ import (
 	"seckill/common/consts"
 	"seckill/common/entity"
 	"seckill/common/interfaces"
-	dbrpc "seckill/dbservice/rpc"
+	dbrpccli "seckill/dbservice/rpc"
+	"seckill/registercenter/registerservice"
 	"strconv"
 	"sync"
 	"time"
@@ -16,7 +17,12 @@ import (
 )
 
 type CacheServImpl struct {
-	store *store.DataStore
+	store    *store.DataStore
+	register *registerservice.RegisterCenter
+}
+
+func (c *CacheServImpl) DbRpcCli() (*dbrpccli.ServClient, error) {
+	return c.register.GetDbClient()
 }
 
 func (c *CacheServImpl) GetStock(id uint) (int, error) {
@@ -24,7 +30,7 @@ func (c *CacheServImpl) GetStock(id uint) (int, error) {
 	stock_str, err := c.store.Get(id_str)
 	if err == redis.Nil {
 		// 如果在redis中找不到的话，需要从数据库中查找，然后将数据写入redis
-		serv, err := dbrpc.GetDbServRpcCli()
+		serv, err := c.DbRpcCli()
 		if err != nil {
 			return 0, err
 		}
@@ -82,7 +88,7 @@ func (c *CacheServImpl) GetUserPerms(id uint) (string, error) {
 	key := fmt.Sprintf("user_id_%d_perms", id)
 	perms, err := c.store.Get(key)
 	if errors.Is(err, redis.Nil) {
-		rpcCli, rpcErr := dbrpc.GetDbServRpcCli()
+		rpcCli, rpcErr := c.DbRpcCli()
 		if rpcErr != nil {
 			return "", rpcErr
 		}
@@ -108,7 +114,16 @@ var once = new(sync.Once)
 
 func GetCacheServ() interfaces.CacheServ {
 	once.Do(func() {
-		cacheServImpl = &CacheServImpl{store: store.GetDataStore()}
+		center := registerservice.GetRegisterCenter()
+		go func() {
+			ch := make(chan error, 0)
+			registerservice.GetRegisterCenter().Discovery(ch)
+			<-ch
+		}()
+		cacheServImpl = &CacheServImpl{
+			store:    store.GetDataStore(),
+			register: center,
+		}
 	})
 	return cacheServImpl
 }
