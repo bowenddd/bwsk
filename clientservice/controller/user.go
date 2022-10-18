@@ -3,10 +3,12 @@ package controller
 import (
 	"fmt"
 	"net/http"
+	"seckill/authentication/jwt"
 	"seckill/clientservice/service"
 	"seckill/common/entity"
 	"seckill/common/interfaces"
 	"seckill/common/response"
+	"seckill/common/vo"
 	"sync"
 
 	"github.com/gin-gonic/gin"
@@ -62,6 +64,30 @@ func (u *UserController) Delete(ctx *gin.Context) {
 	}
 	response.Success(ctx, http.StatusOK, "", fmt.Sprintf("delete user %s success", name))
 
+}
+
+func (u *UserController) Login(ctx *gin.Context) {
+	userInfo := &vo.UserInfoVo{}
+	err := ctx.ShouldBindJSON(userInfo)
+	if err != nil {
+		response.Error(ctx, http.StatusBadRequest, err.Error())
+		return
+	}
+	user, err := u.serv.GetUser(userInfo.UserName)
+	if err != nil {
+		response.Error(ctx, http.StatusBadRequest, err.Error())
+		return
+	}
+	if user.Password != userInfo.Password {
+		response.Error(ctx, http.StatusOK, "password error")
+		return
+	}
+	token, err := jwt.GenerateToken(userInfo.UserName,user.ID)
+	if err != nil {
+		response.Error(ctx, http.StatusInternalServerError, err.Error())
+		return
+	}
+	response.Success(ctx, http.StatusOK, token, "ok")
 }
 
 var userController *UserController

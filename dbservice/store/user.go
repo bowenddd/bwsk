@@ -1,8 +1,10 @@
 package store
 
 import (
-	"gorm.io/gorm"
+	"errors"
 	"seckill/common/entity"
+
+	"gorm.io/gorm"
 )
 
 type UserStore interface {
@@ -26,6 +28,10 @@ func (us *UserOp) DB() *gorm.DB {
 }
 
 func (us *UserOp) Create(user *entity.User) error {
+	_, err := us.FindByName(user.Name)
+	if err == nil {
+		return errors.New("user already exists")
+	}
 	return us.DB().Create(user).Error
 }
 

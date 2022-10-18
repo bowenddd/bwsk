@@ -30,12 +30,22 @@ service ProductServ{
   rpc GetStock(GetStockRequest) returns (GetStockReply){}
 }
 
+service PermServ{
+  rpc GetRoles(GetRolesRequest) returns (GetRolesReply){}
+  rpc GetPerm(GetPermRequest) returns (GetPermReply){}
+  rpc GetPerms(GetPermsRequest) returns (GetPermsReply){}
+  rpc AddRole (AddRoleRequest) returns (AddRoleReply){}
+  rpc AddPerm (AddPermRequest) returns (AddPermReply){}
+  rpc SetRole (SetRoleRequest) returns (SetRoleReply){}
+}
+
 message User{
   uint32 id = 1;
   string name = 2;
-  int32 sex = 3;
-  string phone = 4;
-  string created = 5;
+  string password = 3;
+  int32 sex = 4;
+  string phone = 5;
+  string created = 6;
 }
 
 message Order{
@@ -55,6 +65,16 @@ message Product{
   int32 stock = 5;
   string created = 6;
   int32 version = 7;
+}
+
+message Role{
+  uint32 id = 1;
+  string name = 2;
+}
+
+message Perm{
+  uint32 id = 1;
+  string path = 2;
 }
 
 message CreateUserRequest{
@@ -219,4 +239,62 @@ message GetStockReply{
   int32 stock = 1;
   bool ok = 2;
   string error = 3;
+}
+
+message GetRolesRequest{
+
+}
+
+message GetRolesReply{
+  repeated Role roles = 1;
+  bool ok = 2;
+  string error = 3;
+}
+
+message GetPermsRequest{
+
+}
+
+message GetPermsReply{
+  repeated Perm perms = 1;
+  bool ok = 2;
+  string error = 3;
+}
+
+message AddRoleRequest{
+  Role role = 1;
+}
+
+message AddRoleReply{
+  bool ok = 1;
+  string error = 2;
+}
+
+message AddPermRequest{
+  Perm perm = 1;
+}
+
+message AddPermReply{
+  bool ok = 1;
+  string error = 2;
+}
+
+message GetPermRequest{
+  uint32 uid = 1;
+}
+
+message GetPermReply{
+  string perms = 1;
+  bool ok = 2;
+  string error = 3;
+}
+
+message SetRoleRequest{
+  uint32 uid = 1;
+  uint32 rid = 2;
+}
+
+message SetRoleReply{
+  bool ok = 1;
+  string error = 2;
 }

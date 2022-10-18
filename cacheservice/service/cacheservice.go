@@ -2,6 +2,7 @@ package service
 
 import (
 	"errors"
+	"fmt"
 	"seckill/cacheservice/store"
 	"seckill/common/consts"
 	"seckill/common/entity"
@@ -75,6 +76,30 @@ func (c *CacheServImpl) Lock(key string, ex time.Duration) (bool, error) {
 
 func (c *CacheServImpl) UnLock(key string) int64 {
 	return c.store.UnLock(key)
+}
+
+func (c *CacheServImpl) GetUserPerms(id uint) (string, error) {
+	key := fmt.Sprintf("user_id_%d_perms", id)
+	perms, err := c.store.Get(key)
+	if errors.Is(err, redis.Nil) {
+		rpcCli, rpcErr := dbrpc.GetDbServRpcCli()
+		if rpcErr != nil {
+			return "", rpcErr
+		}
+		prsc := rpcCli.GetPermRpcServCli()
+		perms, rpcErr = prsc.GetPerm(id)
+		if rpcErr != nil {
+			return "", rpcErr
+		}
+		storeErr := c.store.Set(key, perms, 0)
+		if storeErr != nil {
+			return "", storeErr
+		}
+		return perms, nil
+	} else if err != nil {
+		return "", err
+	}
+	return perms, nil
 }
 
 var cacheServImpl *CacheServImpl

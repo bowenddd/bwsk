@@ -669,6 +669,116 @@ func (x *UnlockReply) GetError() string {
 	return ""
 }
 
+type GetUserPermsRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserId uint32 `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
+}
+
+func (x *GetUserPermsRequest) Reset() {
+	*x = GetUserPermsRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_cacheservice_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetUserPermsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUserPermsRequest) ProtoMessage() {}
+
+func (x *GetUserPermsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_cacheservice_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUserPermsRequest.ProtoReflect.Descriptor instead.
+func (*GetUserPermsRequest) Descriptor() ([]byte, []int) {
+	return file_cacheservice_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *GetUserPermsRequest) GetUserId() uint32 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+type GetUserPermsReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Perms string `protobuf:"bytes,1,opt,name=perms,proto3" json:"perms,omitempty"`
+	Ok    bool   `protobuf:"varint,2,opt,name=ok,proto3" json:"ok,omitempty"`
+	Error string `protobuf:"bytes,3,opt,name=error,proto3" json:"error,omitempty"`
+}
+
+func (x *GetUserPermsReply) Reset() {
+	*x = GetUserPermsReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_cacheservice_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetUserPermsReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUserPermsReply) ProtoMessage() {}
+
+func (x *GetUserPermsReply) ProtoReflect() protoreflect.Message {
+	mi := &file_cacheservice_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUserPermsReply.ProtoReflect.Descriptor instead.
+func (*GetUserPermsReply) Descriptor() ([]byte, []int) {
+	return file_cacheservice_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *GetUserPermsReply) GetPerms() string {
+	if x != nil {
+		return x.Perms
+	}
+	return ""
+}
+
+func (x *GetUserPermsReply) GetOk() bool {
+	if x != nil {
+		return x.Ok
+	}
+	return false
+}
+
+func (x *GetUserPermsReply) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
+}
+
 var File_cacheservice_proto protoreflect.FileDescriptor
 
 var file_cacheservice_proto_rawDesc = []byte{
@@ -722,7 +832,15 @@ var file_cacheservice_proto_rawDesc = []byte{
 	0x79, 0x12, 0x0c, 0x0a, 0x01, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x01, 0x6e, 0x12,
 	0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12,
 	0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05,
-	0x65, 0x72, 0x72, 0x6f, 0x72, 0x32, 0xf7, 0x02, 0x0a, 0x0c, 0x43, 0x61, 0x63, 0x68, 0x65, 0x53,
+	0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x2d, 0x0a, 0x13, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72,
+	0x50, 0x65, 0x72, 0x6d, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x06,
+	0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x06, 0x75, 0x73,
+	0x65, 0x72, 0x49, 0x64, 0x22, 0x4f, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x50,
+	0x65, 0x72, 0x6d, 0x73, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x70, 0x65, 0x72,
+	0x6d, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x70, 0x65, 0x72, 0x6d, 0x73, 0x12,
+	0x0e, 0x0a, 0x02, 0x6f, 0x6b, 0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x02, 0x6f, 0x6b, 0x12,
+	0x14, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05,
+	0x65, 0x72, 0x72, 0x6f, 0x72, 0x32, 0xcd, 0x03, 0x0a, 0x0c, 0x43, 0x61, 0x63, 0x68, 0x65, 0x53,
 	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x48, 0x0a, 0x08, 0x53, 0x65, 0x74, 0x53, 0x74, 0x6f,
 	0x63, 0x6b, 0x12, 0x1d, 0x2e, 0x63, 0x61, 0x63, 0x68, 0x65, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
 	0x65, 0x2e, 0x53, 0x65, 0x74, 0x53, 0x74, 0x6f, 0x63, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
@@ -745,9 +863,14 @@ var file_cacheservice_proto_rawDesc = []byte{
 	0x6e, 0x6c, 0x6f, 0x63, 0x6b, 0x12, 0x1b, 0x2e, 0x63, 0x61, 0x63, 0x68, 0x65, 0x73, 0x65, 0x72,
 	0x76, 0x69, 0x63, 0x65, 0x2e, 0x55, 0x6e, 0x6c, 0x6f, 0x63, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65,
 	0x73, 0x74, 0x1a, 0x19, 0x2e, 0x63, 0x61, 0x63, 0x68, 0x65, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
-	0x65, 0x2e, 0x55, 0x6e, 0x6c, 0x6f, 0x63, 0x6b, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x42,
-	0x0f, 0x5a, 0x0d, 0x2f, 0x63, 0x61, 0x63, 0x68, 0x65, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
-	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x65, 0x2e, 0x55, 0x6e, 0x6c, 0x6f, 0x63, 0x6b, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x12,
+	0x54, 0x0a, 0x0c, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x50, 0x65, 0x72, 0x6d, 0x73, 0x12,
+	0x21, 0x2e, 0x63, 0x61, 0x63, 0x68, 0x65, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x47,
+	0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x50, 0x65, 0x72, 0x6d, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x1a, 0x1f, 0x2e, 0x63, 0x61, 0x63, 0x68, 0x65, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
+	0x65, 0x2e, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x50, 0x65, 0x72, 0x6d, 0x73, 0x52, 0x65,
+	0x70, 0x6c, 0x79, 0x22, 0x00, 0x42, 0x0f, 0x5a, 0x0d, 0x2f, 0x63, 0x61, 0x63, 0x68, 0x65, 0x73,
+	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -762,19 +885,21 @@ func file_cacheservice_proto_rawDescGZIP() []byte {
 	return file_cacheservice_proto_rawDescData
 }
 
-var file_cacheservice_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_cacheservice_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
 var file_cacheservice_proto_goTypes = []interface{}{
-	(*Order)(nil),              // 0: cacheservice.Order
-	(*SetStockRequest)(nil),    // 1: cacheservice.SetStockRequest
-	(*SetStockReply)(nil),      // 2: cacheservice.SetStockReply
-	(*GetStockRequest)(nil),    // 3: cacheservice.GetStockRequest
-	(*GetStockReply)(nil),      // 4: cacheservice.GetStockReply
-	(*CreateOrderRequest)(nil), // 5: cacheservice.CreateOrderRequest
-	(*CreateOrderReply)(nil),   // 6: cacheservice.CreateOrderReply
-	(*LockRequest)(nil),        // 7: cacheservice.LockRequest
-	(*LockReply)(nil),          // 8: cacheservice.LockReply
-	(*UnlockRequest)(nil),      // 9: cacheservice.UnlockRequest
-	(*UnlockReply)(nil),        // 10: cacheservice.UnlockReply
+	(*Order)(nil),               // 0: cacheservice.Order
+	(*SetStockRequest)(nil),     // 1: cacheservice.SetStockRequest
+	(*SetStockReply)(nil),       // 2: cacheservice.SetStockReply
+	(*GetStockRequest)(nil),     // 3: cacheservice.GetStockRequest
+	(*GetStockReply)(nil),       // 4: cacheservice.GetStockReply
+	(*CreateOrderRequest)(nil),  // 5: cacheservice.CreateOrderRequest
+	(*CreateOrderReply)(nil),    // 6: cacheservice.CreateOrderReply
+	(*LockRequest)(nil),         // 7: cacheservice.LockRequest
+	(*LockReply)(nil),           // 8: cacheservice.LockReply
+	(*UnlockRequest)(nil),       // 9: cacheservice.UnlockRequest
+	(*UnlockReply)(nil),         // 10: cacheservice.UnlockReply
+	(*GetUserPermsRequest)(nil), // 11: cacheservice.GetUserPermsRequest
+	(*GetUserPermsReply)(nil),   // 12: cacheservice.GetUserPermsReply
 }
 var file_cacheservice_proto_depIdxs = []int32{
 	0,  // 0: cacheservice.CreateOrderRequest.order:type_name -> cacheservice.Order
@@ -783,13 +908,15 @@ var file_cacheservice_proto_depIdxs = []int32{
 	5,  // 3: cacheservice.CacheService.CreateOrder:input_type -> cacheservice.CreateOrderRequest
 	7,  // 4: cacheservice.CacheService.Lock:input_type -> cacheservice.LockRequest
 	9,  // 5: cacheservice.CacheService.Unlock:input_type -> cacheservice.UnlockRequest
-	2,  // 6: cacheservice.CacheService.SetStock:output_type -> cacheservice.SetStockReply
-	4,  // 7: cacheservice.CacheService.GetStock:output_type -> cacheservice.GetStockReply
-	6,  // 8: cacheservice.CacheService.CreateOrder:output_type -> cacheservice.CreateOrderReply
-	8,  // 9: cacheservice.CacheService.Lock:output_type -> cacheservice.LockReply
-	10, // 10: cacheservice.CacheService.Unlock:output_type -> cacheservice.UnlockReply
-	6,  // [6:11] is the sub-list for method output_type
-	1,  // [1:6] is the sub-list for method input_type
+	11, // 6: cacheservice.CacheService.GetUserPerms:input_type -> cacheservice.GetUserPermsRequest
+	2,  // 7: cacheservice.CacheService.SetStock:output_type -> cacheservice.SetStockReply
+	4,  // 8: cacheservice.CacheService.GetStock:output_type -> cacheservice.GetStockReply
+	6,  // 9: cacheservice.CacheService.CreateOrder:output_type -> cacheservice.CreateOrderReply
+	8,  // 10: cacheservice.CacheService.Lock:output_type -> cacheservice.LockReply
+	10, // 11: cacheservice.CacheService.Unlock:output_type -> cacheservice.UnlockReply
+	12, // 12: cacheservice.CacheService.GetUserPerms:output_type -> cacheservice.GetUserPermsReply
+	7,  // [7:13] is the sub-list for method output_type
+	1,  // [1:7] is the sub-list for method input_type
 	1,  // [1:1] is the sub-list for extension type_name
 	1,  // [1:1] is the sub-list for extension extendee
 	0,  // [0:1] is the sub-list for field type_name
@@ -933,6 +1060,30 @@ func file_cacheservice_proto_init() {
 				return nil
 			}
 		}
+		file_cacheservice_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetUserPermsRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_cacheservice_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetUserPermsReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -940,7 +1091,7 @@ func file_cacheservice_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_cacheservice_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   11,
+			NumMessages:   13,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
@@ -971,6 +1122,7 @@ type CacheServiceClient interface {
 	CreateOrder(ctx context.Context, in *CreateOrderRequest, opts ...grpc.CallOption) (*CreateOrderReply, error)
 	Lock(ctx context.Context, in *LockRequest, opts ...grpc.CallOption) (*LockReply, error)
 	Unlock(ctx context.Context, in *UnlockRequest, opts ...grpc.CallOption) (*UnlockReply, error)
+	GetUserPerms(ctx context.Context, in *GetUserPermsRequest, opts ...grpc.CallOption) (*GetUserPermsReply, error)
 }
 
 type cacheServiceClient struct {
@@ -1026,6 +1178,15 @@ func (c *cacheServiceClient) Unlock(ctx context.Context, in *UnlockRequest, opts
 	return out, nil
 }
 
+func (c *cacheServiceClient) GetUserPerms(ctx context.Context, in *GetUserPermsRequest, opts ...grpc.CallOption) (*GetUserPermsReply, error) {
+	out := new(GetUserPermsReply)
+	err := c.cc.Invoke(ctx, "/cacheservice.CacheService/GetUserPerms", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CacheServiceServer is the server API for CacheService service.
 type CacheServiceServer interface {
 	SetStock(context.Context, *SetStockRequest) (*SetStockReply, error)
@@ -1033,6 +1194,7 @@ type CacheServiceServer interface {
 	CreateOrder(context.Context, *CreateOrderRequest) (*CreateOrderReply, error)
 	Lock(context.Context, *LockRequest) (*LockReply, error)
 	Unlock(context.Context, *UnlockRequest) (*UnlockReply, error)
+	GetUserPerms(context.Context, *GetUserPermsRequest) (*GetUserPermsReply, error)
 }
 
 // UnimplementedCacheServiceServer can be embedded to have forward compatible implementations.
@@ -1053,6 +1215,9 @@ func (*UnimplementedCacheServiceServer) Lock(context.Context, *LockRequest) (*Lo
 }
 func (*UnimplementedCacheServiceServer) Unlock(context.Context, *UnlockRequest) (*UnlockReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Unlock not implemented")
+}
+func (*UnimplementedCacheServiceServer) GetUserPerms(context.Context, *GetUserPermsRequest) (*GetUserPermsReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserPerms not implemented")
 }
 
 func RegisterCacheServiceServer(s *grpc.Server, srv CacheServiceServer) {
@@ -1149,6 +1314,24 @@ func _CacheService_Unlock_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CacheService_GetUserPerms_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserPermsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheServiceServer).GetUserPerms(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/cacheservice.CacheService/GetUserPerms",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheServiceServer).GetUserPerms(ctx, req.(*GetUserPermsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _CacheService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "cacheservice.CacheService",
 	HandlerType: (*CacheServiceServer)(nil),
@@ -1172,6 +1355,10 @@ var _CacheService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Unlock",
 			Handler:    _CacheService_Unlock_Handler,
+		},
+		{
+			MethodName: "GetUserPerms",
+			Handler:    _CacheService_GetUserPerms_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
