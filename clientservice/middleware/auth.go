@@ -69,7 +69,7 @@ func Auth() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		// 判断用户是否有权限访问该接口.
+		// 判断用户是否有权限访问该接口
 		hasPerm := utils.CheckPerm(perms, path)
 		if !hasPerm {
 			c.JSON(200, gin.H{
