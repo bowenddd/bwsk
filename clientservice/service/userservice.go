@@ -40,6 +40,7 @@ func (u *UserServImpl) GetUsers() ([]entity.User, error) {
 	return u.DbRpcCli().GetUsers()
 }
 
+// test
 var _ interfaces.UserServ = (*UserServImpl)(nil)
 
 var userServ *UserServImpl
