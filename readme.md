@@ -15,9 +15,15 @@ client service、cache service、 db service三层
 
 另外在BWSK中还增加了认证&鉴权以及服务注册与服务发现两种功能
 
-- 认证&鉴权通过authentication以及client service中的auth中间实现
+- 认证&鉴权通过authentication以及client service中的auth中间实现。
 
-- 服务注册与服务发现通过etcd实现
+- 服务注册与服务发现通过etcd实现。
+  rpc服务器将服务注册到注册中心，在调用所需的rpc服务时，通过注册中心拿到
+  所需服务的rpc 客户端，同时实现负载均衡。
+
+## Architecture
+
+![architecture](./architecture.png)
 
 ## Preparation
 
@@ -82,9 +88,15 @@ CREATE TABLE `product`
 
 [Authenication说明](./authenication.md)
 
-## Unimplemented Functions
+## Register Center
+
+[Register Center说明](./registercenter.md)
+
+## TODO LIST
 
 - 动态路由的鉴权
 
-- 权限更新后未更新Redis缓存，即Redis和Mysql中数据不一致
+- 权限更新后更新Redis缓存，即实现Redis和Mysql中数据一致性
+
+- 为用户赋予角色、为角色赋予权限、查询所有角色、查询所有权限等API接口的实现
 

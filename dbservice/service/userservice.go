@@ -4,27 +4,16 @@ import (
 	"seckill/common/entity"
 	"seckill/common/interfaces"
 	"seckill/dbservice/store"
-	"sync"
 )
 
 type UserServImpl struct {
 	store store.UserStore
 }
 
-var userServOnce sync.Once
-
-var userServ interfaces.UserServ
-
-func init() {
-	userServOnce = sync.Once{}
-}
-
 func GetUserServ() interfaces.UserServ {
-	userServOnce.Do(func() {
-		userServ = &UserServImpl{
-			store: store.Mysql.NewUserStore(),
-		}
-	})
+	userServ := &UserServImpl{
+		store: store.Mysql.NewUserStore(),
+	}
 	return userServ
 }
 

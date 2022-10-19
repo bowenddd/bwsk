@@ -6,7 +6,6 @@ import (
 	"seckill/common/entity"
 	"seckill/common/interfaces"
 	"seckill/dbservice/store"
-	"sync"
 )
 
 type CreateOrderFunc func(order *entity.Order) error
@@ -24,20 +23,10 @@ type OrderServImpl struct {
 	strategy CreateOrderStrategy
 }
 
-var orderServOnce sync.Once
-
-var orderServ interfaces.OrderServ
-
-func init() {
-	orderServOnce = sync.Once{}
-}
-
 func GetOrderServ() interfaces.OrderServ {
-	orderServOnce.Do(func() {
-		orderServ = &OrderServImpl{
-			store: store.Mysql.NewOrderStore(),
-		}
-	})
+	orderServ := &OrderServImpl{
+		store: store.Mysql.NewOrderStore(),
+	}
 	return orderServ
 }
 

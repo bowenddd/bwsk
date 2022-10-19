@@ -10,7 +10,6 @@ import (
 	dbrpccli "seckill/dbservice/rpc"
 	"seckill/registercenter/registerservice"
 	"strconv"
-	"sync"
 	"time"
 
 	"github.com/go-redis/redis/v8"
@@ -108,22 +107,16 @@ func (c *CacheServImpl) GetUserPerms(id uint) (string, error) {
 	return perms, nil
 }
 
-var cacheServImpl *CacheServImpl
-
-var once = new(sync.Once)
-
 func GetCacheServ() interfaces.CacheServ {
-	once.Do(func() {
-		center := registerservice.GetRegisterCenter()
-		go func() {
-			ch := make(chan error, 0)
-			registerservice.GetRegisterCenter().Discovery(ch)
-			<-ch
-		}()
-		cacheServImpl = &CacheServImpl{
-			store:    store.GetDataStore(),
-			register: center,
-		}
-	})
+	center := registerservice.GetRegisterCenter()
+	go func() {
+		ch := make(chan error, 0)
+		registerservice.GetRegisterCenter().Discovery(ch)
+		<-ch
+	}()
+	cacheServImpl := &CacheServImpl{
+		store:    store.GetDataStore(),
+		register: center,
+	}
 	return cacheServImpl
 }
