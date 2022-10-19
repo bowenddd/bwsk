@@ -2,12 +2,11 @@ package middleware
 
 import (
 	"fmt"
-	"seckill/authentication/jwt"
-	cacherpc "seckill/cacheservice/rpc"
-	"seckill/clientservice/utils"
-	"strings"
-
 	"github.com/gin-gonic/gin"
+	"seckill/authentication/jwt"
+	"seckill/clientservice/utils"
+	"seckill/registercenter/registerservice"
+	"strings"
 )
 
 func Auth() gin.HandlerFunc {
@@ -50,7 +49,7 @@ func Auth() gin.HandlerFunc {
 			return
 		}
 		// 验证权限
-		csc, err := cacherpc.NewCacheServClient()
+		csc, err := registerservice.GetRegisterCenter().GetCacheClient()
 		if err != nil {
 			c.JSON(500, gin.H{
 				"code": 500,

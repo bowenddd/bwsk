@@ -1,32 +1,46 @@
 package service
 
 import (
+	"fmt"
 	"seckill/common/entity"
 	"seckill/common/interfaces"
-	"seckill/dbservice/rpc"
+	dbrpc "seckill/dbservice/rpc"
+	"seckill/registercenter/registerservice"
 	"sync"
 )
 
 type UserServImpl struct {
-	cli *rpc.UserRpcServCli
+	registerCenter *registerservice.RegisterCenter
+}
+
+func (p *UserServImpl) DbRpcCli() *dbrpc.UserRpcServCli {
+	sc, err := p.registerCenter.GetDbClient()
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
+	usc := sc.GetUserRpcServCli()
+	return &usc
 }
 
 func (u *UserServImpl) AddUser(user *entity.User) error {
-	return u.cli.AddUser(user)
+	return u.DbRpcCli().AddUser(user)
 }
 
 func (u *UserServImpl) GetUser(name string) (entity.User, error) {
-	return u.cli.GetUser(name)
+	cli := u.DbRpcCli()
+	return cli.GetUser(name)
 }
 
 func (u *UserServImpl) DeleteUser(name string) error {
-	return u.cli.DeleteUser(name)
+	return u.DbRpcCli().DeleteUser(name)
 }
 
 func (u *UserServImpl) GetUsers() ([]entity.User, error) {
-	return u.cli.GetUsers()
+	return u.DbRpcCli().GetUsers()
 }
 
+// test
 var _ interfaces.UserServ = (*UserServImpl)(nil)
 
 var userServ *UserServImpl
@@ -34,14 +48,16 @@ var userServ *UserServImpl
 var userServOnce = new(sync.Once)
 
 func GetUserService() interfaces.UserServ {
-	cli, err := rpc.GetDbServRpcCli()
-	if err != nil {
-		return (*UserServImpl)(nil)
-	}
+
 	userServOnce.Do(func() {
-		userRpcServCli := cli.GetUserRpcServCli()
+		center := registerservice.GetRegisterCenter()
+		go func() {
+			ch := make(chan error, 0)
+			registerservice.GetRegisterCenter().Discovery(ch)
+			<-ch
+		}()
 		userServ = &UserServImpl{
-			cli: &userRpcServCli,
+			registerCenter: center,
 		}
 	})
 	return userServ

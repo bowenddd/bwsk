@@ -4,7 +4,6 @@ import (
 	"seckill/common/entity"
 	"seckill/common/interfaces"
 	"seckill/dbservice/store"
-	"sync"
 )
 
 type ProductServImpl struct {
@@ -31,24 +30,14 @@ func (p ProductServImpl) SetStock(id uint, num int) error {
 	return p.store.SetStock(id, num)
 }
 
-func (p ProductServImpl)GetStock(id uint, method string) (int, error){
+func (p ProductServImpl) GetStock(id uint, method string) (int, error) {
 	return p.store.GetStock(id)
 }
 
-var productServOnce sync.Once
-
-var productServ interfaces.ProductServ
-
-func init() {
-	productServOnce = sync.Once{}
-}
-
 func GetProductServ() interfaces.ProductServ {
-	productServOnce.Do(func() {
-		productServ = &ProductServImpl{
-			store: store.Mysql.NewProductStore(),
-		}
-	})
+	productServ := &ProductServImpl{
+		store: store.Mysql.NewProductStore(),
+	}
 	return productServ
 }
 

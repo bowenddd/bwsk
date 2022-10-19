@@ -5,10 +5,7 @@ import (
 	"seckill/common/interfaces"
 	"seckill/dbservice/store"
 	"strings"
-	"sync"
 )
-
-
 
 type PermServImpl struct {
 	store store.PermStore
@@ -44,16 +41,10 @@ func (p *PermServImpl) GetPerm(uid uint) (string, error) {
 
 var _ interfaces.PermServ = (*PermServImpl)(nil)
 
-var permServImpl *PermServImpl
-
-var permServOnce = new(sync.Once)
-
 func GetPermServ() interfaces.PermServ {
 	permStore := store.Mysql.NewPermStore()
-	permServOnce.Do(func() {
-		permServImpl = &PermServImpl{
-			store: permStore,
-		}
-	})
+	permServImpl := &PermServImpl{
+		store: permStore,
+	}
 	return permServImpl
 }

@@ -1,4 +1,4 @@
-package rpc
+package serv
 
 import (
 	"context"
@@ -7,9 +7,8 @@ import (
 	entity2 "seckill/common/entity"
 	"seckill/common/interfaces"
 	"seckill/dbservice/service"
+	registercenter "seckill/registercenter/registerservice"
 	pb "seckill/rpc/dbservice"
-	"seckill/seetings"
-	"sync"
 
 	"google.golang.org/grpc"
 )
@@ -19,10 +18,11 @@ type RpcServServer struct {
 	pb.UnimplementedOrderServServer
 	pb.UnimplementedProductServServer
 	pb.UnimplementedPermServServer
-	UserServ    interfaces.UserServ
-	ProductServ interfaces.ProductServ
-	OrderServ   interfaces.OrderServ
-	PermServ    interfaces.PermServ
+	UserServ       interfaces.UserServ
+	ProductServ    interfaces.ProductServ
+	OrderServ      interfaces.OrderServ
+	PermServ       interfaces.PermServ
+	registerCenter *registercenter.RegisterCenter
 }
 
 func (s *RpcServServer) CreateUser(ctx context.Context, in *pb.CreateUserRequest) (*pb.CreateUserReply, error) {
@@ -439,14 +439,15 @@ func changeFromPermRpcToEntity(perm *pb.Perm) entity2.Perm {
 	}
 }
 
-func (s *RpcServServer) StartRpcServServer() error {
-	setting, err := seetings.GetSetting()
-	if err != nil {
-		fmt.Println("get settings error in start rpc serv!")
-		return err
-	}
-	port := setting.RPC.DbServPort
+func (s *RpcServServer) StartRpcServServer(port string) error {
+	// setting, err := seetings.GetSetting()
+	// if err != nil {
+	// 	fmt.Println("get settings error in start rpc serv!")
+	// 	return err
+	// }
+	//port := setting.RPC.DbServPort
 	lis, err := net.Listen("tcp", port)
+	s.registerCenter.Register("/bwsk/dbservice/"+port, port)
 	if err != nil {
 		fmt.Printf("rpc service listen port %s error", port)
 		return err
@@ -479,26 +480,15 @@ func (s *RpcServServer) initServ() {
 	}
 }
 
-var rpcServ *RpcServServer
+func NewRpcServServer() *RpcServServer {
 
-var mu sync.Mutex
-
-func init() {
-	mu = sync.Mutex{}
-}
-
-func GetRpcServServer() *RpcServServer {
-	if rpcServ == nil {
-		mu.Lock()
-		if rpcServ == nil {
-			rpcServ = &RpcServServer{
-				UserServ:    service.GetUserServ(),
-				ProductServ: service.GetProductServ(),
-				OrderServ:   service.GetOrderServ(),
-				PermServ:    service.GetPermServ(),
-			}
-		}
-		mu.Unlock()
+	rpcServ := &RpcServServer{
+		UserServ:       service.GetUserServ(),
+		ProductServ:    service.GetProductServ(),
+		OrderServ:      service.GetOrderServ(),
+		PermServ:       service.GetPermServ(),
+		registerCenter: registercenter.GetRegisterCenter(),
 	}
+
 	return rpcServ
 }

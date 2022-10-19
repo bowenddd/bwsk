@@ -12,7 +12,6 @@ import (
 	"seckill/common/entity"
 
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 
 	"context"
 )
@@ -107,10 +106,10 @@ func CreateCacheServClient(addr string, timeout time.Duration) (*CacheServCli, e
 	var conn *grpc.ClientConn
 	var err error
 	if timeout == -1 {
-		conn, err = grpc.Dial(addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
+		conn, err = grpc.Dial(addr, grpc.WithInsecure(), grpc.WithBlock())
 		timeout = math.MaxInt64
 	} else {
-		conn, err = grpc.Dial(addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithTimeout(timeout))
+		conn, err = grpc.Dial(addr, grpc.WithInsecure(), grpc.WithTimeout(timeout))
 	}
 	if err != nil {
 		fmt.Println("cacheservice:grpc dial error! in new serv client")
@@ -135,13 +134,14 @@ func getRpcSeetings() (addr string, timeout int, err error) {
 	return
 }
 
-func NewCacheServClient() (*CacheServCli, error) {
-	addr, timeout, err := getRpcSeetings()
+func NewCacheServClient(port string) (*CacheServCli, error) {
+	_, timeout, err := getRpcSeetings()
 	var cli *CacheServCli
 	if err != nil {
 		fmt.Println("cacheservice: get rpc seeting error! in get cache serv client")
 		return cli, err
 	}
+	addr := fmt.Sprintf("localhost%s", port)
 	cli, err = CreateCacheServClient(addr, time.Duration(timeout)*time.Second)
 	if err != nil {
 		fmt.Println("cacheservice: new cache serv client error! in get cache serv client")

@@ -12,7 +12,6 @@ import (
 	"time"
 
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 )
 
 type ServClient struct {
@@ -44,10 +43,10 @@ func NewServClient(addr string, timeout time.Duration) (ServClient, error) {
 	var conn *grpc.ClientConn
 	var err error
 	if timeout == -1 {
-		conn, err = grpc.Dial(addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
+		conn, err = grpc.Dial(addr, grpc.WithInsecure(), grpc.WithBlock())
 		timeout = math.MaxInt64
 	} else {
-		conn, err = grpc.Dial(addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithTimeout(timeout))
+		conn, err = grpc.Dial(addr, grpc.WithInsecure(), grpc.WithTimeout(timeout))
 	}
 	if err != nil {
 		fmt.Println("grpc dial error! in new serv client")
@@ -61,6 +60,7 @@ func NewServClient(addr string, timeout time.Duration) (ServClient, error) {
 
 func (s *ServClient) GetUserRpcServCli() UserRpcServCli {
 	client := pb.NewUserServClient(s.conn)
+	fmt.Printf("client is %v\n", client)
 	userRpcCli := UserRpcServCli{
 		rpcClient: client,
 		timeout:   s.timeout,
@@ -262,6 +262,8 @@ func (u *UserRpcServCli) GetUser(name string) (entity2.User, error) {
 		Name: name,
 	}
 	var user entity2.User
+	fmt.Println("here")
+	fmt.Println(u)
 	ctx, cancle := context.WithTimeout(context.Background(), u.timeout)
 	defer cancle()
 
@@ -554,22 +556,15 @@ func getRpcSettings() (addr string, timeout int, err error) {
 	return
 }
 
-var rpcCli *ServClient
-
-func GetDbServRpcCli() (*ServClient, error) {
-	dbServRpcCliOnce.Do(func() {
-		addr, timeout, err := getRpcSettings()
-		if err != nil {
-			return
-		}
-		cli, err := NewServClient(addr, time.Duration(timeout)*time.Second)
-		if err != nil {
-			return
-		}
-		rpcCli = &cli
-	})
-	if rpcCli == nil {
-		return rpcCli, fmt.Errorf("get db service rpc client error")
+func NewDbServRpcCli(port string) (*ServClient, error) {
+	_, timeout, err := getRpcSettings()
+	if err != nil {
+		return nil, err
 	}
-	return rpcCli, nil
+	addr := fmt.Sprintf("localhost%s", port)
+	cli, err := NewServClient(addr, time.Duration(timeout)*time.Second)
+	if err != nil {
+		return nil, err
+	}
+	return &cli, nil
 }
