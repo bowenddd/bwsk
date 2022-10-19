@@ -23,7 +23,7 @@ client service、cache service、 db service三层
 
 ## Architecture
 
-![architecture](./architecture.png)
+![architecture](https://raw.githubusercontent.com/bowenddd/bwsk/feature/registercenter/architecture.png)
 
 ## Preparation
 
